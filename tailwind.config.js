@@ -1,3 +1,5 @@
+import colors from "tailwindcss/colors"
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,6 +8,14 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        secondary: {
+          DEFAULT: colors.blue[700],
+          hover: colors.blue[800],
+          border: colors.blue[900],
+          text: colors.blue[100]
+        }
+      },
       fontFamily: {
         body: ['Manrope']
       }
