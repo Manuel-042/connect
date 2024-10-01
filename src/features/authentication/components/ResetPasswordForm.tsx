@@ -8,8 +8,6 @@ const passwordValidation = new RegExp(
 );
 
 const schema = z.object({
-  username: z.string(),
-  email: z.string().email(),
   password: z.string()
     .min(8, "Password must be at least 8 characters")
     .regex(
@@ -23,7 +21,7 @@ const schema = z.object({
 
 type FormFields = z.infer<typeof schema>
 
-const SignupForm: React.FunctionComponent = () => {
+const ResetPasswordForm: React.FunctionComponent = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
@@ -32,7 +30,7 @@ const SignupForm: React.FunctionComponent = () => {
       throw new Error();
       console.log(data);
     } catch {
-      setError("username", { message: "This Username already exists" })
+      setError("password", { message: "Your new password cannot be the same as your previous password" })
     }
   }
 
@@ -40,24 +38,6 @@ const SignupForm: React.FunctionComponent = () => {
   return (
     <form className="flex flex-col items-center gap-2 w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col justify-items-center gap-3 w-full">
-        <input
-          type="text"
-          {...register("username")}
-          placeholder="username"
-          className="border-1 shadow-sm dark:shadow-neutral-800  dark:bg-neutral-700 dark:text-neutral-300 px-4 py-2 rounded-full focus:outline-1"
-        />
-        {errors.username && (
-          <p className="text-xs text-red-600">{errors.username.message}</p>
-        )}
-        <input
-          type="text"
-          {...register("email")}
-          placeholder="email"
-          className="border-1 shadow-sm dark:shadow-neutral-800  dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1"
-        />
-        {errors.email && (
-          <p className="text-xs text-red-600">{errors.email.message}</p>
-        )}
         <input
           type="password"
           {...register("password")}
@@ -77,9 +57,9 @@ const SignupForm: React.FunctionComponent = () => {
           <p className="text-xs text-red-600">{errors.cpassword.message}</p>
         )}
       </div>
-      <Button type="submit" disabled={isSubmitting} className="w-full mt-3">{isSubmitting ? "Loading..." : "Continue"}</Button>
+      <Button type="submit" disabled={isSubmitting} className="w-full mt-3">{isSubmitting ? "Loading..." : "Reset Password"}</Button>
     </form>
   )
 };
 
-export default SignupForm;
+export default ResetPasswordForm;

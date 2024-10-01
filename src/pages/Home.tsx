@@ -1,5 +1,13 @@
+import { MainContent } from "../components/general/MainContent";
+import { RightPanel } from "../components/general/RightPanel";
+import SideBar from "../components/general/SideBar";
+
 export default function Home() {
     return (
-        <h1 className="text-green-600 font-bold">Hello, first time tailwind user</h1>
+        <div className="flex flex-row w-full min-h-screen container mx-auto">
+            <SideBar />
+            <MainContent />
+            <RightPanel />
+        </div>
     )
 }
