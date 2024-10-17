@@ -2,6 +2,13 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from "zod"
 import Button from "../../../components/UI/Button";
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '../../../api/api';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../../context/auth-context';
+import { AxiosError } from 'axios';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState } from 'react';
 
 const passwordValidation = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
@@ -24,18 +31,62 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>
 
 const SignupForm: React.FunctionComponent = () => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ resolver: zodResolver(schema) });
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(<FaEyeSlash />);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+
+  const { setUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    reset();
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      throw new Error();
-      console.log(data);
-    } catch {
-      setError("username", { message: "This Username already exists" })
+      const response = await api.post('api/register', data);
+      console.log(response.data);
+      setUser({ username: data.username, email: data.email });
+      navigate("/login");
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (!err.response) {
+          setError('root', { message: "No server response" })
+        } else {
+          console.log(err.response?.data);
+        }
+      } else {
+        console.error("Non Axios error:", err)
+      }
     }
   }
 
+  const handleFocus = (field: string) => {
+    if (field === 'password') {
+      setIsPasswordVisible(true);
+    } else if (field === 'confirmPassword') {
+      setIsConfirmPasswordVisible(true);
+    }
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>, field: string) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      if (field === 'password') {
+        setIsPasswordVisible(false);
+      } else if (field === 'confirmPassword') {
+        setIsConfirmPasswordVisible(false);
+      }
+    }
+  };
+
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(<FaEye />);
+      setType('text')
+    } else {
+      setIcon(<FaEyeSlash />)
+      setType('password')
+    }
+  }
 
   return (
     <form className="flex flex-col items-center gap-2 w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -58,21 +109,37 @@ const SignupForm: React.FunctionComponent = () => {
         {errors.email && (
           <p className="text-xs text-red-600">{errors.email.message}</p>
         )}
-        <input
-          type="password"
-          {...register("password")}
-          placeholder="Password"
-          className="border-1 shadow-sm dark:shadow-neutral-800 dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1"
-        />
+        <div className="relative">
+          <input
+            type="password"
+            {...register("password")}
+            placeholder="Password"
+            className="border-1 shadow-sm dark:shadow-neutral-800 dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1 w-full"
+            onFocus={() => handleFocus("password")}
+            onBlur={(event) => handleBlur(event, "password")}    
+            onClick={() => handleFocus("password")}
+          />
+          <span className={`absolute top-[12px] z-10 right-[20px] text-white cursor-pointer ${isPasswordVisible ? 'visible' : 'invisible'}`} onMouseDown={(e) => e.preventDefault()} onClick={handleToggle}>
+            {icon}
+          </span>
+        </div>
         {errors.password && (
           <p className="text-xs text-red-600">{errors.password.message}</p>
         )}
-        <input
-          type="password"
-          {...register("cpassword")}
-          placeholder="Confirm Password"
-          className="border-1 shadow-sm dark:shadow-neutral-800 dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1"
-        />
+        <div className="relative">
+          <input
+            type="password"
+            {...register("cpassword")}
+            placeholder="Confirm Password"
+            className="border-1 shadow-sm dark:shadow-neutral-800 dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1 w-full"
+            onFocus={() => handleFocus("confirmPassword")}
+            onBlur={(event) => handleBlur(event, "confirmPassword")}    
+            onClick={() => handleFocus("confirmPassword")}
+          />
+          <span className={`absolute top-[12px] z-10 right-[20px] text-white cursor-pointer ${isConfirmPasswordVisible ? 'visible' : 'invisible'}`} onMouseDown={(e) => e.preventDefault()} onClick={handleToggle}>
+            {icon}
+          </span>
+        </div>
         {errors.cpassword && (
           <p className="text-xs text-red-600">{errors.cpassword.message}</p>
         )}

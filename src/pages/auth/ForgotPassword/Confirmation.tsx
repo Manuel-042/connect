@@ -8,7 +8,7 @@ const Confirmation: React.FunctionComponent = () => {
             <Link to="/" className="justify-self-start self-start font-bold absolute top-4 dark:text-neutral-300">CONNECT</Link>
             <div className="w-80 gap-8 flex flex-col justify-between items-center border-1 shadow-md dark:shadow-neutral-800 rounded-md px-5 py-6">
                 <div className="text-center flex flex-col">
-                    <FaCheckCircle font-size="30px" className='dark:text-neutral-300 self-center'/>
+                    <FaCheckCircle fontSize="30px" className='dark:text-neutral-300 self-center'/>
                     <h1 className="font-semibold text-xl dark:text-neutral-300 mt-3">All Done</h1>
                     <p className="font-light text-xs dark:text-neutral-300">Your password has been reset. Head back to the Login screen and proceed</p>
                 </div>

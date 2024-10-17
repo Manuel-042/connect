@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import {SignupForm} from "../../features/authentication/index"
+import google from '../../../src/assets/search.png'
+import apple from '../../../src/assets/apple.png'
+import twitter from '../../../src/assets/twitter.png'
 
 const Signup = () => {
   return (
@@ -11,6 +14,18 @@ const Signup = () => {
                 <p className="font-light text-xs dark:text-neutral-300">Begin by creating your account</p>
             </div>
             <SignupForm />
+            <span><p className='dark:text-neutral-300 text-sm'>or continue with</p></span>
+            <div className='flex items-center justify-between gap-3'>
+                <button className='social'>
+                    <img src={google} alt="Google icon" className='w-100 h-100' />
+                </button>
+                <button className='social'>
+                    <img src={apple} alt="Apple icon" className='w-100 h-100' />
+                </button>
+                <button className='social'>
+                    <img src={twitter} alt="X icon" className='w-100 h-100'/>
+                </button>
+            </div>
             <div className="text-xs dark:text-neutral-300">Already have an account? <span><Link to="/login" className="text-blue-700 hover:underline underline-offset-1">Login</Link></span></div>
         </div>
     </div>

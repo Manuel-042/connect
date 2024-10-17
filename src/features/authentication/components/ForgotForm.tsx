@@ -2,6 +2,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from "zod"
 import Button from "../../../components/UI/Button";
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '../../../api/api';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { Oval } from 'react-loader-spinner'
 
 
 const schema = z.object({
@@ -11,15 +15,27 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>
 
 const ForgotForm: React.FunctionComponent = () => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ resolver: zodResolver(schema) });
+
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      throw new Error();
-      console.log(data);
-    } catch {
-      setError("email", { message: "No account found with this email" })
+      const response = await api.post('api/otp', data);
+      console.log(response.data);
+      reset();
+      navigate('/verify-code', { state: { email: data.email } });
+    } catch (err) {
+      if (err instanceof AxiosError
+      ) {
+        if (!err.response) {
+          setError('root', {message: "No server response"})
+        } else {
+          console.log(err.response?.data);  
+        }
+      } else {
+        console.error("Non Axios error:", err)
+      }
     }
   }
 
@@ -37,7 +53,15 @@ const ForgotForm: React.FunctionComponent = () => {
           <p className="text-xs text-red-600">{errors.email.message}</p>
         )}
       </div>
-      <Button type="submit" disabled={isSubmitting} className="w-full mt-3">{isSubmitting ? "Loading..." : "Reset Password"}</Button>
+      <Button type="submit" disabled={isSubmitting} className={`w-full mt-3 flex items-center justify-center ${isSubmitting ? "cursor-not-allowed" : ""}`}> {isSubmitting ? (<Oval
+          visible={true}
+          height="30"
+          width="30"
+          color="#ffffff"
+          ariaLabel="oval-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          />) : "Reset Password"}</Button>
     </form>
   )
 };
