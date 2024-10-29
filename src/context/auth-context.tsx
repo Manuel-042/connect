@@ -1,6 +1,8 @@
 import { useState, createContext, useContext } from "react";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
+console.log("Re-Mounts");
+
 type UserProfile = {
     username: string;
     email: string;
@@ -29,13 +31,16 @@ export default function AuthProvider({ children } : Props) {
     const [user, setUser] = useState<UserProfile | null>(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    console.log(isLoggedIn);
+
     const decodeToken = (token: string) => {
+        console.log("Thisbwas called from the login screen");
         try {
             const response = jwtDecode<CustomJwtPayload>(token);
-            console.log("decoding token:", response);
             setUser({ username: response.username, email: response.email });
             setIsLoggedIn(true);
         } catch (error) {
+            console.log("resets isLoggedIn here");
             console.error("Token decode error:", error);
             setUser(null);
             setIsLoggedIn(false);

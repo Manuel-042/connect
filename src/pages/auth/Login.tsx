@@ -6,6 +6,7 @@ import apple from '../../../src/assets/apple.png'
 import twitter from '../../../src/assets/twitter.png'
 
 const Login: React.FunctionComponent = () => {
+
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen p-2 relative">
             <Link to="/" className="justify-self-start self-start font-bold absolute top-4 dark:text-neutral-300">CONNECT</Link>

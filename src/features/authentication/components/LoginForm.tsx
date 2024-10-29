@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from "zod"
 import Button from "../../../components/UI/Button";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import api from '../../../api/api';
 import { useAuthContext } from '../../../context/auth-context';
 import { AxiosError } from 'axios';
@@ -28,7 +28,11 @@ type FormFields = z.infer<typeof schema>
 
 const LoginForm: React.FunctionComponent = () => {
   const { setToken, user, decodeToken } = useAuthContext();
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ defaultValues: {email: user?.email}, resolver: zodResolver(schema) });
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(<FaEyeSlash />);
@@ -43,7 +47,7 @@ const LoginForm: React.FunctionComponent = () => {
       setToken(response.data.access);
       decodeToken(response.data.access);
       reset();
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (err) {
       if (err instanceof AxiosError) {
         if (!err.response) {

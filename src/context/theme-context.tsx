@@ -14,7 +14,7 @@ type ThemeContextType = {
 export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export default function ThemeContextProvider({ children }: ThemeContextPoviderProps) {
-    const [theme, setTheme] = useState<Theme>('light');
+    const [theme, setTheme] = useState<Theme>('dark');
 
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>{children}</ThemeContext.Provider>
