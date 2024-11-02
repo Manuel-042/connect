@@ -28,7 +28,7 @@ const Login: React.FunctionComponent = () => {
                         <img src={twitter} alt="X icon" className='w-100 h-100'/>
                     </button>
                 </div>
-                <div className="text-xs dark:text-neutral-300">Dont have an account? <span><Link to="/signup" className="text-blue-700 hover:underline underline-offset-1">Signup</Link></span></div>
+                <div className="text-xs dark:text-neutral-300">Dont have an account? <span><Link to="/signup" className="text-secondary hover:underline underline-offset-1">Signup</Link></span></div>
             </div>
         </div>
     );

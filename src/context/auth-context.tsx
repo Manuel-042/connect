@@ -4,6 +4,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 console.log("Re-Mounts");
 
 type UserProfile = {
+    id: string;
     username: string;
     email: string;
 }
@@ -22,6 +23,7 @@ export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 type Props = { children: React.ReactNode }
 
 interface CustomJwtPayload extends JwtPayload {
+    user_id: string;
     username: string;
     email: string;
 }
@@ -37,7 +39,8 @@ export default function AuthProvider({ children } : Props) {
         console.log("Thisbwas called from the login screen");
         try {
             const response = jwtDecode<CustomJwtPayload>(token);
-            setUser({ username: response.username, email: response.email });
+            console.log({response});
+            setUser({ id: response.user_id, username: response.username, email: response.email });
             setIsLoggedIn(true);
         } catch (error) {
             console.log("resets isLoggedIn here");

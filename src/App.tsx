@@ -17,6 +17,14 @@ import HomePageContent from "./pages/HomePage/HomePageContent"
 import HomeRightContent from "./pages/HomePage/HomeRightContent"
 import SearchPageContent from "./pages/SearchPage/SearchPageContent"
 import SearchRightContent from "./pages/SearchPage/SearchRightContent"
+import ConnectPageContent from "./pages/ConnectPage/ConnectPageContent"
+import ConnectRightContent from "./pages/ConnectPage/ConnectRightContent"
+import TrendsPageContent from "./pages/TrendsPage/TrendsPageContent"
+import TrendsRightContent from "./pages/TrendsPage/TrendsRightContext"
+import NotificationPageContent from "./pages/NotificationPage/NotificationPageContent"
+import NotificationRightContent from "./pages/NotificationPage/NotificationRightContent"
+import MessagePageContent from "./pages/MessagePage/MessagePageContent"
+import MessageRightContent from "./pages/MessagePage/MessageRightContent"
 
 function App() {
   const { theme } = useThemeContext();
@@ -52,14 +60,35 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Layout rightComponent={HomeRightContent} />}>
                 <Route index element={<HomePageContent />} />
-                <Route path="post/:postId/photo/:photoId" element={<PostModal />} />
               </Route>
 
-              <Route path="search" element={<Layout rightComponent={SearchRightContent} />}>
+              <Route path="post/:postId/photo/:photoId" element={<PostModal />} />
+
+
+              <Route path="explore" element={<Layout rightComponent={SearchRightContent} />}>
                 <Route index element={<SearchPageContent />} />
               </Route>
+              
+              <Route path="i/connect_people" element={<Layout rightComponent={ConnectRightContent} />}>
+                <Route index element={<ConnectPageContent />} />
+              </Route>
 
-              <Route path="notifications" element={<Signup />} />
+              <Route path="i/trends" element={<Layout rightComponent={TrendsRightContent} />}>
+                <Route index element={<TrendsPageContent />} />
+              </Route>
+
+              <Route path="notifications" element={<Layout rightComponent={NotificationRightContent} />}>
+                <Route index element={<NotificationPageContent />} />
+              </Route>
+
+              <Route path="messages" element={<Layout rightComponent={MessageRightContent} />}>
+                <Route index element={<MessagePageContent />} />
+              </Route>
+
+              <Route path="messages/:user_id/:account_id" element={<Layout rightComponent={MessageRightContent} />}>
+                <Route index element={<MessagePageContent />} />
+              </Route>
+
             </Route>
 
             <Route path="/signup" element={<Signup />} />

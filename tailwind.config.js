@@ -15,10 +15,11 @@ export default {
           hover: colors.sky[100],
         },
         secondary: {
-          DEFAULT: colors.blue[700],
-          hover: colors.blue[800],
+          DEFAULT: "#1d9bf0",
+          hover: "rgba(29, 155, 240, 0.9)",
           border: colors.blue[900],
-          text: colors.blue[100]
+          text: colors.blue[100],
+          100: "#1d9bf0"
         },
         dark: {
           DEFAULT: colors.black,

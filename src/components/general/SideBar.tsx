@@ -1,26 +1,41 @@
-import { ElementType } from "react";
-import { LuMenu, LuUser2, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome} from "react-icons/lu";
+import { ElementType, useState } from "react";
+import { LuMenu, LuUser2, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link } from "react-router-dom";
 
 
 
-export default function SideBar () {
+
+export default function SideBar() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const sidebarItems = [
+    { Icon: LuHome, url: "/" },
+    { Icon: LuSearch, url: "/explore" },
+    { Icon: LuBell, url: "/notifications" },
+    { Icon: LuMail, url: "/messages" },
+    { Icon: LuUserPlus2, url: "/profile" },
+    { Icon: LuLeaf, url: "/post" },
+  ];
+
 
   return (
     <aside className={`max-h-screen border-r border-gray-700 sticky left-0 top-0 flex flex-col p-4 items-start transition-all duration-300 ease-in-out gap-3`}>
-      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon"}), "bg-transparent p-3")}><LuMenu /></Button>
+      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "bg-transparent p-3")}><LuMenu /></Button>
 
-      <SmallSidebarItem Icon={LuHome} url="/" />
-      <SmallSidebarItem Icon={LuSearch} url="/search" />
-      <SmallSidebarItem Icon={LuBell} url="/notifications" />
-      <SmallSidebarItem Icon={LuMail} url="/messages" />
-      <SmallSidebarItem Icon={LuUserPlus2} url="/profile" />
-      <SmallSidebarItem Icon={LuLeaf} url="/post" />
+      {sidebarItems.map((item, index) => (
+        <SmallSidebarItem
+          key={index}
+          Icon={item.Icon}
+          url={item.url}
+          isActive={index === activeIndex}
+          onClick={() => setActiveIndex(index)}
+        />
+      ))}
 
       {/* align self bottom */}
-      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon"}), "bg-transparent mt-auto p-3")}><LuUser2 /></Button>
+      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "bg-transparent mt-auto p-3")}><LuUser2 /></Button>
     </aside>
   );
 }
@@ -28,10 +43,20 @@ export default function SideBar () {
 type SmallSidebarItemProps = {
   Icon: ElementType;
   url: string;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-const SmallSidebarItem = ({Icon, url} : SmallSidebarItemProps) => {
-  return <Link to={url} className={twMerge(buttonStyles({ variant: "ghost" }), "flex items-center p-3 gap-3")}>
-    <Icon className="w-6 h-6"/>
+const SmallSidebarItem = ({ Icon, url, isActive, onClick }: SmallSidebarItemProps) => {
+  return <Link
+    to={url}
+    onClick={onClick}
+    className={twMerge(
+      buttonStyles({ variant: "ghost" }),
+      "flex items-center p-3 gap-3",
+      isActive ? "bg-gray-500 bg-opacity-20 border-l-4 border-secondary" : "" // Active style
+    )}
+  >
+    <Icon className="w-6 h-6" />
   </Link>
 }

@@ -1,0 +1,66 @@
+import { useEffect, useState } from "react";
+import users from "../../data/users.json"
+import { LuBadgeCheck, LuDot, LuInfo } from "react-icons/lu";
+import { twMerge } from "tailwind-merge";
+import { buttonStyles } from "../UI/Button";
+import { Link } from "react-router-dom";
+import ProfileDisplay from "./ProfileDisplay";
+
+type MessageDetailProps = {
+    user_id: string;
+    account_id: string;
+}
+
+type UserProps = {
+    image: string;
+    displayname: string;
+    username: string;
+    bio: string;
+    followerCount: string;
+    followingCount: string;
+    variant?: "default" | "large";
+    showBio?: boolean;
+    show_creator?: boolean;
+}
+
+const MessageDetail = ({user_id, account_id}: MessageDetailProps) => {
+    const [user, setUser] = useState<UserProps | any | null>(null);
+
+    useEffect(() => {
+        const foundUser = users.find(user => user.id === Number(user_id));
+        setUser(foundUser);
+    }, [user_id, users]);
+
+  return (
+    <div className="self-start px-3 pt-2 w-full">
+        <div className="flex items-center justify-between px-3 sticky top-0 dark:bg-[rgba(0,0,0,0.5)] bg-[rgba(255,255,255,0.7)]">
+            <h1 className="dark:text-neutral-300 font-bold text-xl">{user?.displayname}</h1>
+            <LuInfo className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-10 h-10 dark:text-neutral-200')} />
+        </div>
+
+        <div className="flex flex-col items-center justify-center cursor-pointer border-b pb-5 pt-2 border-gray-700 hover:bg-gray-500 hover:bg-opacity-20 ">
+            <div className="w-16 h-16 rounded-full mb-1">
+                <img src={user?.image} alt={`${user?.displayname} Profile Picture`} className="w-full h-full rounded-full" />
+            </div>
+
+            <Link to="/">
+                <div className="group relative flex items-center gap-1">
+                    <p className=" dark:text-neutral-300 font-bold hover:underline">{user?.displayname}</p>
+                    {user?.isVerified && <LuBadgeCheck className="text-primary" />}                
+                    <ProfileDisplay image={user?.image} displayName={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified}/>
+                </div>
+            </Link>
+            <p className="dark:text-neutral-300 dark:text-opacity-40">@{user?.username}</p>
+            <p className="mt-3 dark:text-neutral-300 text-center ">{user?.bio}</p>
+            <div className="flex items-center justify-center gap-2 mt-3 dark:text-neutral-300 dark:text-opacity-40">
+                <p>Joined October 2020</p>
+                <LuDot />
+                <p>{`${user?.followerCount} ${user?.followerCount > 1 ? 'Followers' : 'Follower'}`}</p>
+            </div>
+            
+        </div>
+    </div>
+  )
+}
+
+export default MessageDetail

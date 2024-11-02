@@ -7,7 +7,7 @@ import RecommenderUserList from "../../components/general/RecommenderUserList";
 import TrendsList from "../../components/general/TrendsList";
 
 
-const HomeRightContent = () => {
+const NotificationRightContent = () => {
   const [isFocused, setIsFocused] = useState(false)
 
   const handleFocus = () => {
@@ -48,5 +48,5 @@ const HomeRightContent = () => {
   );
 }
 
-export default HomeRightContent
+export default NotificationRightContent
 

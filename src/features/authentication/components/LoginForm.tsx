@@ -112,7 +112,7 @@ const LoginForm: React.FunctionComponent = () => {
           <p className="text-xs text-red-600">{errors.password.message}</p>
         )}
       </div>
-      <Link to="/forgot-password" className="text-xs text-blue-700 hover:underline underline-offset-1 self-end">Forgot Password</Link>
+      <Link to="/forgot-password" className="text-xs text-secondary hover:underline underline-offset-1 self-end">Forgot Password</Link>
       <Button type="submit" disabled={isSubmitting}   className={`w-full mt-3 flex items-center justify-center ${isSubmitting ? "cursor-not-allowed" : ""}`}>
         {isSubmitting ? (<Oval
           visible={true}

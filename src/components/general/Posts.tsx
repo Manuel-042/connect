@@ -7,9 +7,22 @@ import { Link, useNavigate } from "react-router-dom";
 import PostProps from "../../types";
 import PostMetrics from "./PostMetrics";
 import formatDate from "../../utils/formatDate";
+import users from "../../data/users.json"
+import { useEffect, useState } from "react";
 
+type UserProps = {
+    image: string;
+    displayname: string;
+    username: string;
+    bio: string;
+    followerCount: string;
+    followingCount: string;
+    variant?: "default" | "large";
+    showBio?: boolean;
+    show_creator?: boolean;
+}
 
-const Posts = ({ postId, postContent, datePosted, images, metrics }: PostProps) => {
+const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: PostProps) => {
     const {comments, retweets, likes, views } = metrics;
 
     const navigate = useNavigate();
@@ -18,30 +31,36 @@ const Posts = ({ postId, postContent, datePosted, images, metrics }: PostProps) 
         navigate(`post/${postId}/photo/${id}`);
     };
 
+    const [user, setUser] = useState<UserProps | any | null>(null); 
+
+    useEffect(() => {
+        const foundUser = users.find(user => user.id === Number(userId)); 
+        setUser(foundUser);
+    }, [userId, users]); 
+
     return (
         <>
             <div className="px-4 py-3 flex items-start gap-2 border-b border-gray-700">
                 <Link to="/">
                     <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer">
-                        <img src="https://loremflickr.com/200/200?random=4" className="rounded-full w-full h-full object-contain object-center" alt="user image" />
+                        <img src={user?.image} className="rounded-full w-full h-full object-contain object-center" alt="user image" />
                     </div>
                 </Link>
                 <div className="w-90 grow">
                     <div className="flex items-center justify-center mb-4">
-                        <div className="group relative">
+                        <div>
                             <div className="group relative flex items-center justify-start">
                                 <Link to="/">
                                     <div className="flex items-center justify-center gap-2 cursor-pointer">
-                                        <p className="font-bold dark:text-neutral-300">FUTURE1369</p>
-                                        <LuBadgeCheck className="text-primary" />
-                                        <p className="dark:text-gray-500">@iamphinehas1</p>
+                                        <p className="hover:underline font-bold dark:text-neutral-300">{user?.displayname}</p>
+                                        {user?.isVerified && <LuBadgeCheck className="text-primary" />}
+                                        <p className="dark:text-gray-500">@{user?.username}</p>
                                     </div>
                                 </Link>
                                 <p className="dark:text-gray-500"><LuDot /></p>
                                 <p className="dark:text-gray-500">{formatDate(datePosted)}</p>
+                                <ProfileDisplay image={user?.image} displayName={user?.displayname} username={`@${user?.username}`} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
                             </div>
-                            <ProfileDisplay displayName="FUTURE1369" username="@iamphinehas1" bio="not impersonating anyone || tweeting anything & everything || turn notis on || ig: FearBuck || DM for submissions || for promo copiumx@yahoo.com || 
-                                @Roobet" followerCount="655.8k" followingCount="1,202" />
                             <div>
                                 <p className="dark:text-neutral-300">{postContent}</p>
                             </div>

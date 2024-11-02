@@ -5,27 +5,33 @@ import { Link } from "react-router-dom";
 
 
 type ProfileDisplayProps = {
+    image: string
     displayName: string;
     username: string;
     bio: string;
     followingCount: string;
     followerCount: string;
+    isVerified: boolean | undefined;
 }
 
-const ProfileDisplay = ({displayName, username, bio, followingCount, followerCount}: ProfileDisplayProps) => {
+const ProfileDisplay = ({image, displayName, username, bio, followingCount, followerCount, isVerified}: ProfileDisplayProps) => {
   return (
-    <div className="absolute z-50 top-10 px-3 py-4 shadow-lg mb-2 w-[250px] invisible group-hover:visible bg-black rounded-lg">
+    
+    <div className="absolute z-50 top-8 px-3 py-4 shadow-2xl w-[250px] hidden group-hover:block bg-black rounded-lg">
         <Link to="/">
             <div className="flex items-start justify-between mb-2">
-                <img src="https://loremflickr.com/200/200?random=10" className="w-14 h-14 rounded-full" alt="image10" />
+                <img src={image} className="w-14 h-14 rounded-full" alt="image10" />
                 <Button className={twMerge(buttonStyles(), "cursor-pointer font-bold text-sm bg-white text-gray-800 hover:bg-white")}>Follow</Button>
             </div>
         </Link>
 
         <div className="flex flex-col items-start justify-center mb-3">
             <div className="flex items-center justify-center gap-2">
-                <Link to="/"><p className="font-bold text-l dark:text-neutral-300">{displayName}</p></Link>
-                <LuBadgeCheck className="text-primary" />
+                <Link to="/">
+                    <p className="hover:underline font-bold text-l dark:text-neutral-300">{displayName}</p>
+                </Link>
+                {isVerified && <LuBadgeCheck className="text-primary" />}
+             
             </div>
             <Link to="/"><p className="dark:text-gray-500 text-sm">{username}</p></Link>
         </div>

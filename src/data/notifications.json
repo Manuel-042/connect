@@ -1,0 +1,96 @@
+{
+    "notifications": [
+      {
+        "type": "login_alert",
+        "message": "There was a login to your account @User123 from a new device on Oct 30, 2024. Review it now.",
+        "icon": "login_icon.png"
+      },
+      {
+        "type": "new_follower",
+        "message": "@styletrendsetter started following you.",
+        "icon": "follower_icon.png",
+        "users": [
+          {
+            "username": "styletrendsetter",
+            "image": "https://loremflickr.com/200/200?random=10",
+            "isVerified": true
+          }
+        ]
+      },
+      {
+        "type": "mention",
+        "message": "@techsavvypro mentioned you in a comment: \"Check out this amazing feature!\"",
+        "icon": "mention_icon.png",
+        "users": [
+          {
+            "username": "techsavvypro",
+            "image": "https://loremflickr.com/200/200?random=6",
+            "isVerified": true
+          }
+        ]
+      },
+      {
+        "type": "new_post_notification",
+        "message": "New post notifications for @ozzyetomi and 4 others",
+        "icon": "bell_icon.png",
+        "users": [
+          {
+            "username": "ozzyetomi",
+            "image": "https://loremflickr.com/200/200?random=2",
+            "isVerified": true
+          },
+          {
+            "username": "ZenCoinOnTon",
+            "image": "https://loremflickr.com/200/200?random=3",
+            "isVerified": false
+          },
+          {
+            "username": "fitlife",
+            "image": "https://loremflickr.com/200/200?random=5",
+            "isVerified": false
+          },
+          {
+            "username": "crypto_master101",
+            "image": "https://loremflickr.com/200/200?random=4",
+            "isVerified": true
+          },
+          {
+            "username": "techsavvypro",
+            "image": "https://loremflickr.com/200/200?random=6",
+            "isVerified": true
+          }
+        ]
+      },
+      {
+        "type": "anniversary",
+        "message": "It's your 5th anniversary! Celebrate with a special post created just for you.",
+        "icon": "anniversary_icon.png",
+        "users": []
+      },
+      {
+        "type": "like",
+        "message": "@musiclover liked your photo.",
+        "icon": "like_icon.png",
+        "users": [
+          {
+            "username": "musiclover",
+            "image": "https://loremflickr.com/200/200?random=12",
+            "isVerified": true
+          }
+        ]
+      },
+      {
+        "type": "comment",
+        "message": "@wanderlust commented: \"Amazing picture! Where was this taken?\"",
+        "icon": "comment_icon.png",
+        "users": [
+          {
+            "username": "wanderlust",
+            "image": "https://loremflickr.com/200/200?random=7",
+            "isVerified": false
+          }
+        ]
+      }
+    ]
+  }
+  

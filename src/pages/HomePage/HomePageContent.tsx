@@ -2,13 +2,14 @@ import { LuFileImage, LuBoomBox, LuSmile, LuCalendarClock, LuMapPin, LuListCheck
 import Button, { buttonStyles } from "../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import { useRef, useState } from "react";
-import Posts from "../../components/general/Posts";
-import postsData from "../../data/posts.json"
+
 import useAutosizeTextArea from "../../hooks/useAutoSizeTextArea";
+import ForYou from "../../components/general/ForYou";
 
 const HomePageContent = () => {
   const [postContent, setPostContent] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useAutosizeTextArea(textAreaRef.current, postContent);
 
@@ -17,13 +18,21 @@ const HomePageContent = () => {
     setPostContent(val);
   };
 
+  const labels = ["For You", "Following"];
 
   return (
     <div className="w-4/5 border-r border-gray-700">
-      <div className="flex border-b bg-black z-20 items-center justify-between border-gray-700 [&>div]:w-3/6 h-12 [&>div]:cursor-pointer [&>div]:dark:text-neutral-300 [&>div]:h-full [&>div:hover]:bg-dark-hover sticky top-0">
-        <div className="flex items-center justify-center">For you</div>
-        <div className="flex items-center justify-center">Following</div>
-      </div>
+      <div className="flex border-b bg-white dark:bg-black z-20 items-center justify-between border-gray-700 sticky top-0">
+          {labels.map((label, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`w-[50%] flex items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20`}
+            >
+              <p className={`dark:text-gray-500 text-opacity-20 py-3 ${activeIndex === index ? 'border-b-4 border-secondary dark:text-neutral-300' : ''}`}>{label}</p>
+            </button>
+          ))}
+        </div>
 
       <div className="post flex self-start w-full px-3 py-5 gap-2 border-b border-gray-700">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
@@ -60,17 +69,9 @@ const HomePageContent = () => {
       </div>
 
       <section className="posts">
-        {postsData.posts.map((post, index) => (
-          <Posts 
-            key={index} 
-            postId={post.postId} 
-            userId={post.userId}
-            postContent={post.postContent}
-            datePosted={post.datePosted}
-            images={post.images} 
-            metrics={post.metrics} 
-          />
-        ))}
+        <div>
+          {activeIndex === 0 && <ForYou />}
+        </div>
       </section>
     </div>
   );
