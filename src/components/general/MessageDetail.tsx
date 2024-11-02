@@ -29,7 +29,7 @@ const MessageDetail = ({user_id, account_id}: MessageDetailProps) => {
     useEffect(() => {
         const foundUser = users.find(user => user.id === Number(user_id));
         setUser(foundUser);
-    }, [user_id, users]);
+    }, [user_id, users, account_id]);
 
   return (
     <div className="self-start px-3 pt-2 w-full">
