@@ -25,6 +25,8 @@ import NotificationPageContent from "./pages/NotificationPage/NotificationPageCo
 import NotificationRightContent from "./pages/NotificationPage/NotificationRightContent"
 import MessagePageContent from "./pages/MessagePage/MessagePageContent"
 import MessageRightContent from "./pages/MessagePage/MessageRightContent"
+import GIFModal from "./components/general/GIFModal"
+import { GifProvider } from "./context/gif-context"
 
 function App() {
   const { theme } = useThemeContext();
@@ -53,7 +55,8 @@ function App() {
 
 
   return (
-      <div className={theme}>
+    <div className={theme}>
+      <GifProvider>
         <div className="container mx-auto dark:bg-black">
           <Routes>
 
@@ -64,11 +67,10 @@ function App() {
 
               <Route path="post/:postId/photo/:photoId" element={<PostModal />} />
 
-
               <Route path="explore" element={<Layout rightComponent={SearchRightContent} />}>
                 <Route index element={<SearchPageContent />} />
               </Route>
-              
+
               <Route path="i/connect_people" element={<Layout rightComponent={ConnectRightContent} />}>
                 <Route index element={<ConnectPageContent />} />
               </Route>
@@ -89,6 +91,8 @@ function App() {
                 <Route index element={<MessagePageContent />} />
               </Route>
 
+              <Route path="i/foundmedia/search" element={<GIFModal />} />
+
             </Route>
 
             <Route path="/signup" element={<Signup />} />
@@ -100,7 +104,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-      </div>
+      </GifProvider>
+    </div>
   )
 }
 

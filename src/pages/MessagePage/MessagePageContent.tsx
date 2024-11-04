@@ -23,7 +23,7 @@ const MessagePageContent = () => {
     };
 
     return (
-        <div className="w-2/5 border-r border-gray-700 pb-4">
+        <div className="w-[47%] border-r border-gray-700 pb-4 max-h-screen overflow-y-auto">
             <div className="sticky top-0 flex flex-col bg-white z-20 dark:bg-black">
 
                 <div className="flex items-center justify-between w-full my-2 px-5">

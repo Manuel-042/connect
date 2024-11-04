@@ -33,7 +33,7 @@ const ProfileDisplay = ({image, displayName, username, bio, followingCount, foll
                 {isVerified && <LuBadgeCheck className="text-primary" />}
              
             </div>
-            <Link to="/"><p className="dark:text-gray-500 text-sm">{username}</p></Link>
+            <Link to="/"><p className="dark:text-gray-500 text-sm">@{username}</p></Link>
         </div>
 
         <div className="text-sm dark:text-neutral-300 mb-2">{bio}</div>

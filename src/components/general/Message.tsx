@@ -7,25 +7,24 @@ import { buttonStyles } from "../UI/Button";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/auth-context";
 
-type Conversation = {
-    message_id: string;
-    sender_id: string;
-    receiver_id: string;
-    message: string;
-    timestamp: string;
-    is_read: boolean;
-
-};
 
 type MessageProps = {
     user_id: string;
     last_message: string;
     last_message_date: string;
     is_unread: boolean;
-    conversation: Conversation[];
+    conversation: {
+        message_id: string;
+        sender_id: string;
+        receiver_id: string;
+        message: string;
+        timestamp: string;
+        is_read: boolean;
+    }[];
     onClick: (user_id: string, account_id: string) => void;
     active: boolean;
 };
+
 
 type UserProps = {
     image: string;
@@ -54,7 +53,7 @@ function Message({ user_id, last_message, last_message_date, is_unread, onClick,
     }, [user_id, users]);
 
     return (
-        <div onClick={() => onClick(user_id, user?.id)}className={`px-3 py-3 hover:bg-gray-500 hover:bg-opacity-20 ${is_unread && 'bg-gray-500 bg-opacity-20'} ${active && 'bg-gray-500 bg-opacity-20 border-r-2 border-secondary'}`}>
+        <div onClick={() => onClick(user_id, user?.id)}className={`px-3 py-3 hover:bg-gray-500 hover:bg-opacity-20 ${is_unread && 'bg-gray-500 bg-opacity-20'} ${active && 'bg-gray-500 bg-opacity-20 border-r-4 border-secondary'}`}>
             <div className={`group flex items-start justify-start gap-3 cursor-pointer`}>
                 <Link to="/">
                     <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer">

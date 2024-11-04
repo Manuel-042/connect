@@ -1,23 +1,30 @@
-import { ElementType, useState } from "react";
+import { ElementType, useEffect, useState } from "react";
 import { LuMenu, LuUser2, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-
-
+const sidebarItems = [
+  { Icon: LuHome, url: "/" },
+  { Icon: LuSearch, url: "/explore" },
+  { Icon: LuBell, url: "/notifications" },
+  { Icon: LuMail, url: "/messages" },
+  { Icon: LuUserPlus2, url: "/profile" },
+  { Icon: LuLeaf, url: "/post" },
+];
 
 export default function SideBar() {
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const sidebarItems = [
-    { Icon: LuHome, url: "/" },
-    { Icon: LuSearch, url: "/explore" },
-    { Icon: LuBell, url: "/notifications" },
-    { Icon: LuMail, url: "/messages" },
-    { Icon: LuUserPlus2, url: "/profile" },
-    { Icon: LuLeaf, url: "/post" },
-  ];
+  console.log({location})
+
+  useEffect(() => {
+    const index = sidebarItems.findIndex(item => location.pathname === item.url);
+    setActiveIndex(index !== -1 ? index : 0);
+  }, [location]);
+
+  console.log({activeIndex})
 
 
   return (

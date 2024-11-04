@@ -8,9 +8,9 @@ const MessageRightContent = () => {
 
 
   return (
-    <div className='w-3/5 flex items-center justify-center max-h-screen overflow-hidden'>
+    <div className='w-3/5 flex flex-col items-center justify-center max-h-screen overflow-hidden'>
       {user_id && account_id ? (
-        <MessageDetail user_id={user_id} account_id={account_id} />
+          <MessageDetail user_id={user_id} account_id={account_id} />
       ) : (
         <div className='w-3/5 flex flex-col items-start gap-2'>
           <h1 className='font-bold text-3xl dark:text-neutral-300'>Select a message</h1>

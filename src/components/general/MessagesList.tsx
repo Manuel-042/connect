@@ -7,7 +7,7 @@ import { useState } from "react";
 function MessagesList() {
     const data = messages.messages;
     const { user } = useAuthContext();
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     if (!user) return;
 
