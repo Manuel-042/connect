@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import postData from "../../data/posts.json"
 import { useEffect, useState } from 'react';
-import PostProps from '../../types';
+import { PostProps } from '../../types';
 import PostMetrics from './PostMetrics';
 import { LuX, LuMoreHorizontal, LuBadgeCheck, LuDot } from "react-icons/lu";
 import Button, { buttonStyles } from '../UI/Button';

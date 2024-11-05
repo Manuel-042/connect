@@ -1,15 +1,31 @@
 import { LuFileImage, LuBoomBox, LuSmile, LuCalendarClock, LuMapPin, LuListChecks } from "react-icons/lu";
 import Button, { buttonStyles } from "../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import useAutosizeTextArea from "../../hooks/useAutoSizeTextArea";
 import ForYou from "../../components/general/ForYou";
+import { useAuthContext } from "../../context/auth-context";
+import { UserProps } from "../../types";
+import users from "../../data/users.json"
 
 const HomePageContent = () => {
   const [postContent, setPostContent] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { user } = useAuthContext();
+
+  const [appUser, setAppUser] = useState<UserProps | null>(null);
+
+  if (!user) return null;
+
+  useEffect(() => {
+    const foundUser = users.find(usr => usr.id === Number(user.id));
+    if (!foundUser) {
+      return
+    }
+    setAppUser(foundUser);
+  }, [user])
 
   useAutosizeTextArea(textAreaRef.current, postContent);
 
@@ -36,7 +52,7 @@ const HomePageContent = () => {
 
       <div className="post flex self-start w-full px-3 py-5 gap-2 border-b border-gray-700">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
-          <img src="https://loremflickr.com/200/200?random=5" className="rounded-full w-full h-full object-contain object-center" alt="profile image" />
+          <img src={appUser?.image} className="rounded-full w-full h-full object-contain object-center" alt={`${appUser?.displayname} profile image`} />
         </div>
         <div className="grow w-90">
           <form className="w-100">

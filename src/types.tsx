@@ -13,4 +13,18 @@ type PostProps = {
     }
 }
 
-export default PostProps;
+type UserProps = {
+    id: number;
+    image: string;
+    coverPhoto: string;
+    displayname: string;
+    username: string;
+    bio: string;
+    followerCount: number;
+    followingCount: number;
+    isCreator: boolean;
+    isVerified: boolean;
+    createdAt: string;
+}
+
+export type {PostProps, UserProps};

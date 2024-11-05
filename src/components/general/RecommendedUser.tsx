@@ -8,12 +8,12 @@ type RecommendedUserProps = {
     displayname: string;
     username: string;
     bio: string;
-    followerCount: string;
-    followingCount: string;
+    followerCount: number;
+    followingCount: number;
     variant?: "default" | "large";
     showBio?: boolean;
     show_creator?: boolean;
-    isVerified?: boolean;
+    isVerified: boolean;
 }
 
 
@@ -33,13 +33,11 @@ const RecommendedUser = ({ image, displayname, username, bio, isVerified, follow
                         <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} font-bold`}>{displayname}</p>
                         <p className={`dark:text-neutral-300 ${isLarge ? 'text-sm' : 'text-xs'}`}>@{username}</p>
 
-                        <ProfileDisplay image={image} displayName={displayname} username={username} bio={bio} followerCount={followerCount} followingCount={followingCount} isVerified={isVerified}/>
+                        <ProfileDisplay image={image} displayname={displayname} username={username} bio={bio} followerCount={followerCount} followingCount={followingCount} isVerified={isVerified}/>
                     </div>
                     {showBio && <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} mt-1`}>{bio}</p>}
 
                 </Link>
-
-
             </div>
             <Button className={twMerge(buttonStyles(), "cursor-pointer font-bold text-sm bg-white text-gray-800 hover:bg-white")}>{show_creator ? 'Subscribe' : 'Follow'}</Button>
         </div>

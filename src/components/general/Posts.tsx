@@ -4,23 +4,12 @@ import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
 import ProfileDisplay from "./ProfileDisplay";
 import { Link, useNavigate } from "react-router-dom";
-import PostProps from "../../types";
+import { PostProps } from "../../types";
 import PostMetrics from "./PostMetrics";
 import formatDate from "../../utils/formatDate";
 import users from "../../data/users.json"
 import { useEffect, useState } from "react";
-
-type UserProps = {
-    image: string;
-    displayname: string;
-    username: string;
-    bio: string;
-    followerCount: string;
-    followingCount: string;
-    variant?: "default" | "large";
-    showBio?: boolean;
-    show_creator?: boolean;
-}
+import { UserProps } from "../../types";
 
 const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: PostProps) => {
     const {comments, retweets, likes, views } = metrics;
@@ -31,12 +20,17 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
         navigate(`post/${postId}/photo/${id}`);
     };
 
-    const [user, setUser] = useState<UserProps | any | null>(null); 
+    const [user, setUser] = useState<UserProps | null>(null); 
 
     useEffect(() => {
         const foundUser = users.find(user => user.id === Number(userId)); 
+        if (!foundUser) {
+            return
+        }
         setUser(foundUser);
     }, [userId, users]); 
+
+    if (!user) return null;
 
     return (
         <>
@@ -59,7 +53,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                                 </Link>
                                 <p className="dark:text-gray-500"><LuDot /></p>
                                 <p className="dark:text-gray-500">{formatDate(datePosted)}</p>
-                                <ProfileDisplay image={user?.image} displayName={user?.displayname} username={`@${user?.username}`} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
+                                <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
                             </div>
                             <div>
                                 <p className="dark:text-neutral-300">{postContent}</p>

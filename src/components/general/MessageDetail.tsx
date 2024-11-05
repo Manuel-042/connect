@@ -20,8 +20,8 @@ type UserProps = {
     displayname: string;
     username: string;
     bio: string;
-    followerCount: string;
-    followingCount: string;
+    followerCount: number;
+    followingCount: number;
     isCreator: boolean;
     isVerified: boolean;
 }

@@ -25,6 +25,8 @@ import NotificationPageContent from "./pages/NotificationPage/NotificationPageCo
 import NotificationRightContent from "./pages/NotificationPage/NotificationRightContent"
 import MessagePageContent from "./pages/MessagePage/MessagePageContent"
 import MessageRightContent from "./pages/MessagePage/MessageRightContent"
+import ProfilePageContent from "./pages/ProfilePage/ProfilePageContent"
+import ProfileRightContent from "./pages/ProfilePage/ProfileRightContent"
 import GIFModal from "./components/general/GIFModal"
 import { GifProvider } from "./context/gif-context"
 
@@ -92,6 +94,10 @@ function App() {
               </Route>
 
               <Route path="i/foundmedia/search" element={<GIFModal />} />
+
+              <Route path="/:username" element={<Layout rightComponent={ProfileRightContent} />}>
+                <Route index element={<ProfilePageContent />} />
+              </Route>
 
             </Route>
 

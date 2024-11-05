@@ -1,30 +1,48 @@
 import { ElementType, useEffect, useState } from "react";
-import { LuMenu, LuUser2, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome } from "react-icons/lu";
+import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation } from "react-router-dom";
+import { useAuthContext } from "../../context/auth-context";
+import users from "../../data/users.json"
+import { UserProps } from "../../types";
 
-const sidebarItems = [
-  { Icon: LuHome, url: "/" },
-  { Icon: LuSearch, url: "/explore" },
-  { Icon: LuBell, url: "/notifications" },
-  { Icon: LuMail, url: "/messages" },
-  { Icon: LuUserPlus2, url: "/profile" },
-  { Icon: LuLeaf, url: "/post" },
-];
+
 
 export default function SideBar() {
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { user } = useAuthContext();
 
-  console.log({location})
+  const [appUser, setAppUser] = useState<UserProps | null>(null);
+
+  if (!user) return null;
+
+  useEffect(() => {
+    const foundUser = users.find(usr => usr.id === Number(user.id));
+    if (!foundUser) {
+      return
+    }
+    setAppUser(foundUser);
+  }, [user]);
+
+  const sidebarItems = [
+    { Icon: LuHome, url: "/" },
+    { Icon: LuSearch, url: "/explore" },
+    { Icon: LuBell, url: "/notifications" },
+    { Icon: LuMail, url: "/messages" },
+    { Icon: LuUserPlus2, url: `/${user?.username}` },
+    { Icon: LuLeaf, url: "/post" },
+  ];
+
+  console.log({ location })
 
   useEffect(() => {
     const index = sidebarItems.findIndex(item => location.pathname === item.url);
     setActiveIndex(index !== -1 ? index : 0);
   }, [location]);
 
-  console.log({activeIndex})
+  console.log({ activeIndex })
 
 
   return (
@@ -42,7 +60,9 @@ export default function SideBar() {
       ))}
 
       {/* align self bottom */}
-      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "bg-transparent mt-auto p-3")}><LuUser2 /></Button>
+      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent mt-auto w-11 h-11")}>
+        <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full"/>
+      </Button>
     </aside>
   );
 }

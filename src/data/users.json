@@ -1,222 +1,262 @@
 [
-    {
+  {
       "id": 1,
       "image": "https://loremflickr.com/200/200?random=2",
-      "displayname": "Ozzy",
-      "username": "ozzyetomi",
-      "bio": "not impersonating anyone || tweeting anything & everything || turn notis on || ig: FearBuck || DM for submissions || for promo copiumx@yahoo.com || @Roobet",
-      "followerCount": "112M",
-      "followingCount": "1,000",
+      "coverPhoto": "https://loremflickr.com/800/200?random=22",
+      "displayname": "manueldev",
+      "username": "therealmanuel",
+      "bio": "Software Engineer 💻✨",
+      "followerCount": 112000000,
+      "followingCount": 1000,
       "isCreator": true,
-      "isVerified": true
-    },
-    {
+      "isVerified": true,
+      "createdAt": "2023-11-01T12:00:00Z"
+  },
+  {
       "id": 2,
       "image": "https://loremflickr.com/200/200?random=3",
+      "coverPhoto": "https://loremflickr.com/800/200?random=23",
       "displayname": "ZenCoin",
       "username": "ZenCoinOnTon",
       "bio": "not impersonating anyone || tweeting anything & everything || turn notis on || ig: FearBuck || DM for submissions || for promo copiumx@yahoo.com || @Roobet",
-      "followerCount": "52k",
-      "followingCount": "99",
+      "followerCount": 52000,
+      "followingCount": 99,
       "isCreator": false,
-      "isVerified": false
-    },
-    {
+      "isVerified": false,
+      "createdAt": "2023-09-15T14:30:00Z"
+  },
+  {
       "id": 3,
       "image": "https://loremflickr.com/200/200?random=4",
+      "coverPhoto": "https://loremflickr.com/800/200?random=24",
       "displayname": "CryptoMaster",
       "username": "cryptomaster101",
       "bio": "Decentralized advocate | Crypto tips & updates | Follow for news",
-      "followerCount": "200K",
-      "followingCount": "500",
+      "followerCount": 200000,
+      "followingCount": 500,
       "isCreator": true,
-      "isVerified": false
-    },
-    {
+      "isVerified": false,
+      "createdAt": "2023-10-20T08:45:00Z"
+  },
+  {
       "id": 4,
       "image": "https://loremflickr.com/200/200?random=5",
+      "coverPhoto": "https://loremflickr.com/800/200?random=25",
       "displayname": "FitnessGuru",
       "username": "fitlife",
       "bio": "Passionate about health & fitness | Daily workout tips | #FitnessLife",
-      "followerCount": "150K",
-      "followingCount": "1.2K",
+      "followerCount": 150000,
+      "followingCount": 1200,
       "isCreator": false,
-      "isVerified": true
-    },
-    {
+      "isVerified": true,
+      "createdAt": "2023-08-05T16:20:00Z"
+  },
+  {
       "id": 5,
       "image": "https://loremflickr.com/200/200?random=6",
+      "coverPhoto": "https://loremflickr.com/800/200?random=26",
       "displayname": "TechSavvy",
       "username": "techsavvypro",
       "bio": "Exploring the latest in tech | Gadgets, AI & programming | Stay updated!",
-      "followerCount": "75K",
-      "followingCount": "300",
+      "followerCount": 75000,
+      "followingCount": 300,
       "isCreator": true,
-      "isVerified": true
-    },
-    {
+      "isVerified": true,
+      "createdAt": "2023-07-15T13:55:00Z"
+  },
+  {
       "id": 6,
       "image": "https://loremflickr.com/200/200?random=7",
+      "coverPhoto": "https://loremflickr.com/800/200?random=27",
       "displayname": "TravelBug",
       "username": "wanderlust",
       "bio": "Globetrotter | Sharing travel experiences & tips | Let's explore the world!",
-      "followerCount": "120K",
-      "followingCount": "600",
+      "followerCount": 120000,
+      "followingCount": 600,
       "isCreator": false,
-      "isVerified": false
-    },
-    {
+      "isVerified": false,
+      "createdAt": "2023-06-01T09:40:00Z"
+  },
+  {
       "id": 7,
       "image": "https://loremflickr.com/200/200?random=8",
+      "coverPhoto": "https://loremflickr.com/800/200?random=28",
       "displayname": "ChefExtraordinaire",
       "username": "chefmaster",
       "bio": "Mastering the culinary arts | Recipes & cooking tips | Bon Appétit!",
-      "followerCount": "90K",
-      "followingCount": "200",
+      "followerCount": 90000,
+      "followingCount": 200,
       "isCreator": true,
-      "isVerified": false
-    },
-    {
+      "isVerified": false,
+      "createdAt": "2023-05-10T17:15:00Z"
+  },
+  {
       "id": 8,
       "image": "https://loremflickr.com/200/200?random=9",
+      "coverPhoto": "https://loremflickr.com/800/200?random=29",
       "displayname": "TheHistorian",
       "username": "historybuff",
       "bio": "Exploring the past to understand the present | #HistoryFacts | Education",
-      "followerCount": "60K",
-      "followingCount": "150",
+      "followerCount": 60000,
+      "followingCount": 150,
       "isCreator": false,
-      "isVerified": false
-    },
-    {
+      "isVerified": false,
+      "createdAt": "2023-04-25T15:30:00Z"
+  },
+  {
       "id": 9,
       "image": "https://loremflickr.com/200/200?random=10",
+      "coverPhoto": "https://loremflickr.com/800/200?random=30",
       "displayname": "Fashionista",
       "username": "styletrendsetter",
       "bio": "Bringing you the latest in fashion | Style tips & trends | #Fashionista",
-      "followerCount": "85K",
-      "followingCount": "300",
+      "followerCount": 85000,
+      "followingCount": 300,
       "isCreator": true,
-      "isVerified": true
-    },
-    {
+      "isVerified": true,
+      "createdAt": "2023-04-02T12:00:00Z"
+  },
+  {
       "id": 10,
       "image": "https://loremflickr.com/200/200?random=11",
+      "coverPhoto": "https://loremflickr.com/800/200?random=31",
       "displayname": "EcoWarrior",
       "username": "earth_hero",
       "bio": "Promoting eco-friendly living | Sustainable tips & nature love | #GoGreen",
-      "followerCount": "40K",
-      "followingCount": "100",
+      "followerCount": 40000,
+      "followingCount": 100,
       "isCreator": false,
-      "isVerified": false
-    },
-    {
-      "id": 11,
-      "image": "https://loremflickr.com/200/200?random=12",
-      "displayname": "MusicMania",
-      "username": "musiclover",
-      "bio": "Tunes for every mood | Sharing playlists, reviews, & music news",
-      "followerCount": "130K",
-      "followingCount": "250",
-      "isCreator": true,
-      "isVerified": true
-    },
-    {
-      "id": 12,
-      "image": "https://loremflickr.com/200/200?random=13",
-      "displayname": "ArtisticSoul",
-      "username": "creativemind",
-      "bio": "Art enthusiast | Painting, sketching, & photography | #ArtLover",
-      "followerCount": "95K",
-      "followingCount": "400",
-      "isCreator": false,
-      "isVerified": true
-    },
-    {
-      "id": 13,
-      "image": "https://loremflickr.com/200/200?random=14",
-      "displayname": "GameMaster",
-      "username": "pro_gamer",
-      "bio": "Gaming is my life | Tips, tricks, & streams | Follow for game updates",
-      "followerCount": "220K",
-      "followingCount": "700",
-      "isCreator": true,
-      "isVerified": false
-    },
-    {
-      "id": 14,
-      "image": "https://loremflickr.com/200/200?random=15",
-      "displayname": "ScienceGeek",
-      "username": "sciencelover",
-      "bio": "Curious about the world around us | Science facts & discoveries",
-      "followerCount": "50K",
-      "followingCount": "80",
-      "isCreator": false
-    },
-    {
-      "id": 15,
-      "image": "https://loremflickr.com/200/200?random=16",
-      "displayname": "InvestorPro",
-      "username": "financewhiz",
-      "bio": "Helping you invest smart | Market trends & finance tips | #Investor",
-      "followerCount": "140K",
-      "followingCount": "650",
-      "isCreator": true,
-      "isVerified": false
-    },
-    {
-      "id": 16,
-      "image": "https://loremflickr.com/200/200?random=17",
-      "displayname": "FoodieLover",
-      "username": "yumyum",
-      "bio": "Eating my way through the city | Food reviews & recipes",
-      "followerCount": "110K",
-      "followingCount": "90",
-      "isCreator": false,
-      "isVerified": false
-    },
-    {
-      "id": 17,
-      "image": "https://loremflickr.com/200/200?random=18",
-      "displayname": "MindfulnessCoach",
-      "username": "mindfulpath",
-      "bio": "Helping you find peace | Mindfulness tips & mental health awareness",
-      "followerCount": "70K",
-      "followingCount": "140",
-      "isCreator": true,
-      "isVerified": true
-    },
-    {
-      "id": 18,
-      "image": "https://loremflickr.com/200/200?random=19",
-      "displayname": "PetLover",
-      "username": "animal_lover",
-      "bio": "Celebrating all things pets | Tips & stories for animal lovers",
-      "followerCount": "30K",
-      "followingCount": "60",
-      "isCreator": false,
-      "isVerified": false
-    },
-    {
-      "id": 19,
-      "image": "https://loremflickr.com/200/200?random=20",
-      "displayname": "MovieBuff",
-      "username": "cinemalover",
-      "bio": "Movie reviews, news & trivia | Follow for the best film insights",
-      "followerCount": "200K",
-      "followingCount": "800",
-      "isCreator": true,
-      "isVerified": true
-    },
-    {
-      "id": 20,
-      "image": "https://loremflickr.com/200/200?random=21",
-      "displayname": "CodingNinja",
-      "username": "dev_guru",
-      "bio": "Programming tips & tech talk | Sharing code insights | #CodeLife",
-      "followerCount": "170K",
-      "followingCount": "1K",
-      "isCreator": true,
-      "isVerified": true
-    }
-  ]
-  
+      "isVerified": false,
+      "createdAt": "2023-03-15T11:10:00Z"
+  },
+  {
+    "id": 11,
+    "image": "https://loremflickr.com/200/200?random=12",
+    "coverPhoto": "https://loremflickr.com/800/200?random=12",
+    "displayname": "MusicMania",
+    "username": "musiclover",
+    "bio": "Tunes for every mood | Sharing playlists, reviews, & music news",
+    "followerCount": 130000,
+    "followingCount": 250,
+    "isCreator": true,
+    "isVerified": true,
+    "createdAt": "2023-02-15"
+  },
+  {
+    "id": 12,
+    "image": "https://loremflickr.com/200/200?random=13",
+    "coverPhoto": "https://loremflickr.com/800/200?random=13",
+    "displayname": "ArtisticSoul",
+    "username": "creativemind",
+    "bio": "Art enthusiast | Painting, sketching, & photography | #ArtLover",
+    "followerCount": 95000,
+    "followingCount": 400,
+    "isCreator": false,
+    "isVerified": true,
+    "createdAt": "2022-07-12"
+  },
+  {
+    "id": 13,
+    "image": "https://loremflickr.com/200/200?random=14",
+    "coverPhoto": "https://loremflickr.com/800/200?random=14",
+    "displayname": "GameMaster",
+    "username": "pro_gamer",
+    "bio": "Gaming is my life | Tips, tricks, & streams | Follow for game updates",
+    "followerCount": 220000,
+    "followingCount": 700,
+    "isCreator": true,
+    "isVerified": false,
+    "createdAt": "2021-08-30"
+  },
+  {
+    "id": 14,
+    "image": "https://loremflickr.com/200/200?random=15",
+    "coverPhoto": "https://loremflickr.com/800/200?random=15",
+    "displayname": "ScienceGeek",
+    "username": "sciencelover",
+    "bio": "Curious about the world around us | Science facts & discoveries",
+    "followerCount": 50000,
+    "followingCount": 80,
+    "isCreator": false,
+    "isVerified": false,
+    "createdAt": "2022-04-18"
+  },
+  {
+    "id": 15,
+    "image": "https://loremflickr.com/200/200?random=16",
+    "coverPhoto": "https://loremflickr.com/800/200?random=16",
+    "displayname": "InvestorPro",
+    "username": "financewhiz",
+    "bio": "Helping you invest smart | Market trends & finance tips | #Investor",
+    "followerCount": 140000,
+    "followingCount": 650,
+    "isCreator": true,
+    "isVerified": false,
+    "createdAt": "2021-11-25"
+  },
+  {
+    "id": 16,
+    "image": "https://loremflickr.com/200/200?random=17",
+    "coverPhoto": "https://loremflickr.com/800/200?random=17",
+    "displayname": "FoodieLover",
+    "username": "yumyum",
+    "bio": "Eating my way through the city | Food reviews & recipes",
+    "followerCount": 110000,
+    "followingCount": 90,
+    "isCreator": false,
+    "isVerified": false,
+    "createdAt": "2022-10-05"
+  },
+  {
+    "id": 17,
+    "image": "https://loremflickr.com/200/200?random=18",
+    "coverPhoto": "https://loremflickr.com/800/200?random=18",
+    "displayname": "MindfulnessCoach",
+    "username": "mindfulpath",
+    "bio": "Helping you find peace | Mindfulness tips & mental health awareness",
+    "followerCount": 70000,
+    "followingCount": 140,
+    "isCreator": true,
+    "isVerified": true,
+    "createdAt": "2023-05-20"
+  },
+  {
+    "id": 18,
+    "image": "https://loremflickr.com/200/200?random=19",
+    "coverPhoto": "https://loremflickr.com/800/200?random=19",
+    "displayname": "PetLover",
+    "username": "animal_lover",
+    "bio": "Celebrating all things pets | Tips & stories for animal lovers",
+    "followerCount": 30000,
+    "followingCount": 60,
+    "isCreator": false,
+    "isVerified": false,
+    "createdAt": "2022-12-11"
+  },
+  {
+    "id": 19,
+    "image": "https://loremflickr.com/200/200?random=20",
+    "coverPhoto": "https://loremflickr.com/800/200?random=20",
+    "displayname": "MovieBuff",
+    "username": "cinemalover",
+    "bio": "Movie reviews, news & trivia | Follow for the best film insights",
+    "followerCount": 200000,
+    "followingCount": 800,
+    "isCreator": true,
+    "isVerified": true,
+    "createdAt": "2021-03-23"
+  },
+  {
+    "id": 20,
+    "image": "https://loremflickr.com/200/200?random=21",
+    "coverPhoto": "https://loremflickr.com/800/200?random=21",
+    "displayname": "CodingNinja",
+    "username": "dev_guru",
+    "bio": "Programming tips & tech talk | Sharing code insights | #CodeLife",
+    "followerCount": 170000,
+    "followingCount": 1000,
+    "isCreator": true,
+    "isVerified": true,
+    "createdAt": "2023-01-09"
+  }
+]
