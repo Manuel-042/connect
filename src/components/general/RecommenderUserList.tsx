@@ -15,7 +15,7 @@ function RecommenderUserList({limit, variant = "default", showBio, show_creator}
     const more = filteredUsers.length > limit;
   
   return (
-    <div className="w-full flex flex-col gap-3 relative">
+    <div className="w-full flex flex-col relative">
       {filteredUsers.slice(0, limit).map((user, index) => (
         <RecommendedUser
           key={index}

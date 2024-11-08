@@ -4,7 +4,7 @@ import { buttonStyles } from "../../components/UI/Button";
 import { useState } from "react";
 import trends from "../../data/trends.json"
 import RecommenderUserList from "../../components/general/RecommenderUserList";
-import TrendsList from "../../components/general/TrendsList";
+import {TrendsList} from "../../features/trends/index";
 
 
 const ProfileRightContent = () => {
@@ -15,8 +15,8 @@ const ProfileRightContent = () => {
   }
 
   return (
-    <div className="w-2/5 px-9">
-      <div className="sticky top-0 h-14 flex bg-white dark:bg-black">
+    <div className="w-[35%]">
+      <div className="sticky top-0 z-10 h-14 flex bg-white dark:bg-black">
         <form className={`flex items-center rounded-full w-full justify-end mt-auto z-20 h-[90%] bg-gray-500 bg-opacity-20 ${isFocused ? 'border border-primary' : ''} `} onFocus={handleFocus} onBlur={handleFocus}>
           <LuSearch className={twMerge(buttonStyles({ variant: "blueghost", size: "icon"}), `w-10 h-10 hover:bg-transparent ${isFocused ? 'text-primary' : 'dark:text-neutral-200' }`)}/>
           <input className="w-5/6 bg-transparent px-2 py-1 border-0 outline-0 dark:text-neutral-200" placeholder="Search"/>

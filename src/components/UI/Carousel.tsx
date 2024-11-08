@@ -1,6 +1,6 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import { useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Button, { buttonStyles } from './Button';
 import { twMerge } from 'tailwind-merge';
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
@@ -12,6 +12,7 @@ type CarouselProps = {
 export default function EmblaCarousel({ images }: CarouselProps) {
     const { postId, photoId } = useParams<{ postId: string; photoId: string }>();
     const navigate = useNavigate();
+    const location = useLocation();
 
     if (photoId === null) {
         return null
@@ -25,7 +26,7 @@ export default function EmblaCarousel({ images }: CarouselProps) {
         if (emblaApi) {
             emblaApi.scrollPrev();
             const currentIndex = emblaApi.selectedScrollSnap();
-            navigate(`/post/${postId}/photo/${currentIndex}`); 
+            navigate(`/post/${postId}/photo/${currentIndex}`, {state: { previousLocation: location.pathname}}); 
         }
     }, [emblaApi])
 
@@ -33,7 +34,7 @@ export default function EmblaCarousel({ images }: CarouselProps) {
         if (emblaApi) {
             emblaApi.scrollNext()
             const currentIndex = emblaApi.selectedScrollSnap();
-            navigate(`/post/${postId}/photo/${currentIndex}`); 
+            navigate(`/post/${postId}/photo/${currentIndex}`, {state: { previousLocation: location.pathname}}); 
         }
     }, [emblaApi])
 
@@ -43,7 +44,7 @@ export default function EmblaCarousel({ images }: CarouselProps) {
                 <div className="embla__container">
                     {images.map((item, index) => (
                         <div className="embla__slide" key={index}>
-                            <img src={item} alt={`Slide ${index + 1}`} className="w-full h-full" />
+                            <img src={item} alt={`Slide ${index + 1}`} className="w-full h-full object-contain object-center" />
                         </div>
                     ))}
                 </div>

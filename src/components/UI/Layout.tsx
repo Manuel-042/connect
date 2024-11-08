@@ -6,11 +6,12 @@ type LayoutProps = {
 };
 
 function Layout({ rightComponent: RightComponent }: LayoutProps) {
+    // md:mx-auto w-full  
     return (
-        <div className="layout flex w-full min-h-screen container mx-auto">
+        <div className="layout flex w-full md:max-w-[686px] lg:max-w-[1024px] md:mx-auto min-h-screen">
             <Sidebar />
-            <Outlet />
-            <RightComponent />
+            <div className="w-[85%] flex-grow overflow-x-hidden lg:w-[60%]"><Outlet /></div>
+            <div className="hidden lg:block w-[35%] lg:px-6"><RightComponent /></div>
         </div>
     );
 }

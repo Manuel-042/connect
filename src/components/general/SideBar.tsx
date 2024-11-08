@@ -32,7 +32,13 @@ export default function SideBar() {
     { Icon: LuBell, url: "/notifications" },
     { Icon: LuMail, url: "/messages" },
     { Icon: LuUserPlus2, url: `/${user?.username}` },
-    { Icon: LuLeaf, url: "/post" },
+  ];
+
+  const sidebarItemsMobile = [
+    { Icon: LuHome, url: "/" },
+    { Icon: LuSearch, url: "/explore" },
+    { Icon: LuBell, url: "/notifications" },
+    { Icon: LuMail, url: "/messages" },
   ];
 
   console.log({ location })
@@ -46,24 +52,48 @@ export default function SideBar() {
 
 
   return (
-    <aside className={`max-h-screen border-r border-gray-700 sticky left-0 top-0 flex flex-col p-4 items-start transition-all duration-300 ease-in-out gap-3`}>
-      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "bg-transparent p-3")}><LuMenu /></Button>
+    <>
+      <aside className={`hidden sm:flex max-h-screen border-r border-dark-border sticky left-0 top-0 flex-col pt-4 px-2 smd:px-4 pb-6 items-center transition-all duration-300 ease-in-out gap-1`}>
+        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "hidden sm:block bg-transparent p-3")}><LuMenu /></Button>
 
-      {sidebarItems.map((item, index) => (
-        <SmallSidebarItem
-          key={index}
-          Icon={item.Icon}
-          url={item.url}
-          isActive={index === activeIndex}
-          onClick={() => setActiveIndex(index)}
-        />
-      ))}
+        <div className="flex flex-col gap-3">
+          {sidebarItems.map((item, index) => (
+            <SmallSidebarItem
+              key={index}
+              Icon={item.Icon}
+              url={item.url}
+              isActive={index === activeIndex}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
 
-      {/* align self bottom */}
-      <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent mt-auto w-11 h-11")}>
-        <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full"/>
-      </Button>
-    </aside>
+          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
+            <LuLeaf className="w-6 h-6" />
+          </Button>
+        </div>
+
+        {/* align self bottom */}
+        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent mt-auto w-9 h-9")}>
+          <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+        </Button>
+      </aside>
+
+      <aside className={`sm:hidden flex z-50 bg-black w-full max-h-12 border-t border-dark-border fixed bottom-0 px-6 items-center transition-all duration-300 ease-in-out gap-1`}>
+        <div className="flex w-full justify-between">
+          {sidebarItemsMobile.map((item, index) => (
+            <SmallSidebarItemMobile
+              key={index}
+              Icon={item.Icon}
+              url={item.url}
+              isActive={index === activeIndex}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
+        </div>
+      </aside>
+    </>
+
+
   );
 }
 
@@ -81,7 +111,21 @@ const SmallSidebarItem = ({ Icon, url, isActive, onClick }: SmallSidebarItemProp
     className={twMerge(
       buttonStyles({ variant: "ghost" }),
       "flex items-center p-3 gap-3",
-      isActive ? "bg-gray-500 bg-opacity-20 border-l-4 border-secondary" : "" // Active style
+      isActive ? "" : "" // Active style
+    )}
+  >
+    <Icon className="w-6 h-6" />
+  </Link>
+}
+
+const SmallSidebarItemMobile = ({ Icon, url, isActive, onClick }: SmallSidebarItemProps) => {
+  return <Link
+    to={url}
+    onClick={onClick}
+    className={twMerge(
+      buttonStyles({ variant: "ghost" }),
+      "flex items-center p-3 gap-3",
+      isActive ? "" : "" // Active style
     )}
   >
     <Icon className="w-6 h-6" />

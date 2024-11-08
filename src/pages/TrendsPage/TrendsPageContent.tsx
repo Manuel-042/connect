@@ -2,7 +2,7 @@ import { LuSettings, LuArrowLeft } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../components/UI/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import SearchMain from "../../components/general/SearchMain";
+import {SearchMain} from "../../features/search/index";
 
 const TrendsPageContent = () => {
     const navigate = useNavigate();
@@ -15,8 +15,8 @@ const TrendsPageContent = () => {
     }
 
     return (
-        <div className="w-4/5 border-r border-gray-700 pb-10">
-            <div className="sticky top-0 flex flex-col bg-black pb-2">
+        <div className="w-[60%] me-8 border-r border-gray-700 pb-10">
+            <div className="sticky top-0 z-10 flex flex-col bg-black pb-2">
                 <div className="flex items-center justify-between w-full mt-2 px-5">
                     <div className="flex items-center gap-3">
 

@@ -2,7 +2,7 @@ import { LuSearch, LuSettings, LuArrowLeft, LuXCircle, LuMailPlus } from "react-
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../components/UI/Button";
 import { useState } from "react";
-import MessagesList from "../../components/general/MessagesList";
+import {MessagesList} from "../../features/messages/index";
 
 const MessagePageContent = () => {
     const [isFocused, setIsFocused] = useState(false);
@@ -23,7 +23,7 @@ const MessagePageContent = () => {
     };
 
     return (
-        <div className="w-[47%] border-r border-gray-700 pb-4 max-h-screen overflow-y-auto">
+        <div className="w-[400px] border-r border-gray-700 pb-4 max-h-screen overflow-y-auto">
             <div className="sticky top-0 flex flex-col bg-white z-20 dark:bg-black">
 
                 <div className="flex items-center justify-between w-full my-2 px-5">

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import NotFound from "./pages/NotFound"
 import Signup from "./pages/auth/Signup"
 import Login from "./pages/auth/Login"
@@ -11,7 +11,7 @@ import { ProtectedRoute } from "./Routes/ProtectedRoute"
 import { useEffect } from "react"
 import api from "./api/api"
 import { AxiosError } from "axios"
-import PostModal from "./components/general/PostModal"
+import PostModal from "./components/modals/PostModal"
 import Layout from "./components/UI/Layout"
 import HomePageContent from "./pages/HomePage/HomePageContent"
 import HomeRightContent from "./pages/HomePage/HomeRightContent"
@@ -27,8 +27,11 @@ import MessagePageContent from "./pages/MessagePage/MessagePageContent"
 import MessageRightContent from "./pages/MessagePage/MessageRightContent"
 import ProfilePageContent from "./pages/ProfilePage/ProfilePageContent"
 import ProfileRightContent from "./pages/ProfilePage/ProfileRightContent"
-import GIFModal from "./components/general/GIFModal"
+import GIFModal from "./components/modals/GIFModal"
 import { GifProvider } from "./context/gif-context"
+import HeaderPhotoModal from "./components/modals/HeaderPhotoModal"
+import AccountPhotoModal from "./components/modals/AccountPhotoModal"
+import EditProfileModal from "./components/modals/EditProfileModal"
 
 function App() {
   const { theme } = useThemeContext();
@@ -54,63 +57,70 @@ function App() {
     fetchCSRFToken();
   }, []);
 
-
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
+  console.log({ previousLocation })
 
   return (
     <div className={theme}>
-      <GifProvider>
-        <div className="container mx-auto dark:bg-black">
-          <Routes>
+      <div className="dark:bg-black">
+        <div className="">
+          <GifProvider>
+            <Routes location={previousLocation ? { pathname: previousLocation } : location}>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Layout rightComponent={HomeRightContent} />}>
+                  <Route index element={<HomePageContent />} />
+                </Route>
 
-            <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<Layout rightComponent={HomeRightContent} />}>
-                <Route index element={<HomePageContent />} />
+                <Route path="explore" element={<Layout rightComponent={SearchRightContent} />}>
+                  <Route index element={<SearchPageContent />} />
+                </Route>
+
+                <Route path="i/connect_people" element={<Layout rightComponent={ConnectRightContent} />}>
+                  <Route index element={<ConnectPageContent />} />
+                </Route>
+
+                <Route path="i/trends" element={<Layout rightComponent={TrendsRightContent} />}>
+                  <Route index element={<TrendsPageContent />} />
+                </Route>
+
+                <Route path="notifications" element={<Layout rightComponent={NotificationRightContent} />}>
+                  <Route index element={<NotificationPageContent />} />
+                </Route>
+
+                <Route path="messages" element={<Layout rightComponent={MessageRightContent} />}>
+                  <Route index element={<MessagePageContent />} />
+                </Route>
+
+                <Route path="messages/:user_id/:account_id" element={<Layout rightComponent={MessageRightContent} />}>
+                  <Route index element={<MessagePageContent />} />
+                </Route>
+
+                <Route path="/:username" element={<Layout rightComponent={ProfileRightContent} />}>
+                  <Route index element={<ProfilePageContent />} />
+                </Route>
               </Route>
 
-              <Route path="post/:postId/photo/:photoId" element={<PostModal />} />
-
-              <Route path="explore" element={<Layout rightComponent={SearchRightContent} />}>
-                <Route index element={<SearchPageContent />} />
-              </Route>
-
-              <Route path="i/connect_people" element={<Layout rightComponent={ConnectRightContent} />}>
-                <Route index element={<ConnectPageContent />} />
-              </Route>
-
-              <Route path="i/trends" element={<Layout rightComponent={TrendsRightContent} />}>
-                <Route index element={<TrendsPageContent />} />
-              </Route>
-
-              <Route path="notifications" element={<Layout rightComponent={NotificationRightContent} />}>
-                <Route index element={<NotificationPageContent />} />
-              </Route>
-
-              <Route path="messages" element={<Layout rightComponent={MessageRightContent} />}>
-                <Route index element={<MessagePageContent />} />
-              </Route>
-
-              <Route path="messages/:user_id/:account_id" element={<Layout rightComponent={MessageRightContent} />}>
-                <Route index element={<MessagePageContent />} />
-              </Route>
-
-              <Route path="i/foundmedia/search" element={<GIFModal />} />
-
-              <Route path="/:username" element={<Layout rightComponent={ProfileRightContent} />}>
-                <Route index element={<ProfilePageContent />} />
-              </Route>
-
-            </Route>
-
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<Forgot />} />
-            <Route path="/verify-code" element={<OTPVerification email={"ebukaezeanya14@gmail.com"} />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/reset-success" element={<Confirmation />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<Forgot />} />
+              <Route path="/verify-code" element={<OTPVerification email={"ebukaezeanya14@gmail.com"} />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/reset-success" element={<Confirmation />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            {previousLocation && (
+              <Routes>
+                <Route path="/:username/header_photo" element={<HeaderPhotoModal />} />
+                <Route path="/:username/photo" element={<AccountPhotoModal />} />
+                <Route path="/:username/profile" element={<EditProfileModal />} />
+                <Route path="/post/:postId/photo/:photoId" element={<PostModal />} />
+                <Route path="/i/foundmedia/search" element={<GIFModal />} />
+              </Routes>
+            )}
+          </GifProvider>
         </div>
-      </GifProvider>
+      </div>
     </div>
   )
 }

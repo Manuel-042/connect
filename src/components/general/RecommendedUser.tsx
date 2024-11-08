@@ -1,7 +1,8 @@
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../UI/Button";
-import ProfileDisplay from "./ProfileDisplay";
+import {ProfileDisplay} from "../../features/profile/index";
 import { Link } from "react-router-dom";
+import { LuBadgeCheck } from "react-icons/lu";
 
 type RecommendedUserProps = {
     image: string;
@@ -23,14 +24,17 @@ const RecommendedUser = ({ image, displayname, username, bio, isVerified, follow
     return (
         <div className="p-3 flex items-center justify-between w-full gap-3 hover:bg-gray-500 hover:bg-opacity-20 cursor-pointer">
             <div className="flex items-start justify-start gap-2 w-[90%]">
-                <Link to="/" className="min-w-[8%]">
+                <Link to={`/${username}`} className="min-w-[8%]">
                     <div>
                         <img src={image} alt={`${displayname}'s profile picture`} className="w-10 h-10 rounded-full" />
                     </div>
                 </Link>
-                <Link to="/" className="flex-1">
+                <Link to={`/${username}`} className="flex-1">
                     <div className="group relative w-max">
-                        <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} font-bold`}>{displayname}</p>
+                        <div className="flex items-center gap-1">
+                            <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} font-bold`}>{displayname}</p>
+                            {isVerified && <LuBadgeCheck className="text-secondary" />}
+                        </div>
                         <p className={`dark:text-neutral-300 ${isLarge ? 'text-sm' : 'text-xs'}`}>@{username}</p>
 
                         <ProfileDisplay image={image} displayname={displayname} username={username} bio={bio} followerCount={followerCount} followingCount={followingCount} isVerified={isVerified}/>

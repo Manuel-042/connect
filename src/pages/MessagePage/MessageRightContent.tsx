@@ -1,14 +1,14 @@
 import { twMerge } from 'tailwind-merge'
 import Button, { buttonStyles } from '../../components/UI/Button'
 import { useParams } from 'react-router-dom';
-import MessageDetail from '../../components/general/MessageDetail';
+import {MessageDetail} from '../../features/messages/index';
 
 const MessageRightContent = () => {
   const { user_id, account_id } = useParams();
 
 
   return (
-    <div className='w-3/5 flex flex-col items-center justify-center max-h-screen overflow-hidden'>
+    <div className='w-[600px] flex flex-col items-center justify-center max-h-screen overflow-hidden border-r border-gray-700'>
       {user_id && account_id ? (
           <MessageDetail user_id={user_id} account_id={account_id} />
       ) : (

@@ -9,20 +9,51 @@
   transition-behavior: allow-discrete;
 }
 
-.modal {
+body {
+  scrollbar-color: rgb(62, 65, 68) rgb(22, 24, 28);
+}
+
+.modal-overlay1 {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: rgba(91, 112, 131, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* bottom: 0; */
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.9);
-  color: white;
-  width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.modal {
+  position: relative;
+  z-index: 101;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+
 
 .social {
   @apply max-w-10 max-h-10 rounded-full p-2 flex items-center justify-center cursor-pointer hover:bg-neutral-300;
@@ -82,4 +113,18 @@
   width: 100%;
   height: 100%;
   padding-left: 0.9rem;
+}
+
+
+.custom_container {
+  max-width: 1130px;
+  width: 85%;
+  margin: auto;
+}
+
+@media (max-width: 600px) {
+  .custom_container {
+    width: 95%;
+  }
+  
 }

@@ -9,6 +9,14 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        sm: "500px", 
+        'smd': "617px",
+        md: "689px",
+        'mlg': "706px",
+        lg: "1005px",
+        xl: "1281px", 
+      },
       colors: {
         primary: {
           DEFAULT: colors.sky[500],
@@ -26,6 +34,7 @@ export default {
           hover: "hover:bg-gray-500",
           100: colors.gray[100],
           text: colors.neutral[300],
+          border: "rgb(47, 51, 54)"
         }
       },
       fontFamily: {

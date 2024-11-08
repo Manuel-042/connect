@@ -2,8 +2,8 @@ import { LuSettings, LuArrowLeft } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../components/UI/Button";
 import { useState } from "react";
-import SuggestedUsers from "../../components/general/SuggestedUsers";
-import CreatorsList from "../../components/general/CreatorsList";
+import {SuggestedUsers} from "../../features/connect/index";
+import {CreatorsList} from "../../features/connect/index";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ConnectPageContent = () => {
@@ -30,7 +30,7 @@ const ConnectPageContent = () => {
     }
 
     return (
-        <div className="w-4/5 border-r border-gray-700 pb-10">
+        <div className="w-[60%] me-8 border-r border-gray-700 pb-10">
             <div className="sticky top-0 flex flex-col bg-black">
                 <div className="flex items-center justify-between w-full mt-2 px-5">
                     <div className="flex items-center gap-3">

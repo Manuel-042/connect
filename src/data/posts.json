@@ -7,7 +7,7 @@
       "datePosted": "2024-10-24 14:30:00",
       "images": [
         "https://loremflickr.com/200/200?random=7",
-        "https://loremflickr.com/200/200?random=1"
+        "https://loremflickr.com/200/200?random=8"
       ],
       "metrics": {
         "comments": 15,
@@ -68,6 +68,23 @@
         "retweets": 2,
         "likes": 60,
         "views": 900
+      }
+    },
+    {
+      "postId": 105,
+      "userId": 4,
+      "postContent": "Remind me to never do this again. Ah!!!.",
+      "datePosted": "2024-11-1 01:45:00",
+      "images": [
+        "https://loremflickr.com/200/200?random=20",
+        "https://loremflickr.com/200/200?random=22",
+        "https://loremflickr.com/200/200?random=24"
+      ],
+      "metrics": {
+        "comments": 2,
+        "retweets": 0,
+        "likes": 30,
+        "views": 400
       }
     }
   ]

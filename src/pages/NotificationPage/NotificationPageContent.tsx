@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../components/UI/Button";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NotificationList from "../../components/general/NotificationList";
+import { NotificationList } from "../../features/notifications/index";
 
 const NotificationPageContent = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -20,8 +20,8 @@ const NotificationPageContent = () => {
     }
 
     return (
-        <div className="w-4/5 border-r border-gray-700 pb-10">
-            <div className="sticky top-0 flex flex-col bg-white dark:bg-black">
+        <div className="w-[60%] me-8  border-r border-gray-700 pb-10">
+            <div className="sticky top-0 z-10 flex flex-col bg-white dark:bg-black">
                 <div className="flex items-center justify-between w-full mt-2 px-5">
                     <div className="flex items-center gap-3">
 

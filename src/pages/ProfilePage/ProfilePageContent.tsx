@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import users from "../../data/users.json"
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { LuArrowLeft, LuBadgeCheck, LuCalendarDays } from 'react-icons/lu';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { LuArrowLeft, LuBadgeCheck, LuCalendarDays, LuMoreHorizontal } from 'react-icons/lu';
 import Button, { buttonStyles } from '../../components/UI/Button';
 import { formatCount } from '../../utils/formatCount';
 import { twMerge } from 'tailwind-merge';
-import { UserProps } from '../../types';
+import { PostProps, UserProps } from '../../types';
 import formatDate from '../../utils/formatDate';
 import { useAuthContext } from '../../context/auth-context';
+import {AccountPosts} from '../../features/profile/index';
+import {AccountMedia} from '../../features/profile/index';
+import postsData from "../../data/posts.json"
 
 const ProfilePageContent = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -17,37 +20,44 @@ const ProfilePageContent = () => {
     const { user } = useAuthContext();
 
     const [appUser, setAppUser] = useState<UserProps | null>(null);
+    const [posts, setPosts] = useState<PostProps[] | null>(null);
+
+    useEffect(() => {
+        setActiveIndex(0);
+    }, [username]);
 
     useEffect(() => {
         if (username) {
             const foundUser = users.find(usr => usr.username === username);
+
             if (foundUser) {
                 setAppUser(foundUser);
+
+                const account_posts = postsData.posts.filter(post => post.userId === foundUser.id);
+                setPosts(account_posts.length > 0 ? account_posts : null);
             } else {
                 console.error("User profile not found in users.json");
+                setAppUser(null);
+                setPosts(null);
             }
         }
-    }, [username]);
+    }, [username, users, postsData.posts]);
 
     if (!username || !appUser) return null;
 
     const isLoggedInUser = user?.username === appUser?.username
 
-    console.log("Username:", username);
-    console.log("App User Username:", appUser?.username);
-    console.log("Is Logged In User:", isLoggedInUser);
-
-    const labels = isLoggedInUser ? ["Posts", "Replies", "Highlights", "Articles", "Media", "Likes"] :  ["Posts", "Replies", "Media" ];
+    const labels = isLoggedInUser ? ["Posts", "Replies", "Highlights", "Articles", "Media", "Likes"] : ["Posts", "Replies", "Media"];
 
     const from = location.state?.from?.pathname || "/";
 
     const handleBackClick = () => {
-       navigate(from, {replace: true})
+        navigate(from, { replace: true })
     }
 
     return (
-        <div className='w-3/5 border-r border-gray-700'>
-            <div className="flex items-center gap-3 p-1">
+        <div className='w-[60%] me-8 border-r border-gray-700'>
+            <div className="sticky top-0 z-10 dark:bg-black bg-opacity-20 flex items-center gap-3 p-1">
                 <div className="flex items-center justify-center" onClick={handleBackClick}>
                     <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-neutral-200 bg-transparent')}><LuArrowLeft className='text-xl' /></Button>
                 </div>
@@ -61,15 +71,35 @@ const ProfilePageContent = () => {
             </div>
 
             <div className='relative'>
-                <div className="h-52">
-                    <img src={appUser?.coverPhoto} className="w-full h-full object-cover object-center" alt="user's cover photo" />
+                <div className="h-52 cursor-pointer">
+                    <Link to="header_photo" state={{ coverPhoto: appUser?.coverPhoto, previousLocation: location.pathname  }}>
+                        <img src={appUser?.coverPhoto} className="w-full h-full object-cover object-center" alt="user's cover photo" />
+                    </Link>
                 </div>
-                <div className='w-40 h-40 absolute left-5 top-32'>
-                    <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
+                <div className='flex items-center justify-between'>
+                    <div className='w-40 h-40 absolute left-5 top-32 cursor-pointer'>
+                        <Link to="photo" state={{ profilePhoto: appUser?.image, previousLocation: location.pathname }}>
+                        <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
+                        </Link>
+                    </div>
+                    <div className='mt-3 me-4 ms-auto'>
+                        {isLoggedInUser ?
+                            <Button className={twMerge(buttonStyles(), 'cursor-pointer bg-transparent dark:text-neutral-300 border dark:hover:border-neutral-300 hover:bg-gray-400 hover:bg-opacity-20 font-bold text-sm')}>
+                                <Link to="profile" state={{ user: appUser }}>Edit profile</Link>
+                            </Button>
+                            :
+                            <div className='flex items-center gap-2'>
+                                <div className='border rounded-full border-gray-700'>
+                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-neutral-200 bg-transparent')}><LuMoreHorizontal className='text-xl' /></Button>
+                                </div>
+                                <Button className={twMerge(buttonStyles(), 'cursor-pointer dark:bg-neutral-300 dark:text-black dark:hover:bg-neutral-400 font-bold')}>Follow</Button>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
 
-            <div className='mt-24 px-4'>
+            <div className='mt-11 px-4'>
                 <div className='flex items-center gap-2'>
                     <p className='dark:text-neutral-300 font-bold text-xl'>{appUser?.displayname}</p>
                     {appUser?.isVerified ?
@@ -93,7 +123,7 @@ const ProfilePageContent = () => {
                 </div>
             </div>
 
-            <div className="flex mt-6">
+            <div className="flex mt-6 border-b border-gray-700">
                 {labels.map((label, index) => (
                     <button
                         key={index}
@@ -104,6 +134,29 @@ const ProfilePageContent = () => {
                     </button>
                 ))}
             </div>
+
+            <section className="w-full mb-4">
+                <div>
+                    {activeIndex === 0 && posts && <AccountPosts posts={posts} />}
+                    {(isLoggedInUser && activeIndex === 4 || !isLoggedInUser && activeIndex === 2) && posts && (
+                        <div className="flex flex-wrap">
+                            {posts.map((post, postIndex) => {
+                                console.log("got here");
+                                const imageIndex = post.images.indexOf(post?.images[0]);
+
+                                return (
+                                    <div className="w-max" key={postIndex}>
+                                        <Link to={`/post/${post.postId}/photo/${imageIndex}`}>
+                                            <AccountMedia images={post.images} />
+                                        </Link>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                </div>
+            </section>
         </div>
     )
 }

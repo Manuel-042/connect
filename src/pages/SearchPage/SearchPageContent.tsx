@@ -2,11 +2,11 @@ import { LuSearch, LuSettings, LuArrowLeft, LuXCircle } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../components/UI/Button";
 import { useState } from "react";
-import SearchMain from "../../components/general/SearchMain";
-import SearchTrending from "../../components/general/SearchTrending";
-import SearchNews from "../../components/general/SearchNews";
-import SearchSports from "../../components/general/SearchSports";
-import SearchEntertainment from "../../components/general/SearchEntertainment";
+import {SearchMain} from "../../features/search/index";
+import {SearchTrending} from "../../features/search/index";
+import {SearchNews} from "../../features/search/index";
+import {SearchSports} from "../../features/search/index";
+import {SearchEntertainment} from "../../features/search/index";
 
 const SearchPageContent = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -31,8 +31,8 @@ const SearchPageContent = () => {
   const labels = ["For You", "Trending", "News", "Sport", "Entertainment"];
 
   return (
-    <div className="w-4/5 border-r border-gray-700 pb-10">
-      <div className="sticky top-0 flex flex-col bg-white dark:bg-black">
+    <div className="w-[60%] me-8 border-r border-gray-700 pb-10">
+      <div className="sticky top-0 z-10 flex flex-col bg-white dark:bg-black">
         <div className="flex items-center justify-between w-full mt-2 px-5">
           {isFocused && (
             <div className="flex items-center justify-center w-[10%]">
