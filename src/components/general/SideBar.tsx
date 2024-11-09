@@ -1,5 +1,5 @@
 import { ElementType, useEffect, useState } from "react";
-import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome } from "react-icons/lu";
+import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome, LuCircleEllipsis } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation } from "react-router-dom";
@@ -27,18 +27,18 @@ export default function SideBar() {
   }, [user]);
 
   const sidebarItems = [
-    { Icon: LuHome, url: "/" },
-    { Icon: LuSearch, url: "/explore" },
-    { Icon: LuBell, url: "/notifications" },
-    { Icon: LuMail, url: "/messages" },
-    { Icon: LuUserPlus2, url: `/${user?.username}` },
+    { Icon: LuHome, url: "/", title: "Home"  },
+    { Icon: LuSearch, url: "/explore", title: "Explore" },
+    { Icon: LuBell, url: "/notifications", title: "Notifications" },
+    { Icon: LuMail, url: "/messages", title: "Messages" },
+    { Icon: LuUserPlus2, url: `/${user?.username}`, title: "Profile" },
   ];
 
   const sidebarItemsMobile = [
-    { Icon: LuHome, url: "/" },
+    { Icon: LuHome, url: "/"},
     { Icon: LuSearch, url: "/explore" },
     { Icon: LuBell, url: "/notifications" },
-    { Icon: LuMail, url: "/messages" },
+    { Icon: LuMail, url: "/messages"},
   ];
 
   console.log({ location })
@@ -53,22 +53,34 @@ export default function SideBar() {
 
   return (
     <>
-      <aside className={`hidden sm:flex max-h-screen border-r border-dark-border sticky left-0 top-0 flex-col pt-4 px-2 smd:px-4 pb-6 items-center transition-all duration-300 ease-in-out gap-1`}>
+      <aside className={`xl:w-[25%] hidden sm:flex max-h-screen border-r border-dark-border sticky left-0 top-0 flex-col pt-4 px-2 smd:px-4 pb-6 items-center xl:items-start transition-all duration-300 ease-in-out gap-1`}>
         <Button className={twMerge(buttonStyles({ variant: "ghost", size: "navicon" }), "hidden sm:block bg-transparent p-3")}><LuMenu /></Button>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full">
           {sidebarItems.map((item, index) => (
             <SmallSidebarItem
               key={index}
               Icon={item.Icon}
               url={item.url}
+              title={item.title}
               isActive={index === activeIndex}
               onClick={() => setActiveIndex(index)}
             />
           ))}
 
-          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
+          <div className="xl:flex gap-3 w-full">
+            <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
+              <LuCircleEllipsis className="w-6 h-6" />
+            </Button>
+            <div className={`text-xl hidden xl:block`}>More</div>
+          </div>
+
+          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex xl:hidden bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
             <LuLeaf className="w-6 h-6" />
+          </Button>
+
+          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "hidden xl:flex bg-secondary hover:bg-transparent items-center justify-center font-bold text-base p-3 gap-3")}>
+            Post
           </Button>
         </div>
 
@@ -92,33 +104,40 @@ export default function SideBar() {
         </div>
       </aside>
     </>
-
-
   );
 }
 
 type SmallSidebarItemProps = {
   Icon: ElementType;
   url: string;
+  title: string;
   isActive: boolean;
   onClick: () => void;
 }
 
-const SmallSidebarItem = ({ Icon, url, isActive, onClick }: SmallSidebarItemProps) => {
+type SmallSidebarItemMobileProps = {
+  Icon: ElementType;
+  url: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const SmallSidebarItem = ({ Icon, url, isActive, onClick, title }: SmallSidebarItemProps) => {
   return <Link
     to={url}
     onClick={onClick}
     className={twMerge(
       buttonStyles({ variant: "ghost" }),
-      "flex items-center p-3 gap-3",
+      "flex items-center p-3 gap-3 xl:gap-5",
       isActive ? "" : "" // Active style
     )}
   >
-    <Icon className="w-6 h-6" />
+    <Icon className={`w-6 h-6 ${isActive && 'text-white'}`} />
+    <div className={`text-xl hidden xl:block ${isActive && 'font-bold'}`}>{title}</div>
   </Link>
 }
 
-const SmallSidebarItemMobile = ({ Icon, url, isActive, onClick }: SmallSidebarItemProps) => {
+const SmallSidebarItemMobile = ({ Icon, url, isActive, onClick }: SmallSidebarItemMobileProps) => {
   return <Link
     to={url}
     onClick={onClick}
