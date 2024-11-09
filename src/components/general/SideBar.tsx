@@ -1,5 +1,5 @@
 import { ElementType, useEffect, useState } from "react";
-import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome, LuCircleEllipsis } from "react-icons/lu";
+import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome, LuCircleEllipsis, LuMoreHorizontal } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation } from "react-router-dom";
@@ -68,11 +68,15 @@ export default function SideBar() {
             />
           ))}
 
-          <div className="xl:flex gap-3 w-full">
+            <Button className={twMerge(buttonStyles({ variant: "ghost" }), "xl:hidden flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
+              <LuCircleEllipsis className="w-6 h-6" />
+            </Button>
+
+          <div className="hidden xl:flex items-center gap-3 w-full">
             <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
               <LuCircleEllipsis className="w-6 h-6" />
             </Button>
-            <div className={`text-xl hidden xl:block`}>More</div>
+            <p className="hidden xl:block text-xl dark:text-white">More</p>
           </div>
 
           <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex xl:hidden bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
@@ -84,10 +88,22 @@ export default function SideBar() {
           </Button>
         </div>
 
-        {/* align self bottom */}
-        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent mt-auto w-9 h-9")}>
-          <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 xl:hidden bg-transparent hover:bg-transparent mt-auto w-10 h-10")}>
+            <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
         </Button>
+
+        <div className="hidden xl:flex mt-auto items-center gap-3 w-full">
+          <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent w-10 h-10")}>
+            <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+          </Button>
+          <div>
+            <p className="font-bold dark:text-white">{appUser?.displayname}</p>
+            <p className="-mt-1 dark:text-gray-400">@{appUser?.username}</p>
+          </div>
+          <div className="justify-self-end ms-auto">
+            <LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} />
+          </div>
+        </div>
       </aside>
 
       <aside className={`sm:hidden flex z-50 bg-black w-full max-h-12 border-t border-dark-border fixed bottom-0 px-6 items-center transition-all duration-300 ease-in-out gap-1`}>

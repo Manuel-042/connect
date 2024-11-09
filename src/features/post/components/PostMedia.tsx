@@ -73,7 +73,7 @@ const PostMedia = ({ images, handleOpenModal }: Props) => {
 
                     {/* Overlay for more images */}
                     {count > 4 && index === 3 && (
-                        <div className="absolute cursor-pointer inset-0 bg-black bg-opacity-50 flex items-center justify-center text-xl rounded-lg">
+                        <div className="absolute cursor-pointer inset-0 bg-black dark:text-white bg-opacity-50 flex items-center justify-center text-xl rounded-xl">
                             +{count - 4}
                         </div>
                     )}
