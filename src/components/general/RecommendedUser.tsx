@@ -22,7 +22,7 @@ const RecommendedUser = ({ image, displayname, username, bio, isVerified, follow
     const isLarge = variant === "large";
     
     return (
-        <div className="p-3 flex items-center justify-between w-full gap-3 hover:bg-gray-500 hover:bg-opacity-20 cursor-pointer">
+        <div className="px-4 py-3 flex items-start justify-between w-full gap-3 hover:bg-gray-500 hover:bg-opacity-20 cursor-pointer">
             <div className="flex items-start justify-start gap-2 w-[90%]">
                 <Link to={`/${username}`} className="min-w-[8%]">
                     <div>
@@ -32,14 +32,14 @@ const RecommendedUser = ({ image, displayname, username, bio, isVerified, follow
                 <Link to={`/${username}`} className="flex-1">
                     <div className="group relative w-max">
                         <div className="flex items-center gap-1">
-                            <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} font-bold`}>{displayname}</p>
+                            <p className={`dark:text-white ${isLarge ? 'text-[0.9rem]' : 'text-[0.8rem]'} font-bold`}>{displayname}</p>
                             {isVerified && <LuBadgeCheck className="text-secondary" />}
                         </div>
-                        <p className={`dark:text-neutral-300 ${isLarge ? 'text-sm' : 'text-xs'}`}>@{username}</p>
+                        <p className={`dark:text-white ${isLarge ? 'text-[0.9rem]' : 'text-[0.9rem]'}`}>@{username}</p>
 
                         <ProfileDisplay image={image} displayname={displayname} username={username} bio={bio} followerCount={followerCount} followingCount={followingCount} isVerified={isVerified}/>
                     </div>
-                    {showBio && <p className={`dark:text-neutral-300 ${isLarge ? 'text-base' : 'text-sm'} mt-1`}>{bio}</p>}
+                    {showBio && <p className={`dark:text-white ${isLarge ? 'text-base' : 'text-[0.8rem]'} mt-1 line-clamp-2`}>{bio}</p>}
 
                 </Link>
             </div>

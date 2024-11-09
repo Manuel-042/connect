@@ -15,7 +15,7 @@ const AccountMedia = ({ images }: Props) => {
                 <img
                     src={images[0]}
                     alt={`image`}
-                    className="object-cover w-52 cursor-pointer h-52"
+                    className="object-cover w-44 cursor-pointer h-44"
                 />
                 {count > 1 && (
                     <div className="absolute right-1 bottom-0">

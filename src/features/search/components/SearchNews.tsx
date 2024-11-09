@@ -7,7 +7,7 @@ const SearchNews = () => {
 
     return (
         <div className="border-b border-gray-700">
-            <TrendsList data={filteredTrends} limit={trends.length} variant="large" />
+            <TrendsList data={filteredTrends} limit={trends.length}/>
         </div>
     )
 }

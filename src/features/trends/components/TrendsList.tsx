@@ -32,7 +32,7 @@ function TrendsList({limit, data, variant = "default"}: TrendsListProps) {
           variant={variant}
         />
       ))}
-      {!isTrendsPage && more && <div className="px-3"><p><Link to="/i/trends" className="text-secondary-100">Show more</Link></p></div>}
+      {!isTrendsPage && more && <div className="px-3 py-3 text-sm font-semibold hover:bg-gray-500 hover:bg-opacity-20"><p><Link to="/i/trends" className="text-secondary-100">Show more</Link></p></div>}
     </div>
   );
 }

@@ -31,7 +31,7 @@ function RecommenderUserList({limit, variant = "default", showBio, show_creator}
           isVerified={user.isVerified}
         />
       ))}
-      {more && <div className="px-3"><p><Link to="/i/connect_people" className="text-secondary-100">Show more</Link></p></div>}
+      {more && <div className="px-3 py-3 text-sm font-semibold hover:bg-gray-500 hover:bg-opacity-20 "><p><Link to="/i/connect_people" className="text-secondary-100">Show more</Link></p></div>}
     </div>
   );
 }

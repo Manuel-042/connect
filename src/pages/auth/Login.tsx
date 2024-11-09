@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {LoginForm} from '../../features/authentication/index';
 import google from '../../../src/assets/search.png'
-import apple from '../../../src/assets/apple.png'
-import twitter from '../../../src/assets/twitter.png'
+import apple from '../../../src/assets/white-apple.png'
+import twitter from '../../../src/assets/white-twitter.png'
 
 const Login: React.FunctionComponent = () => {
 

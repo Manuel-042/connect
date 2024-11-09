@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import users from "../../data/users.json"
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { LuArrowLeft, LuBadgeCheck, LuCalendarDays, LuMoreHorizontal } from 'react-icons/lu';
+import { LuArrowLeft, LuBadgeCheck, LuCalendarDays, LuMail, LuMoreHorizontal } from 'react-icons/lu';
 import Button, { buttonStyles } from '../../components/UI/Button';
 import { formatCount } from '../../utils/formatCount';
 import { twMerge } from 'tailwind-merge';
@@ -56,14 +56,14 @@ const ProfilePageContent = () => {
     }
 
     return (
-        <div className='w-[60%] me-8 border-r border-gray-700'>
-            <div className="sticky top-0 z-10 dark:bg-black bg-opacity-20 flex items-center gap-3 p-1">
+        <div className='border-r border-dark-border'>
+            <div className="sticky top-0 z-10 dark:bg-black dark:bg-opacity-90 flex items-center gap-3 p-1">
                 <div className="flex items-center justify-center" onClick={handleBackClick}>
-                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-neutral-200 bg-transparent')}><LuArrowLeft className='text-xl' /></Button>
+                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuArrowLeft className='text-xl' /></Button>
                 </div>
                 <div className='flex flex-col items-start justify-start'>
                     <div className='flex items-center gap-2'>
-                        <h1 className="dark:text-neutral-300 text-lg font-bold">{appUser?.displayname}</h1>
+                        <h1 className="dark:text-white text-lg font-bold">{appUser?.displayname}</h1>
                         {appUser?.isVerified && <LuBadgeCheck className="text-primary" />}
                     </div>
                     <p className="dark:text-gray-500 text-base -mt-1">1,500 likes</p>
@@ -84,15 +84,18 @@ const ProfilePageContent = () => {
                     </div>
                     <div className='mt-3 me-4 ms-auto'>
                         {isLoggedInUser ?
-                            <Button className={twMerge(buttonStyles(), 'cursor-pointer bg-transparent dark:text-neutral-300 border dark:hover:border-neutral-300 hover:bg-gray-400 hover:bg-opacity-20 font-bold text-sm')}>
-                                <Link to="profile" state={{ user: appUser }}>Edit profile</Link>
+                            <Button className={twMerge(buttonStyles(), 'cursor-pointer bg-transparent dark:text-white border dark:hover:border-neutral-300 hover:bg-gray-400 hover:bg-opacity-20 font-bold text-sm')}>
+                                <Link to="profile" state={{ user: appUser, previousLocation: location.pathname}}>Edit profile</Link>
                             </Button>
                             :
                             <div className='flex items-center gap-2'>
-                                <div className='border rounded-full border-gray-700'>
-                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-neutral-200 bg-transparent')}><LuMoreHorizontal className='text-xl' /></Button>
+                                <div className='border rounded-full border-dark-border'>
+                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuMoreHorizontal className='text-xl' /></Button>
                                 </div>
-                                <Button className={twMerge(buttonStyles(), 'cursor-pointer dark:bg-neutral-300 dark:text-black dark:hover:bg-neutral-400 font-bold')}>Follow</Button>
+                                <div className='border rounded-full border-dark-border'>
+                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuMail className='text-xl' /></Button>
+                                </div>
+                                <Button className={twMerge(buttonStyles(), 'cursor-pointer dark:bg-white dark:text-black dark:hover:bg-neutral-200 font-bold')}>Follow</Button>
                             </div>
                         }
                     </div>
@@ -101,7 +104,7 @@ const ProfilePageContent = () => {
 
             <div className='mt-11 px-4'>
                 <div className='flex items-center gap-2'>
-                    <p className='dark:text-neutral-300 font-bold text-xl'>{appUser?.displayname}</p>
+                    <p className='dark:text-white font-bold text-lg'>{appUser?.displayname}</p>
                     {appUser?.isVerified ?
                         <LuBadgeCheck className="text-primary" /> :
                         <Button className='flex items-center gap-1 bg-transparent text-xs hover:bg-tranparent border border-secondary px-2 py-1'>
@@ -110,7 +113,7 @@ const ProfilePageContent = () => {
                         </Button>}
                 </div>
                 <p className="dark:text-gray-500 text-base">@{appUser?.username}</p>
-                <div className="text-base dark:text-neutral-300 mt-4">{appUser?.bio}</div>
+                <div className="text-base dark:text-white mt-4">{appUser?.bio}</div>
 
                 <div className='mt-3 flex items-center gap-1'>
                     <LuCalendarDays className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-4 h-4 rounded-none dark:text-gray-500 bg-transparent p-0')} />
@@ -118,19 +121,19 @@ const ProfilePageContent = () => {
                 </div>
 
                 <div className='flex items-center gap-2 mt-3'>
-                    <p className='dark:text-gray-500'><span className='dark:text-neutral-300 font-semibold'>{formatCount(appUser?.followingCount)}</span> Following</p>
-                    <p className='dark:text-gray-500'><span className='dark:text-neutral-300 font-semibold'>{formatCount(appUser?.followerCount)}</span> {appUser?.followerCount > 1 ? 'Followers' : 'Follower'}</p>
+                    <p className='dark:text-gray-500 text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followingCount)}</span> Following</p>
+                    <p className='dark:text-gray-500 text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followerCount)}</span> {appUser?.followerCount > 1 ? 'Followers' : 'Follower'}</p>
                 </div>
             </div>
 
-            <div className="flex mt-6 border-b border-gray-700">
+            <div className="flex mt-6 border-b border-dark-border">
                 {labels.map((label, index) => (
                     <button
                         key={index}
                         onClick={() => setActiveIndex(index)}
                         className={`${isLoggedInUser ? 'w-[20%]' : 'w-[33.33%]'} flex items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20`}
                     >
-                        <p className={`dark:text-gray-500 text-opacity-20 py-3 ${activeIndex === index ? 'border-b-4 border-blue-500 dark:text-neutral-300' : ''}`}>{label}</p>
+                        <p className={`dark:text-gray-500 text-opacity-20 py-3 ${activeIndex === index ? 'border-b-4 border-blue-500 dark:text-white' : ''}`}>{label}</p>
                     </button>
                 ))}
             </div>
@@ -146,7 +149,7 @@ const ProfilePageContent = () => {
 
                                 return (
                                     <div className="w-max" key={postIndex}>
-                                        <Link to={`/post/${post.postId}/photo/${imageIndex}`}>
+                                        <Link to={`/post/${post.postId}/photo/${imageIndex}`} state={{ previousLocation: location.pathname}} >
                                             <AccountMedia images={post.images} />
                                         </Link>
                                     </div>

@@ -15,8 +15,8 @@ const TrendsPageContent = () => {
     }
 
     return (
-        <div className="w-[60%] me-8 border-r border-gray-700 pb-10">
-            <div className="sticky top-0 z-10 flex flex-col bg-black pb-2">
+        <div className="border-r border-dark-border pb-10">
+            <div className="sticky top-0 z-10 flex flex-col bg-black border-dark-border-59 pb-2">
                 <div className="flex items-center justify-between w-full mt-2 px-5">
                     <div className="flex items-center gap-3">
 

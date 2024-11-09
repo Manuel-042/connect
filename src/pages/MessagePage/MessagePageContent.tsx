@@ -27,7 +27,7 @@ const MessagePageContent = () => {
             <div className="sticky top-0 flex flex-col bg-white z-20 dark:bg-black">
 
                 <div className="flex items-center justify-between w-full my-2 px-5">
-                    <h1 className="dark:text-neutral-300 text-2xl font-bold">Messages</h1>
+                    <h1 className="dark:text-neutral-300 text-xl font-bold">Messages</h1>
 
                     <div className="flex items-center gap-1">
                         <LuSettings className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-10 h-10 dark:text-neutral-200')} />

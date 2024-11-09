@@ -27,7 +27,7 @@ export default function SideBar() {
   }, [user]);
 
   const sidebarItems = [
-    { Icon: LuHome, url: "/", title: "Home"  },
+    { Icon: LuHome, url: "/", title: "Home" },
     { Icon: LuSearch, url: "/explore", title: "Explore" },
     { Icon: LuBell, url: "/notifications", title: "Notifications" },
     { Icon: LuMail, url: "/messages", title: "Messages" },
@@ -35,10 +35,10 @@ export default function SideBar() {
   ];
 
   const sidebarItemsMobile = [
-    { Icon: LuHome, url: "/"},
+    { Icon: LuHome, url: "/" },
     { Icon: LuSearch, url: "/explore" },
     { Icon: LuBell, url: "/notifications" },
-    { Icon: LuMail, url: "/messages"},
+    { Icon: LuMail, url: "/messages" },
   ];
 
   console.log({ location })
@@ -68,9 +68,9 @@ export default function SideBar() {
             />
           ))}
 
-            <Button className={twMerge(buttonStyles({ variant: "ghost" }), "xl:hidden flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
-              <LuCircleEllipsis className="w-6 h-6" />
-            </Button>
+          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "xl:hidden flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
+            <LuCircleEllipsis className="w-6 h-6" />
+          </Button>
 
           <div className="hidden xl:flex items-center gap-3 w-full">
             <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
@@ -89,7 +89,7 @@ export default function SideBar() {
         </div>
 
         <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 xl:hidden bg-transparent hover:bg-transparent mt-auto w-10 h-10")}>
-            <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+          <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
         </Button>
 
         <div className="hidden xl:flex mt-auto items-center gap-3 w-full">
@@ -106,7 +106,7 @@ export default function SideBar() {
         </div>
       </aside>
 
-      <aside className={`sm:hidden flex z-50 bg-black w-full max-h-12 border-t border-dark-border fixed bottom-0 px-6 items-center transition-all duration-300 ease-in-out gap-1`}>
+      <aside className="sm:hidden flex z-50 w-screen bg-black fixed bottom-0 left-0 right-0 max-h-12 border-t border-dark-border items-center overflow-hidden gap-1">
         <div className="flex w-full justify-between">
           {sidebarItemsMobile.map((item, index) => (
             <SmallSidebarItemMobile

@@ -6,6 +6,26 @@
         "icon": "login_icon.png"
       },
       {
+        "type": "login_alert",
+        "message": "There was a login to your account @User123 from a new device on Oct 30, 2024. Review it now.",
+        "icon": "login_icon.png"
+      },
+      {
+        "type": "login_alert",
+        "message": "There was a login to your account @User123 from a new device on Oct 30, 2024. Review it now.",
+        "icon": "login_icon.png"
+      },
+      {
+        "type": "login_alert",
+        "message": "There was a login to your account @User123 from a new device on Oct 30, 2024. Review it now.",
+        "icon": "login_icon.png"
+      },
+      {
+        "type": "login_alert",
+        "message": "There was a login to your account @User123 from a new device on Oct 30, 2024. Review it now.",
+        "icon": "login_icon.png"
+      },
+      {
         "type": "new_follower",
         "message": "@styletrendsetter started following you.",
         "icon": "follower_icon.png",
