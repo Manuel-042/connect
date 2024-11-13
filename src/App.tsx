@@ -32,6 +32,10 @@ import { GifProvider } from "./context/gif-context"
 import HeaderPhotoModal from "./components/modals/HeaderPhotoModal"
 import AccountPhotoModal from "./components/modals/AccountPhotoModal"
 import EditProfileModal from "./components/modals/EditProfileModal"
+import MobilePost from "./features/post/components/MobilePost"
+import BookmarkPageContent from "./pages/BookmarkPage/BookmarkPageContent"
+import BookmarkRightContent from "./pages/BookmarkPage/BookmarkRightContent"
+import Logout from "./pages/auth/Logout"
 
 function App() {
   const { theme } = useThemeContext();
@@ -99,6 +103,15 @@ function App() {
                 <Route path="/:username" element={<Layout rightComponent={ProfileRightContent} />}>
                   <Route index element={<ProfilePageContent />} />
                 </Route>
+
+                <Route path="/compose/post" element={<MobilePost />} />
+
+                <Route path="/i/bookmarks" element={<Layout rightComponent={BookmarkRightContent} />}>
+                  <Route index element={<BookmarkPageContent />} />
+                </Route>
+
+                <Route path="/logout" element={<Logout />} />
+
               </Route>
 
               <Route path="/signup" element={<Signup />} />

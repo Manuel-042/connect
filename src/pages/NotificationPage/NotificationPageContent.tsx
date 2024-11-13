@@ -1,40 +1,49 @@
-import { LuSettings, LuArrowLeft } from "react-icons/lu";
+import { LuLeaf, LuSettings } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
-import { buttonStyles } from "../../components/UI/Button";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import Button, { buttonStyles } from "../../components/UI/Button";
+import { useEffect, useState } from "react";
 import { NotificationList } from "../../features/notifications/index";
+import { useAuthContext } from "../../context/auth-context";
+import { UserProps } from "../../types";
+import users from "../../data/users.json"
+import { Link } from "react-router-dom";
 
 const NotificationPageContent = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { user } = useAuthContext();
+    const [appUser, setAppUser] = useState<UserProps | null>(null);
 
-    const from = location.state?.from?.pathname || "/";
+    if (!user) return null;
+
+    useEffect(() => {
+        const foundUser = users.find(usr => usr.id === Number(user.id));
+        if (!foundUser) {
+            return
+        }
+        setAppUser(foundUser);
+    }, [user])
 
     const labels = ["All", "Verified", "Mentions"];
 
-
-    const handleBackClick = () => {
-        navigate(from, { replace: true });
-    }
-
     return (
         <div className="border-r border-dark-border">
-            <div className="sticky top-0 z-30 flex flex-col bg-white dark:bg-black dark:bg-opacity-90">
-                <div className="flex items-center justify-between w-full mt-2 px-5">
-                    <div className="flex items-center gap-3">
+            <div className="md:sticky top-0 z-30 flex flex-col bg-white dark:bg-black dark:bg-opacity-90">
+                <div className="flex items-center justify-between w-full my-3 px-5">
 
-                        <div className="flex items-center justify-center" onClick={handleBackClick}>
-                            <LuArrowLeft className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-10 h-10 dark:text-white')} />
-                        </div>
+                    <div className="flex items-center gap-5 md:gap-3">
+                        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "md:hidden p-0 bg-transparent hover:bg-transparent w-8 h-8")}>
+                        <img
+                            src={appUser?.image}
+                            alt={`${appUser?.displayname} profile picture`}
+                            className="w-full h-full rounded-full object-cover"
+                        />
+                        </Button>
 
-                        <h1 className="dark:text-white text-xl font-bold">Notifications</h1>
+                        <h1 className="dark:text-white text-base md:text-xl font-bold">Notifications</h1>
                     </div>
 
-
-                    <div className="w-[10%]">
-                        <LuSettings className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'ms-8 cursor-pointer w-10 h-10 dark:text-white')} />
+                    <div>
+                        <LuSettings className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-6 h-6 md:w-7 md:h-7 p-1 dark:text-white text-base')} />
                     </div>
                 </div>
 
@@ -43,7 +52,7 @@ const NotificationPageContent = () => {
                         <button
                             key={index}
                             onClick={() => setActiveIndex(index)}
-                            className={`w-[33.33%] flex items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20`}
+                            className={`flex flex-1 items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20 dark:focus:bg-transparent`}
                         >
                             <p className={`dark:text-gray-500 text-opacity-20 py-3 px-2 ${activeIndex === index ? 'border-b-4 border-secondary dark:text-white' : ''}`}>{label}</p>
                         </button>
@@ -51,11 +60,17 @@ const NotificationPageContent = () => {
                 </div>
             </div>
 
-            <section className="w-full pt-2 mb-4">
+            <section className="w-full mb-20">
                 <div>
                     {activeIndex === 0 && <NotificationList />}
                 </div>
             </section>
+
+            <div className="sm:hidden rounded-full w-14 h-14 fixed bottom-20 right-5 z-10 bg-secondary flex shadow-sm shadow-white items-center justify-center">
+                <Link to="/compose/post" state={{ from: "/notifications"}}>
+                    <LuLeaf className="text-2xl text-white" />
+                </Link>
+            </div>
         </div>
     );
 }

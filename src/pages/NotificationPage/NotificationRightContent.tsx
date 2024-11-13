@@ -8,7 +8,7 @@ const NotificationRightContent = () => {
   return (
     <div>
       <div className="sticky top-0 z-10 flex bg-white dark:bg-black">
-        <Search />
+        <Search/>
       </div>
 
       <div className="rounded-2xl flex flex-col items-start border border-dark-border justify-start gap-3 py-3 mt-4">

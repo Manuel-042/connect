@@ -19,7 +19,7 @@ function MessagesList() {
     };
 
     return (
-        <div className="w-full mt-3 dark:text-neutral-300">
+        <div className="w-full mt-3 md:overflow-hidden dark:text-white">
             {data.map((notification, index) => (
                 <Message
                     key={index}

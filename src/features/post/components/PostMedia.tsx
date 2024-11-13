@@ -42,25 +42,25 @@ const PostMedia = ({ images, handleOpenModal }: Props) => {
                         src={image}
                         alt={`image-${index}`}
                         className={`object-cover object-center w-full h-full cursor-pointer ${count === 1
-                                ? 'rounded-md'
+                                ? 'rounded-2xl'
                                 : count === 2 && index === 0
-                                    ? 'rounded-l-md'
+                                    ? 'rounded-l-2xl'
                                     : count === 2 && index === 1
-                                        ? 'rounded-r-md'
+                                        ? 'rounded-r-2xl'
                                         : count === 3 && index === 0
-                                            ? 'rounded-l-md'
+                                            ? 'rounded-l-2xl'
                                             : count === 3 && index === 1
-                                                ? 'rounded-tr-md'
+                                                ? 'rounded-tr-2xl'
                                                 : count === 3 && index === 2
-                                                    ? 'rounded-br-md'
+                                                    ? 'rounded-br-2xl'
                                                     : (count === 4 || count > 4) && index === 0
-                                                        ? 'rounded-tl-md'
+                                                        ? 'rounded-tl-2xl'
                                                         : (count === 4 || count > 4) && index === 1
-                                                            ? 'rounded-tr-md'
+                                                            ? 'rounded-tr-2xl'
                                                             : (count === 4 || count > 4) && index === 2
-                                                                ? 'rounded-bl-md'
+                                                                ? 'rounded-bl-2xl'
                                                                 : (count === 4 || count > 4) && index === 3
-                                                                    ? 'rounded-br-md'
+                                                                    ? 'rounded-br-2xl'
                                                                     : ''
                             }`}
                         style={{

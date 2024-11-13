@@ -8,7 +8,7 @@ const MessageRightContent = () => {
 
 
   return (
-    <div className='w-[600px] flex flex-col items-center justify-center max-h-screen overflow-hidden border-r border-dark-border'>
+    <div className='hidden w-[600px] lg:w-[580px] lg:flex flex-col items-center justify-center max-h-screen overflow-hidden border-r border-dark-border'>
       {user_id && account_id ? (
           <MessageDetail user_id={user_id} account_id={account_id} />
       ) : (

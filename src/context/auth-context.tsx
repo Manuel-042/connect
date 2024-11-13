@@ -34,6 +34,7 @@ export default function AuthProvider({ children } : Props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     console.log(isLoggedIn);
+    
 
     const decodeToken = (token: string) => {
         console.log("Thisbwas called from the login screen");

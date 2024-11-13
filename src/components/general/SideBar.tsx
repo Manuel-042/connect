@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context/auth-context";
 import users from "../../data/users.json"
 import { UserProps } from "../../types";
+import MoreDisplay from "./MoreDisplay";
 
 
 
@@ -13,6 +14,11 @@ export default function SideBar() {
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const { user } = useAuthContext();
+  const [isMoreDisplayOpen, setIsMoreDisplayOpen] = useState(false);
+    
+  const toggleMoreDisplayOpen = () => {
+    setIsMoreDisplayOpen(prev => !prev);
+  };
 
   const [appUser, setAppUser] = useState<UserProps | null>(null);
 
@@ -68,12 +74,12 @@ export default function SideBar() {
             />
           ))}
 
-          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "xl:hidden flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
+          <Button onClick={toggleMoreDisplayOpen} className={twMerge(buttonStyles({ variant: "ghost" }), "xl:hidden flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
             <LuCircleEllipsis className="w-6 h-6" />
           </Button>
 
           <div className="hidden xl:flex items-center gap-3 w-full">
-            <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
+            <Button  onClick={toggleMoreDisplayOpen} className={twMerge(buttonStyles({ variant: "ghost" }), "flex bg-transparent hover:bg-transparent items-center p-3 gap-3")}>
               <LuCircleEllipsis className="w-6 h-6" />
             </Button>
             <p className="hidden xl:block text-xl dark:text-white">More</p>
@@ -119,6 +125,8 @@ export default function SideBar() {
           ))}
         </div>
       </aside>
+
+      <MoreDisplay isOpen={isMoreDisplayOpen} toggleMoreDisplayOpen={toggleMoreDisplayOpen}/>
     </>
   );
 }
@@ -144,11 +152,11 @@ const SmallSidebarItem = ({ Icon, url, isActive, onClick, title }: SmallSidebarI
     onClick={onClick}
     className={twMerge(
       buttonStyles({ variant: "ghost" }),
-      "flex items-center p-3 gap-3 xl:gap-5",
+      "flex items-center p-3 gap-3 xl:gap-5 dark:focus:bg-transparent",
       isActive ? "" : "" // Active style
     )}
   >
-    <Icon className={`w-6 h-6 ${isActive && 'text-white'}`} />
+    <Icon className={`w-6 h-6 ${isActive && ''}`} />
     <div className={`text-xl hidden xl:block ${isActive && 'font-bold'}`}>{title}</div>
   </Link>
 }
@@ -159,10 +167,10 @@ const SmallSidebarItemMobile = ({ Icon, url, isActive, onClick }: SmallSidebarIt
     onClick={onClick}
     className={twMerge(
       buttonStyles({ variant: "ghost" }),
-      "flex items-center p-3 gap-3",
-      isActive ? "" : "" // Active style
+      "flex items-center p-3 gap-3 dark:focus:bg-transparent",
+      isActive ? "fill-white" : "" // Active style
     )}
   >
-    <Icon className="w-6 h-6" />
+    <Icon className={`${isActive ? "stroke-2 stroke-white" : "" } w-6 h-6`} />
   </Link>
 }

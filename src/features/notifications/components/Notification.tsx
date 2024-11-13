@@ -18,14 +18,15 @@ type NotificationProps = {
 function Notification({ type, message, users }: NotificationProps) {
     return (
         <Link to="/">
-            <div className="flex items-center justify-center px-3 py-2 border-b border-dark-border">
+            <div className="flex items-start justify-center px-6 py-3 gap-3 border-b border-dark-border">
 
-                <div className="mr-4">
+                <div>
                     <NotificationIcon type={type} />
                 </div>
 
                 <div className="flex-grow">
-                    <div className="flex items-center mb-2 gap-2">
+
+                    {users && <div className="flex items-center mb-2 gap-2">
                         {((type === "new_post_notification" || type === "new_follower") && users) ? (
                             users.map((usr, index) => (
                                 <img
@@ -38,9 +39,9 @@ function Notification({ type, message, users }: NotificationProps) {
                         ) : (
                             null
                         )}
-                    </div>
+                    </div>}
                     
-                    <p className="dark:text-white text-sm">{message}</p>
+                    <p className="dark:text-white font-semibold text-sm">{message}</p>
                 </div>
 
             </div>

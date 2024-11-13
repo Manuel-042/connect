@@ -63,23 +63,23 @@ const ProfilePageContent = () => {
                 </div>
                 <div className='flex flex-col items-start justify-start'>
                     <div className='flex items-center gap-2'>
-                        <h1 className="dark:text-white text-lg font-bold">{appUser?.displayname}</h1>
+                        <h1 className="dark:text-white text-base sm:text-lg font-bold">{appUser?.displayname}</h1>
                         {appUser?.isVerified && <LuBadgeCheck className="text-primary" />}
                     </div>
-                    <p className="dark:text-gray-500 text-base -mt-1">1,500 likes</p>
+                    <p className="dark:text-dark-text text-sm sm:text-base">1,500 likes</p>
                 </div>
             </div>
 
             <div className='relative'>
-                <div className="h-52 cursor-pointer">
+                <div className="h-28 sm:h-36 smd:h-44 mlg:h-48 cursor-pointer">
                     <Link to="header_photo" state={{ coverPhoto: appUser?.coverPhoto, previousLocation: location.pathname  }}>
                         <img src={appUser?.coverPhoto} className="w-full h-full object-cover object-center" alt="user's cover photo" />
                     </Link>
                 </div>
                 <div className='flex items-center justify-between'>
-                    <div className='w-40 h-40 absolute left-5 top-32 cursor-pointer'>
+                    <div className='w-20 h-20 sm:w-28 sm:h-28 smd:w-32 smd:h-32 mlg:w-36 mlg:h-36 absolute left-5 top-[4.5rem] sm:top-[5rem] smd:top-[6.5rem] mlg:top-[7rem] cursor-pointer'>
                         <Link to="photo" state={{ profilePhoto: appUser?.image, previousLocation: location.pathname }}>
-                        <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
+                        <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className='border-2 smd:border-4 border-black rounded-full w-full h-full' />
                         </Link>
                     </div>
                     <div className='mt-3 me-4 ms-auto'>
@@ -102,7 +102,7 @@ const ProfilePageContent = () => {
                 </div>
             </div>
 
-            <div className='mt-11 px-4'>
+            <div className='mt-2 smd:mt-4 mlg:mt-8 px-4'>
                 <div className='flex items-center gap-2'>
                     <p className='dark:text-white font-bold text-lg'>{appUser?.displayname}</p>
                     {appUser?.isVerified ?
@@ -112,28 +112,28 @@ const ProfilePageContent = () => {
                             Get Verified
                         </Button>}
                 </div>
-                <p className="dark:text-gray-500 text-base">@{appUser?.username}</p>
-                <div className="text-base dark:text-white mt-4">{appUser?.bio}</div>
+                <p className="dark:text-dark-text text-sm md:text-base -mt-1">@{appUser?.username}</p>
+                <div className="text-sm md:text-base dark:text-white mt-4">{appUser?.bio}</div>
 
                 <div className='mt-3 flex items-center gap-1'>
-                    <LuCalendarDays className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-4 h-4 rounded-none dark:text-gray-500 bg-transparent p-0')} />
-                    <p className='dark:text-gray-500'>Joined {formatDate(appUser?.createdAt)}</p>
+                    <LuCalendarDays className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-4 h-4 rounded-none dark:text-dark-text bg-transparent p-0')} />
+                    <p className='dark:text-dark-text text-sm md:text-base'>Joined {formatDate(appUser?.createdAt)}</p>
                 </div>
 
                 <div className='flex items-center gap-2 mt-3'>
-                    <p className='dark:text-gray-500 text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followingCount)}</span> Following</p>
-                    <p className='dark:text-gray-500 text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followerCount)}</span> {appUser?.followerCount > 1 ? 'Followers' : 'Follower'}</p>
+                    <p className='dark:text-dark-text text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followingCount)}</span> Following</p>
+                    <p className='dark:text-dark-text text-sm'><span className='dark:text-white font-semibold'>{formatCount(appUser?.followerCount)}</span> {appUser?.followerCount > 1 ? 'Followers' : 'Follower'}</p>
                 </div>
             </div>
 
-            <div className="flex mt-6 border-b border-dark-border">
+            <div className="flex mt-6 border-b border-dark-border overflow-x-auto md:overflow-visible no-scrollbar">
                 {labels.map((label, index) => (
                     <button
                         key={index}
                         onClick={() => setActiveIndex(index)}
-                        className={`${isLoggedInUser ? 'w-[20%]' : 'w-[33.33%]'} flex items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20`}
+                        className={`flex-1 flex items-center justify-center cursor-pointer hover:bg-gray-500 hover:bg-opacity-20`}
                     >
-                        <p className={`dark:text-gray-500 text-opacity-20 py-3 ${activeIndex === index ? 'border-b-4 border-blue-500 dark:text-white' : ''}`}>{label}</p>
+                        <p className={`dark:text-dark-text text-opacity-20 px-4 py-3 ${activeIndex === index ? 'border-b-4 border-blue-500 dark:text-white' : ''}`}>{label}</p>
                     </button>
                 ))}
             </div>

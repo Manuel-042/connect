@@ -5,7 +5,7 @@ function NotificationList() {
     const data = notifications.notifications;
 
     return (
-        <div className="w-full dark:text-neutral-300 overflow-hidden">
+        <div className="w-full dark:text-white overflow-hidden">
             {data.map((notification, index) => (
                 <Notification
                     key={index}

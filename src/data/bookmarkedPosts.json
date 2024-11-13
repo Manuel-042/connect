@@ -1,0 +1,57 @@
+{
+    "bookmarkedPosts": [
+      {
+        "postId": 101,
+        "userId": 1,
+        "postContent": "Exploring the beauty of nature today! Had an amazing time capturing these views.",
+        "datePosted": "2024-10-24 14:30:00",
+        "images": [
+          "https://loremflickr.com/200/200?random=7"
+        ],
+        "metrics": {
+          "comments": 15,
+          "retweets": 5,
+          "likes": 120,
+          "views": 1500
+        }
+      },
+      {
+        "postId": 102,
+        "userId": 2,
+        "postContent": "A day well spent with friends. Good vibes and great moments.",
+        "datePosted": "2024-10-25 2:00:00",
+        "images": [
+          "https://loremflickr.com/200/200?random=2",
+          "https://loremflickr.com/200/200?random=9",
+          "https://loremflickr.com/200/200?random=8",
+          "https://loremflickr.com/200/200?random=1"
+        ],
+        "metrics": {
+          "comments": 22,
+          "retweets": 12,
+          "likes": 210,
+          "views": 1800
+        }
+      },
+      {
+        "postId": 103,
+        "userId": 3,
+        "postContent": "An unforgettable evening by the shore. The sunset was breathtaking.",
+        "datePosted": "2024-10-23 18:45:00",
+        "images": [
+          "https://loremflickr.com/200/200?random=9",
+          "https://loremflickr.com/200/200?random=8",
+          "https://loremflickr.com/200/200?random=6",
+          "https://loremflickr.com/200/200?random=7",
+          "https://loremflickr.com/200/200?random=2"
+        ],
+        "metrics": {
+          "comments": 10,
+          "retweets": 3,
+          "likes": 85,
+          "views": 1200
+        }
+      }
+    ]
+  }
+  

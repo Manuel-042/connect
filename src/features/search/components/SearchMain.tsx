@@ -8,7 +8,7 @@ import RecommenderUserList from "../../../components/general/RecommenderUserList
 const SearchMain = () => {
     return (
         <div className="border-b border-gray-700">
-            <div className="h-44 md:h-96 relative">
+            <div className="h-44 md:h-80 lg:h-96 relative">
                 <div className="absolute flex top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.6)]">
                     <div className="self-end ps-4 pb-4">
                         <p className="text-2xl dark:text-white font-extrabold">The Offseason</p>

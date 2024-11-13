@@ -56,7 +56,8 @@ const MessageDetail = ({ user_id, account_id }: MessageDetailProps) => {
     return (
         <div className="self-start pt-2 w-full h-screen flex flex-col">
             <div className="border-b border-dark-border h-[91%] overflow-y-auto overflow-x-hidden">
-                <div className="flex items-center justify-between px-3 sticky top-0 dark:bg-[rgba(0,0,0,0.5)] bg-[rgba(255,255,255,0.7)]">
+
+                <div className="flex items-center justify-between px-3 z-10 sticky top-0 dark:bg-black dark:bg-opacity-90">
                     <h1 className="dark:text-neutral-300 font-bold text-lg">{user?.displayname}</h1>
                     <LuInfo className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-10 h-10 dark:text-neutral-200')} />
                 </div>

@@ -35,7 +35,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
 
     return (
         <>
-            <div className="px-4 py-3 flex items-start gap-2 border-b border-dark-border">
+            <div className="px-4 py-3 flex items-start gap-3 border-b border-dark-border">
                 <div className="max-w-[15%]">
                     <Link to={`/${user?.username}`}>
                         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer">
@@ -44,7 +44,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                     </Link>
                 </div>
                 
-                <div className="max-w-[85%] sm:w-[90%] grow">
+                <div className="max-w-[90%] grow">
                     <div className="flex items-start justify-center mb-4">
                         <div>
                             <div className="hidden group relative sm:flex items-center justify-start">

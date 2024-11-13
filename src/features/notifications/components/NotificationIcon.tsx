@@ -26,7 +26,7 @@ const NotificationIcon: React.FC<NotificationIconProps> = ({ type }) => {
         <IconComponent
             className={twMerge(
                 buttonStyles({ variant: 'blueghost', size: 'icon' }),
-                'cursor-pointer w-11 h-11 dark:text-neutral-200'
+                'cursor-pointer w-7 h-7 dark:text-white p-0'
             )}
         />
     ) : null;

@@ -7,7 +7,7 @@ import Search from "../../components/general/Search";
 
 const HomeRightContent = () => {
   return (
-    <div className="">
+    <div className="h-full">
       <div className="sticky top-0 z-10 flex bg-white dark:bg-black">
         <Search  />
       </div>

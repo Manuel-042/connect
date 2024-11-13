@@ -33,13 +33,16 @@ export default {
           DEFAULT: colors.black,
           hover: "hover:bg-gray-500",
           100: colors.gray[100],
-          text: colors.neutral[300],
+          text: "rgb(113, 118, 123)",
           border: "rgb(47, 51, 54)"
         }
       },
       fontFamily: {
         body: ['Manrope']
-      }
+      },
+      backgroundColor: {
+        'overlay': 'rgba(91, 112, 131, 0.4)',
+      },
     },
   },
   plugins: [],
