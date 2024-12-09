@@ -85,6 +85,40 @@
         "likes": 30,
         "views": 400
       }
+    },
+    {
+      "postId": 106,
+      "userId": 4,
+      "postContent": "Messi is god. #Barca",
+      "datePosted": "2024-12-8 17:20:00",
+      "images": [
+        "https://loremflickr.com/200/200?random=27",
+        "https://loremflickr.com/200/200?random=28",
+        "https://loremflickr.com/200/200?random=29"
+      ],
+      "metrics": {
+        "comments": 500,
+        "retweets": 0,
+        "likes": 492700,
+        "views": 1000000
+      }
+    },
+    {
+      "postId": 107,
+      "userId": 4,
+      "postContent": "Barcelona fan for live. up Barca!!.",
+      "datePosted": "2024-12-7 16:36:00",
+      "images": [
+        "https://loremflickr.com/200/200?random=32",
+        "https://loremflickr.com/200/200?random=33",
+        "https://loremflickr.com/200/200?random=34"
+      ],
+      "metrics": {
+        "comments": 2,
+        "retweets": 0,
+        "likes": 30,
+        "views": 400
+      }
     }
   ]
 }

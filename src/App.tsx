@@ -8,15 +8,15 @@ import ResetPassword from "./pages/auth/ForgotPassword/ResetPassword"
 import Confirmation from "./pages/auth/ForgotPassword/Confirmation"
 import { useThemeContext } from "./context/theme-context"
 import { ProtectedRoute } from "./Routes/ProtectedRoute"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import api from "./api/api"
 import { AxiosError } from "axios"
 import PostModal from "./components/modals/PostModal"
 import Layout from "./components/UI/Layout"
 import HomePageContent from "./pages/HomePage/HomePageContent"
 import HomeRightContent from "./pages/HomePage/HomeRightContent"
-import SearchPageContent from "./pages/SearchPage/SearchPageContent"
-import SearchRightContent from "./pages/SearchPage/SearchRightContent"
+import ExplorePageContent from "./pages/ExplorePage/ExplorePageContent"
+import ExploreRightContent from "./pages/ExplorePage/ExploreRightContent"
 import ConnectPageContent from "./pages/ConnectPage/ConnectPageContent"
 import ConnectRightContent from "./pages/ConnectPage/ConnectRightContent"
 import TrendsPageContent from "./pages/TrendsPage/TrendsPageContent"
@@ -32,13 +32,22 @@ import { GifProvider } from "./context/gif-context"
 import HeaderPhotoModal from "./components/modals/HeaderPhotoModal"
 import AccountPhotoModal from "./components/modals/AccountPhotoModal"
 import EditProfileModal from "./components/modals/EditProfileModal"
-import MobilePost from "./features/post/components/MobilePost"
 import BookmarkPageContent from "./pages/BookmarkPage/BookmarkPageContent"
 import BookmarkRightContent from "./pages/BookmarkPage/BookmarkRightContent"
+import SettingsPageContent from "./pages/SettingsPage/SettingsPageContent"
+import SettingsRightContent from "./pages/SettingsPage/SettingsRightContent"
 import Logout from "./pages/auth/Logout"
+import SearchPageContent from "./pages/SearchPage/SearchPageContent"
+import SearchRightContent from "./pages/SearchPage/SearchRightContent"
+import posts from "./data/posts.json"
+import users from "./data/users.json"
+import { PostProps, UserProps } from "./types"
+import CreatePostModal from "./components/modals/CreatePostModal"
 
 function App() {
   const { theme } = useThemeContext();
+  const [invertedIndex, setInvertedIndex] = useState<{ [key: string]: number[] }>({});
+  const [invertedIndex2, setInvertedIndex2] = useState<{ [key: string]: number[] }>({});
 
   useEffect(() => {
     const fetchCSRFToken = async () => {
@@ -58,8 +67,67 @@ function App() {
       }
     }
 
-    fetchCSRFToken();
+    fetchCSRFToken();  
   }, []);
+
+  useEffect(() => {
+    const addPostToIndex = (post: PostProps, currentIndex: { [key: string]: number[] }) => {
+      const words = post.postContent.toLowerCase().split(/\s+/);
+      console.log(words);
+  
+      const newIndex = { ...currentIndex }; 
+  
+      words.forEach((word) => {
+        if (!newIndex[word]) {
+          newIndex[word] = [];
+        }
+        if (!newIndex[word].includes(post.postId)) {
+          newIndex[word].push(post.postId);
+        }
+      });
+  
+      return newIndex; 
+    };
+  
+    if (posts.posts.length > 0) {
+      let newInvertedIndex: { [key: string]: number[] } = {};
+  
+      posts.posts.forEach((post) => {
+        newInvertedIndex = addPostToIndex(post, newInvertedIndex);
+      });
+  
+      setInvertedIndex(newInvertedIndex); 
+    }
+  }, [posts.posts]);
+
+  useEffect(() => {
+    const addUserToIndex = (user: UserProps, currentIndex: { [key: string]: number[] }) => {
+      const words = user.displayname.toLowerCase().split(/[\s_]+/) && user.username.toLowerCase().split(/[\s_]+/);
+  
+      const newIndex = { ...currentIndex }; 
+  
+      words.forEach((word) => {
+        if (!newIndex[word]) {
+          newIndex[word] = [];
+        }
+        if (!newIndex[word].includes(user.id)) {
+          newIndex[word].push(user.id);
+        }
+      });
+  
+      return newIndex; 
+    };
+  
+    if (users.length > 0) {
+      let newInvertedIndex: { [key: string]: number[] } = {};
+  
+      users.forEach((usr) => {
+        newInvertedIndex = addUserToIndex(usr, newInvertedIndex);
+      });
+  
+      setInvertedIndex2(newInvertedIndex); 
+    }
+  }, [users]);
 
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
@@ -76,8 +144,8 @@ function App() {
                   <Route index element={<HomePageContent />} />
                 </Route>
 
-                <Route path="explore" element={<Layout rightComponent={SearchRightContent} />}>
-                  <Route index element={<SearchPageContent />} />
+                <Route path="/explore" element={<Layout rightComponent={ExploreRightContent} />}>
+                  <Route index element={<ExplorePageContent />} />
                 </Route>
 
                 <Route path="i/connect_people" element={<Layout rightComponent={ConnectRightContent} />}>
@@ -88,15 +156,15 @@ function App() {
                   <Route index element={<TrendsPageContent />} />
                 </Route>
 
-                <Route path="notifications" element={<Layout rightComponent={NotificationRightContent} />}>
+                <Route path="/notifications" element={<Layout rightComponent={NotificationRightContent} />}>
                   <Route index element={<NotificationPageContent />} />
                 </Route>
 
-                <Route path="messages" element={<Layout rightComponent={MessageRightContent} />}>
+                <Route path="/messages" element={<Layout rightComponent={MessageRightContent} />}>
                   <Route index element={<MessagePageContent />} />
                 </Route>
 
-                <Route path="messages/:user_id/:account_id" element={<Layout rightComponent={MessageRightContent} />}>
+                <Route path="/messages/:user_id/:account_id" element={<Layout rightComponent={MessageRightContent} />}>
                   <Route index element={<MessagePageContent />} />
                 </Route>
 
@@ -104,14 +172,23 @@ function App() {
                   <Route index element={<ProfilePageContent />} />
                 </Route>
 
-                <Route path="/compose/post" element={<MobilePost />} />
-
                 <Route path="/i/bookmarks" element={<Layout rightComponent={BookmarkRightContent} />}>
                   <Route index element={<BookmarkPageContent />} />
                 </Route>
 
-                <Route path="/logout" element={<Logout />} />
+                <Route path="/search" element={<Layout rightComponent={SearchRightContent} />}>
+                  <Route index element={<SearchPageContent />} />
+                </Route>
 
+                <Route path="/settings" element={<Layout rightComponent={SettingsRightContent} />}>
+                  <Route index element={<SettingsPageContent />} />
+                </Route>
+
+                <Route path="/settings/:setting" element={<Layout rightComponent={SettingsRightContent} />}>
+                  <Route index element={<SettingsPageContent />} />
+                </Route>
+
+                <Route path="/logout" element={<Logout />} />
               </Route>
 
               <Route path="/signup" element={<Signup />} />
@@ -124,11 +201,12 @@ function App() {
             </Routes>
             {previousLocation && (
               <Routes>
+                <Route path="/compose/post" element={<CreatePostModal />} />
                 <Route path="/:username/header_photo" element={<HeaderPhotoModal />} />
                 <Route path="/:username/photo" element={<AccountPhotoModal />} />
                 <Route path="/:username/profile" element={<EditProfileModal />} />
                 <Route path="/post/:postId/photo/:photoId" element={<PostModal />} />
-                <Route path="/i/foundmedia/search" element={<GIFModal />} />
+                <Route path="/i/foundMedia/search" element={<GIFModal />} />
               </Routes>
             )}
           </GifProvider>

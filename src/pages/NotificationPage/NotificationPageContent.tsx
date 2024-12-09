@@ -6,12 +6,13 @@ import { NotificationList } from "../../features/notifications/index";
 import { useAuthContext } from "../../context/auth-context";
 import { UserProps } from "../../types";
 import users from "../../data/users.json"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NotificationPageContent = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const { user } = useAuthContext();
     const [appUser, setAppUser] = useState<UserProps | null>(null);
+    const location = useLocation();
 
     if (!user) return null;
 
@@ -26,7 +27,7 @@ const NotificationPageContent = () => {
     const labels = ["All", "Verified", "Mentions"];
 
     return (
-        <div className="border-r border-dark-border">
+        <>
             <div className="md:sticky top-0 z-30 flex flex-col bg-white dark:bg-black dark:bg-opacity-90">
                 <div className="flex items-center justify-between w-full my-3 px-5">
 
@@ -67,11 +68,11 @@ const NotificationPageContent = () => {
             </section>
 
             <div className="sm:hidden rounded-full w-14 h-14 fixed bottom-20 right-5 z-10 bg-secondary flex shadow-sm shadow-white items-center justify-center">
-                <Link to="/compose/post" state={{ from: "/notifications"}}>
+                <Link to="/compose/post" state={{ previousLocation: location.pathname }}>
                     <LuLeaf className="text-2xl text-white" />
                 </Link>
             </div>
-        </div>
+        </>
     );
 }
 

@@ -27,7 +27,7 @@ const BookmarkPageContent = () => {
         setSearchContent("");
     };
     return (
-        <div className="border-r border-dark-border">
+        <>
             <div className="px-2 lg:px-4">
                 <div className="sm:sticky top-0 flex items-center justify-start gap-6 mt-2 mb-5">
                     <Link to={from} aria-label="Go back">
@@ -57,7 +57,7 @@ const BookmarkPageContent = () => {
             {searchContent && (<div className="absolute top-[4.2rem] md:top-50 right-10 md:right-28 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuXCircle className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 md:w-10 md:h-10 text-white')} /></div>)}
 
             <BookmarkedPosts posts={bookmarkedPosts.bookmarkedPosts} />
-        </div>
+        </>
     )
 }
 

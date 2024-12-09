@@ -258,5 +258,18 @@
     "isCreator": true,
     "isVerified": true,
     "createdAt": "2023-01-09"
+  },
+  {
+    "id": 21,
+    "image": "https://loremflickr.com/200/200?random=43",
+    "coverPhoto": "https://loremflickr.com/800/200?random=42",
+    "displayname": "BarcaGuru",
+    "username": "sport_guru",
+    "bio": "Messi fan | Sport Analyst",
+    "followerCount": 170000,
+    "followingCount": 1000,
+    "isCreator": true,
+    "isVerified": true,
+    "createdAt": "2023-01-09"
   }
 ]

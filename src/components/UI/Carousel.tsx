@@ -13,6 +13,7 @@ export default function EmblaCarousel({ images }: CarouselProps) {
     const { postId, photoId } = useParams<{ postId: string; photoId: string }>();
     const navigate = useNavigate();
     const location = useLocation();
+    const count = images.length
 
     if (photoId === null) {
         return null
@@ -50,14 +51,14 @@ export default function EmblaCarousel({ images }: CarouselProps) {
                 </div>
             </div>
 
-            <div>
+            {count > 1 && <div>
                 <Button className={twMerge(buttonStyles({variant: "blueghost", size: "icon"}), "embla__prev absolute left-5 top-72 bg-transparent text-neutral-300")} onClick={scrollPrev}>
                     <LuArrowLeft />
                 </Button>
                 <Button className={twMerge(buttonStyles({variant: "blueghost", size: "icon"}),"embla__next absolute right-5 top-72 bg-transparent text-neutral-300")} onClick={scrollNext}>
                     <LuArrowRight />
                 </Button>
-            </div>
+            </div>}
         </div>
     )
 }

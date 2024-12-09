@@ -9,7 +9,7 @@ import Button, { buttonStyles } from "../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import twitter from "../../assets/white-twitter.png"
 import { LuLeaf } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useMobileSidebar } from "../../hooks/useMobileSideBar";
 import MobileSidebar from "../../components/general/MobileSidebar";
 
@@ -17,6 +17,7 @@ const HomePageContent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { user } = useAuthContext();
   const { isProfileSidebarOpen, toggleProfileSidebar } = useMobileSidebar();
+  const location = useLocation();
 
   const [appUser, setAppUser] = useState<UserProps | null>(null);
 
@@ -35,7 +36,7 @@ const HomePageContent = () => {
   const labels = ["For You", "Following"];
 
   return (
-    <div className="border-r border-dark-border">
+    <>
       <div className="sm:sticky top-0">
         
         <div className="sm:hidden flex items-center justify-between mt-2 mb-3 px-4">
@@ -65,7 +66,7 @@ const HomePageContent = () => {
         </div>
       </div>
 
-      <div className="hidden post sm:flex self-start w-full px-3 py-5 gap-2 border-b border-dark-border ">
+      <div className="hidden post sm:flex self-start w-full px-4 py-5 gap-2 border-b border-dark-border ">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
           <img src={appUser?.image} className="rounded-full w-full h-full object-contain object-center" alt={`${appUser?.displayname} profile image`} />
         </div>
@@ -84,14 +85,14 @@ const HomePageContent = () => {
       </section>
 
       <div className="sm:hidden rounded-full w-14 h-14 fixed bottom-20 right-5 z-10 bg-secondary flex shadow-sm shadow-white items-center justify-center">
-        <Link to="/compose/post" state={{ from: "/"}}>
+        <Link to="/compose/post" state={{ previousLocation: location.pathname }}>
           <LuLeaf className="text-2xl text-white" />
         </Link>
       </div>
 
       <MobileSidebar isOpen={isProfileSidebarOpen} onClose={toggleProfileSidebar} user={appUser} />
 
-    </div>
+    </>
   );
 }
 

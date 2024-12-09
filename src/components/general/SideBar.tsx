@@ -2,7 +2,7 @@ import { ElementType, useEffect, useState } from "react";
 import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome, LuCircleEllipsis, LuMoreHorizontal } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/auth-context";
 import users from "../../data/users.json"
 import { UserProps } from "../../types";
@@ -12,6 +12,8 @@ import MoreDisplay from "./MoreDisplay";
 
 export default function SideBar() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const { user } = useAuthContext();
   const [isMoreDisplayOpen, setIsMoreDisplayOpen] = useState(false);
@@ -47,15 +49,16 @@ export default function SideBar() {
     { Icon: LuMail, url: "/messages" },
   ];
 
-  console.log({ location })
-
   useEffect(() => {
     const index = sidebarItems.findIndex(item => location.pathname === item.url);
     setActiveIndex(index !== -1 ? index : 0);
   }, [location]);
 
-  console.log({ activeIndex })
-
+  const handleClick = () => {
+    navigate('/compose/post', {
+      state: { previousLocation: location.pathname }
+    });
+  }
 
   return (
     <>
@@ -85,7 +88,7 @@ export default function SideBar() {
             <p className="hidden xl:block text-xl dark:text-white">More</p>
           </div>
 
-          <Button className={twMerge(buttonStyles({ variant: "ghost" }), "flex xl:hidden bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
+          <Button onClick={handleClick} className={twMerge(buttonStyles({ variant: "ghost" }), "flex xl:hidden bg-secondary hover:bg-transparent items-center p-3 gap-3")}>
             <LuLeaf className="w-6 h-6" />
           </Button>
 

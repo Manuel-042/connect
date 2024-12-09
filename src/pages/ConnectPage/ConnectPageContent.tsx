@@ -30,7 +30,7 @@ const ConnectPageContent = () => {
     }
 
     return (
-        <div className="border-r border-gray-700 pb-10">
+        <div className="pb-10">
             <div className="sticky top-0 flex z-10 pb-2 flex-col bg-black dark:bg-opacity-90">
                 <div className="flex items-center justify-between w-full mt-2 px-5">
                     <div className="flex items-center gap-3">

@@ -56,7 +56,7 @@ const ProfilePageContent = () => {
     }
 
     return (
-        <div className='border-r border-dark-border'>
+        <>
             <div className="sticky top-0 z-10 dark:bg-black dark:bg-opacity-90 flex items-center gap-3 p-1">
                 <div className="flex items-center justify-center" onClick={handleBackClick}>
                     <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuArrowLeft className='text-xl' /></Button>
@@ -160,7 +160,7 @@ const ProfilePageContent = () => {
 
                 </div>
             </section>
-        </div>
+        </>
     )
 }
 

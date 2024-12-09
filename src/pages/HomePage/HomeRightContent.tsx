@@ -1,8 +1,7 @@
 import Button  from "../../components/UI/Button";
-import trends from "../../data/trends.json"
-import RecommenderUserList from "../../components/general/RecommenderUserList";
-import TrendsList from "../../features/trends/components/TrendsList";
 import Search from "../../components/general/Search";
+import Recommendation from "../../components/general/Recommendation";
+import Trends from "../../components/general/trends";
 
 
 const HomeRightContent = () => {
@@ -18,21 +17,8 @@ const HomeRightContent = () => {
         <Button className="cursor-pointer font-bold text-sm">Subscribe</Button>
       </div>
 
-      <div className="rounded-2xl flex flex-col items-start border border-dark-border justify-start gap-3 py-3 mt-4">
-        <h3 className="dark:text-neutral-300 text-xl font-bold px-3">Trends for you</h3>
-
-        <TrendsList data={trends} limit={10} />
-
-      </div>
-
-      <div className="rounded-2xl flex flex-col items-start border border-dark-border justify-start gap-3 py-3 mt-4">
-        <h3 className="dark:text-neutral-300 text-xl font-bold px-3">Who to follow</h3>
-
-        <RecommenderUserList limit={3} />
-
-      </div>
-
-
+      <Trends />
+      <Recommendation />
     </div>
   );
 }

@@ -29,7 +29,6 @@ const EditProfileModal = () => {
     const user = location.state?.user;
     const from = location.state?.previousLocation;
 
-
     console.log({ user });
 
     if (!modalRoot || !user) {

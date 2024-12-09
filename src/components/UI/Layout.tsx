@@ -10,12 +10,11 @@ function Layout({ rightComponent: RightComponent }: LayoutProps) {
     const isCustomPage = location.pathname.includes("/messages") || location.pathname.includes("/settings");
 
     return (
-        <div className="layout flex w-full md:max-w-[680px] lg:max-w-[1060px] xl:max-w-[1282px] md:mx-auto min-h-screen">
+        <div className="layout flex w-full md:max-w-[680px] mlg:max-w-[700px] lg:max-w-[1060px] xl:max-w-[1282px] md:mx-auto min-h-screen">
             <Sidebar />
-            <div className={`${isCustomPage ? '' : 'w-[85%] flex-grow lg:w-[55%]'}`}><Outlet /></div>
-            <div className={`${isCustomPage ? '' : 'hidden lg:block w-[35%] lg:px-6'}`}><RightComponent /></div>
+            <div className={`${isCustomPage ? '' : 'w-[65%] flex-grow lg:w-[55%]'} border-r border-dark-border`}><Outlet /></div>
+            <div className={`${isCustomPage ? '' : 'hidden lg:block w-[35%] lg:px-6'} `}><RightComponent /></div>
         </div>
-        
     );
 }
 

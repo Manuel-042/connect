@@ -39,7 +39,7 @@ const MessagePageContent = () => {
     };
 
     return (
-        <div className="w-screen md:w-[600px] lg:w-[400px] xl:w-[500px] border-r border-dark-border mb-10 md:mb-0 lg:max-h-screen lg:overflow-y-auto">
+        <div className="w-screen md:w-[600px] lg:w-[400px] xl:w-[500px] mb-10 md:mb-0 lg:max-h-screen lg:overflow-y-auto">
 
             <div className="md:sticky top-0 z-20 bg-white dark:bg-black dark:bg-opacity-70 flex items-center justify-between py-3 px-4" >
                 <div className="flex items-center gap-5">
