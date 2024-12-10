@@ -4,7 +4,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 console.log("Re-Mounts");
 
 type UserProfile = {
-    id: string;
+    id?: string;
     username: string;
     email: string;
 }

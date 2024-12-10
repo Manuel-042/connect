@@ -130,6 +130,8 @@ function App() {
     }
   }, [users]);
 
+  console.log({invertedIndex, invertedIndex2})
+
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
   console.log({ previousLocation })

@@ -1,6 +1,6 @@
 import Search from "../../components/general/Search";
 import Recommendation from "../../components/general/Recommendation";
-import Trends from "../../components/general/trends";
+import Trends from "../../components/general/Trends"
 
 
 const NotificationRightContent = () => {

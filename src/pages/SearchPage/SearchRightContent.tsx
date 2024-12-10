@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Recommendation from "../../components/general/Recommendation";
-import Trends from "../../components/general/trends"
+import Trends from "../../components/general/Trends"
 
 
 const FilterOptions = () => {
