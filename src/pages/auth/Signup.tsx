@@ -59,7 +59,7 @@ const SignUp = () => {
 
     return ReactDOM.createPortal(
         <div className="modal-overlay1">
-            <div onClick={(e) => e.stopPropagation()} className="relative text-white bg-black px-3 py-4 rounded-2xl w-1/2 flex flex-col items-center justify-center">
+            <div onClick={(e) => e.stopPropagation()} className="relative text-white bg-black px-5 lg:px-3 py-4 lg:rounded-2xl w-full h-screen lg:h-auto lg:w-1/2 flex flex-col items-center justify-center">
                 <Button
                     type="button"
                     onClick={isFirstStep ? handleCloseModal : back}
@@ -70,7 +70,7 @@ const SignUp = () => {
 
                 <img src={twitter} alt="twitter logo" className="w-10 h-10 object-contain mb-7" />
 
-                <form className='flex flex-col justify-between gap-2 mb-7 w-[70%]' onClick={handleSubmit}>
+                <form className='flex flex-col justify-between gap-2 mb-7 w-full lg:w-[70%]' onClick={handleSubmit}>
                     <div className="absolute top-3 right-10">{currentStepIndex + 1} / {steps.length}</div>
 
                     {step}

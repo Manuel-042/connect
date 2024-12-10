@@ -10,17 +10,18 @@ const Landing: React.FunctionComponent = () => {
     const location = useLocation();
 
     return (
-        <div className="flex gap-3 w-full min-h-screen relative">
-            <div className='w-1/2 flex items-center justify-center'>
-                <img src={twitterLogo} alt="twitter logo" className='w-[60%] h-[60%] object-cover'/>
+        <div className="flex flex-col p-5 sm:p-0 lg:flex-rowgap-3 w-full min-h-screen relative">
+
+            <div className='lg:w-1/2 flex items-center justify-start lg:justify-center'>
+                <img src={twitterLogo} alt="twitter logo" className='w-[18%] h-[18%] lg:w-[60%] lg:h-[60%] object-cover'/>
             </div>
 
-            <div className="w-1/2 flex flex-col">           
-                <h1 className="mt-24 font-extrabold text-7xl dark:text-white">Happening now</h1>
+            <div className="lg:w-1/2 flex flex-col">           
+                <h1 className="mt-12 lg:mt-24 font-extrabold text-5xl lg:text-7xl dark:text-white">Happening now</h1>
 
-                <h3 className='dark:text-white text-3xl font-extrabold my-8'>Join today.</h3>
+                <h3 className='dark:text-white text-2xl lg:text-3xl font-extrabold my-8'>Join today.</h3>
 
-                <div className='flex flex-col items-center justify-between gap-2 w-[50%]'>
+                <div className='flex flex-col items-center justify-between gap-2 lg:w-[50%]'>
 
                     <button className='dark:bg-white text-sm font-bold rounded-full flex gap-2 items-center justify-center w-full py-2'>
                         <img src={google} alt="Google icon" className='w-4 h-4' />
