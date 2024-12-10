@@ -10,7 +10,7 @@ const Landing: React.FunctionComponent = () => {
     const location = useLocation();
 
     return (
-        <div className="flex flex-col p-5 sm:p-0 lg:flex-rowgap-3 w-full min-h-screen relative">
+        <div className="flex flex-col p-5 sm:p-0 lg:flex-row gap-3 w-full min-h-screen relative">
 
             <div className='lg:w-1/2 flex items-center justify-start lg:justify-center'>
                 <img src={twitterLogo} alt="twitter logo" className='w-[18%] h-[18%] lg:w-[60%] lg:h-[60%] object-cover'/>
