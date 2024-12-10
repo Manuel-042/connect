@@ -7,32 +7,33 @@ import { useAuthContext } from "../../context/auth-context";
 import users from "../../data/users.json"
 import { UserProps } from "../../types";
 import MoreDisplay from "./MoreDisplay";
+import AccountSetting from "./AccountSetting";
 
 
 
 export default function SideBar() {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const [activeIndex, setActiveIndex] = useState(0);
   const { user } = useAuthContext();
+
+  // Ensure hooks are always called
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isMoreDisplayOpen, setIsMoreDisplayOpen] = useState(false);
-    
+  const [isAccountSettingOpen, setIsAccountSettingOpen] = useState(false);
+  const [appUser, setAppUser] = useState<UserProps | null>(null);
+
+  // Early return outside hook logic
+  if (!user) {
+    return null; 
+  }
+
   const toggleMoreDisplayOpen = () => {
     setIsMoreDisplayOpen(prev => !prev);
   };
 
-  const [appUser, setAppUser] = useState<UserProps | null>(null);
-
-  if (!user) return null;
-
-  useEffect(() => {
-    const foundUser = users.find(usr => usr.id === Number(user.id));
-    if (!foundUser) {
-      return
-    }
-    setAppUser(foundUser);
-  }, [user]);
+  const toggleAccountSettingOpen = () => {
+    setIsAccountSettingOpen(prev => !prev);
+  };
 
   const sidebarItems = [
     { Icon: LuHome, url: "/", title: "Home" },
@@ -50,15 +51,24 @@ export default function SideBar() {
   ];
 
   useEffect(() => {
+    const foundUser = users.find(usr => usr.id === Number(user.id));
+    setAppUser(foundUser || null);
+  }, [user]);
+
+  useEffect(() => {
     const index = sidebarItems.findIndex(item => location.pathname === item.url);
     setActiveIndex(index !== -1 ? index : 0);
   }, [location]);
 
+  if (!appUser) return null;
+
+  
+
   const handleClick = () => {
     navigate('/compose/post', {
-      state: { previousLocation: location.pathname }
+      state: { previousLocation: location.pathname },
     });
-  }
+  };
 
   return (
     <>
@@ -97,7 +107,7 @@ export default function SideBar() {
           </Button>
         </div>
 
-        <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 xl:hidden bg-transparent hover:bg-transparent mt-auto w-10 h-10")}>
+        <Button onClick={toggleAccountSettingOpen} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 xl:hidden bg-transparent hover:bg-transparent mt-auto w-10 h-10")}>
           <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
         </Button>
 
@@ -130,6 +140,7 @@ export default function SideBar() {
       </aside>
 
       <MoreDisplay isOpen={isMoreDisplayOpen} toggleMoreDisplayOpen={toggleMoreDisplayOpen}/>
+      <AccountSetting isOpen={isAccountSettingOpen} toggleAccountSettingOpen={toggleAccountSettingOpen} user={appUser}/>
     </>
   );
 }

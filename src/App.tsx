@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import NotFound from "./pages/NotFound"
 import Signup from "./pages/auth/Signup"
-import Login from "./pages/auth/Login"
 import Forgot from "./pages/auth/ForgotPassword/Forgot"
 import OTPVerification from "./pages/auth/ForgotPassword/OTPVerification"
 import ResetPassword from "./pages/auth/ForgotPassword/ResetPassword"
@@ -43,6 +42,8 @@ import posts from "./data/posts.json"
 import users from "./data/users.json"
 import { PostProps, UserProps } from "./types"
 import CreatePostModal from "./components/modals/CreatePostModal"
+import Login from "./pages/auth/Login"
+import Landing from "./pages/Landing"
 
 function App() {
   const { theme } = useThemeContext();
@@ -139,8 +140,11 @@ function App() {
         <div className="">
           <GifProvider>
             <Routes location={previousLocation ? { pathname: previousLocation } : location}>
+
+              <Route path="/" element={<Landing />} />
+
               <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Layout rightComponent={HomeRightContent} />}>
+                <Route path="/home" element={<Layout rightComponent={HomeRightContent} />}>
                   <Route index element={<HomePageContent />} />
                 </Route>
 
@@ -191,16 +195,17 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
               </Route>
 
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<Forgot />} />
-              <Route path="/verify-code" element={<OTPVerification email={"ebukaezeanya14@gmail.com"} />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/reset-success" element={<Confirmation />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             {previousLocation && (
               <Routes>
+                <Route path="/i/flow/signup" element={<Signup />} />
+                <Route path="/i/flow/login" element={<Login />} />
+                <Route path="/forgot-password" element={<Forgot />} />
+                <Route path="/verify-code" element={<OTPVerification email={"ebukaezeanya14@gmail.com"} />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/reset-success" element={<Confirmation />} />
+
                 <Route path="/compose/post" element={<CreatePostModal />} />
                 <Route path="/:username/header_photo" element={<HeaderPhotoModal />} />
                 <Route path="/:username/photo" element={<AccountPhotoModal />} />

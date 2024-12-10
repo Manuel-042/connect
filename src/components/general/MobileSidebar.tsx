@@ -22,7 +22,6 @@ const MobileSidebar = ({ isOpen, onClose, user }: MobileSideBarProps) => {
         { Icon: LuLogOut, url: "/logout", title: "Logout" }
     ];
 
-
     return (
         <div className={`fixed top-0 z-50 overflow-hidden left-0 h-full w-full max-w-xs bg-overlay transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
             }`} onClick={onClose}>

@@ -18,7 +18,8 @@ const CreatePostModal = () => {
     const modalRoot = document.getElementById('modal-root');
     const { user } = useAuthContext();
     const [appUser, setAppUser] = useState<UserProps | null>(null);
-    const from = location?.state?.from || '/';
+
+    const from = location?.state?.previousLocation || '/home';
     console.log({ from })
 
     if (!user) return null;

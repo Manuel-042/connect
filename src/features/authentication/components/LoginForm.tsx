@@ -31,7 +31,7 @@ const LoginForm: React.FunctionComponent = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
 
   const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({ defaultValues: {email: user?.email}, resolver: zodResolver(schema) });
   const [type, setType] = useState('password');
