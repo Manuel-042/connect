@@ -21,7 +21,7 @@ type MessageProps = {
         timestamp: string;
         is_read: boolean;
     }[];
-    onClick: (user_id: string, account_id: string) => void;
+    onClick: (user_id: string, account_id: any) => void;
     active: boolean;
 };
 
@@ -41,16 +41,16 @@ type UserProps = {
 
 function Message({ user_id, last_message, last_message_date, is_unread, onClick, active }: MessageProps) {
 
-    const [appUser, setAppUser] = useState<UserProps | any | null>(null);
+    const [appUser, setAppUser] = useState<UserProps | any >(null);
 
     const { user } = useAuthContext();
-
-    if (!user) return;
 
     useEffect(() => {
         const foundUser = users.find(user => user.id === Number(user_id));
         setAppUser(foundUser);
     }, [user_id, users]);
+
+    if (!user) return null;
 
     return (
         <div onClick={() => onClick(user_id, user?.id)}className={`px-3 py-3 hover:bg-gray-500 hover:bg-opacity-20 ${is_unread && 'bg-gray-500 bg-opacity-20'} ${active && 'bg-gray-500 bg-opacity-20 border-r-4 border-secondary'}`}>

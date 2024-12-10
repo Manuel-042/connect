@@ -36,7 +36,7 @@ const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) 
 };
 
 
-const UserNameForm = () => {
+const UsernameForm = () => {
     const [username, setUsername] = useState("");
     return (
         <div>
@@ -57,4 +57,4 @@ const UserNameForm = () => {
     )
 }
 
-export default UserNameForm
+export default UsernameForm

@@ -9,14 +9,14 @@ function MessagesList() {
     const { user } = useAuthContext();
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-    if (!user) return;
-
     const navigate = useNavigate();
 
-    const handleNavigation = (user_id: string, account_id: string, index: number) => {
+    const handleNavigation = (user_id: string, account_id: any, index: number) => {
         navigate(`/messages/${user_id}/${account_id}`);
         setActiveIndex(index)
     };
+
+    if (!user) return null ;
 
     return (
         <div className="w-full mt-3 md:overflow-hidden dark:text-white">

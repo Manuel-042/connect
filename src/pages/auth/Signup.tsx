@@ -12,7 +12,7 @@ import { CreateAccountForm } from "../../features/authentication";
 import VerifyAccountForm from "../../features/authentication/components/SignupProcess/VerifyAccountForm";
 import PasswordForm from "../../features/authentication/components/SignupProcess/PasswordForm";
 import ProfilePictureForm from "../../features/authentication/components/SignupProcess/ProfilePictureForm";
-import UserNameForm from "../../features/authentication/components/SignupProcess/UserNameForm";
+import UserNameForm from "../../features/authentication/components/SignupProcess/UsernameForm";
 import NotificationsForm from "../../features/authentication/components/SignupProcess/NotificationsForm";
 
 
