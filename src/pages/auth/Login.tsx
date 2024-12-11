@@ -48,7 +48,7 @@ const Login = () => {
     return ReactDOM.createPortal(
         <div className="modal-overlay1" onClick={handleCloseModal}>
 
-            <div onClick={(e) => e.stopPropagation()} className="relative text-white bg-black px-3 py-4 lg:rounded-2xl w-full h-screen lg:h-auto lg:w-1/2 flex flex-col items-center">
+            <div onClick={(e) => e.stopPropagation()} className="relative text-white bg-black px-8 lg:px-3 py-4 lg:rounded-2xl w-full h-screen lg:h-auto lg:w-1/2 flex flex-col items-center">
 
                 <Button
                     type="button"
