@@ -59,7 +59,7 @@ const Login = () => {
                 </Button>
 
         
-                <div className='flex flex-col items-center justify-between gap-2 mb-7 lg:w-[50%]'>
+                <div className='flex flex-col items-center justify-between gap-2 mb-7 w-full lg:w-[50%]'>
                     <img src={twitter} alt="twitter logo" className="w-10 h-10 object-contain mb-4" />
 
                     <h1 className="font-bold text-3xl mb-5 self-start text-slate-100">Sign in to X</h1>
