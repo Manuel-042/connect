@@ -15,6 +15,7 @@ export default {
         md: "689px",
         'mlg': "706px",
         lg: "1005px",
+        'lxl': "1024px",
         xl: "1281px", 
       },
       colors: {
