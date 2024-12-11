@@ -10,7 +10,7 @@ const BookmarkPageContent = () => {
     const [isFocused, setIsFocused] = useState(false);
     const [searchContent, setSearchContent] = useState("");
     const location = useLocation();
-    const from = location?.state?.from || "/";
+    const from = location?.state?.from || "/home";
 
     const handleFocus = () => {
         setIsFocused(prev => !prev);

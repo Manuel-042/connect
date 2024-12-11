@@ -21,7 +21,7 @@ const SearchPageContent = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location?.state?.from || "/";
+    const from = location?.state?.from || "/home";
 
     const { searchResults } = location.state || {};
     console.log("Serch Results from Search Page", searchResults);

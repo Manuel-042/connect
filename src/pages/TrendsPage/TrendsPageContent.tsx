@@ -8,7 +8,7 @@ const TrendsPageContent = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from || "/";
+    const from = location.state?.from || "/home";
 
     const handleBackClick = () => {
         navigate(from, { replace: true });

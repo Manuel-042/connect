@@ -11,7 +11,7 @@ const ConnectPageContent = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/home";
 
     const labels = ["Who to follow", "Creators for you"];
 

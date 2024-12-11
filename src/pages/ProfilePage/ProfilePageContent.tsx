@@ -49,7 +49,7 @@ const ProfilePageContent = () => {
 
     const labels = isLoggedInUser ? ["Posts", "Replies", "Highlights", "Articles", "Media", "Likes"] : ["Posts", "Replies", "Media"];
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/home";
 
     const handleBackClick = () => {
         navigate(from, { replace: true })

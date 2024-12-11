@@ -33,7 +33,7 @@ const MobileCreatePost = () => {
         setPostContent(val);
     };
 
-    const from = location?.state?.from || '/';
+    const from = location?.state?.from || '/home';
     console.log({from})
 
 
