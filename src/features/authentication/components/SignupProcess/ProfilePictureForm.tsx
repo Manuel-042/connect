@@ -1,7 +1,8 @@
 import { LuImagePlus } from 'react-icons/lu'
-import profileImage from "../../../../assets/profileimage.png"
+import defaultImage from "../../../../assets/profileimage.png"
 import Button, { buttonStyles } from '../../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
+import { useRef, useState } from 'react'
 
 type ProfilePictureFormProps = {
   key?: string;
@@ -10,8 +11,23 @@ type ProfilePictureFormProps = {
 }
 
 const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoading }) => {
+  const [inputFile, setInputFile] = useState<File | null>(null);
+  const [profileImage, setProfileImage] = useState<string>("");
+  // const imageContainerRef = useRef<HTMLInputElement>(null);
+
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setInputFile(file);
+      setProfileImage(imageUrl);
+    }
+  };
+
   const handleSubmit = async () => {
     // const success = await api.post('/api/set-password', { password });
+    console.log({ inputFile })
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -28,11 +44,21 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
       <h1 className="dark:text-white font-semibold text-3xl mb-1">Pick a profile picture</h1>
       <p className="dark:text-dark-text text-base mb-7">Have a favourite selfie? Upload it now</p>
 
-      <div className='flex items-center justify-center h-72'>
-        <input type="file" id="profile" className='hidden' />
-        <label htmlFor='profile' className="flex cursor-pointer items-center justify-center w-36 h-36 border border-dark-border rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${profileImage})` }}>
-          <LuImagePlus className='w-5 h-5' />
+      <div className='flex items-center justify-center h-72' >
+        <label htmlFor="profileInput" className="cursor-pointer flex items-center justify-center">
+          <div className="w-36 h-36 flex items-center justify-center border border-dark-border rounded-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${profileImage || defaultImage})` }}>
+            <LuImagePlus className="w-5 h-5" />
+          </div>
         </label>
+
+        <input
+          id="profileInput"
+          type="file"
+          className="hidden"
+          onChange={onFileChange}
+        />
+
       </div>
 
       <div className='mt-7 flex gap-3 flex-col'>
@@ -40,7 +66,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
           onClick={handleSubmit}
           type="button"
           className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
-          >
+        >
           Next
         </Button>
 

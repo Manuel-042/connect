@@ -41,10 +41,11 @@ type PasswordFormProps = {
   key?: string;
   next: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  updateFormData: (key: string, value: string) => void;
 }
 
 
-const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading }) => {
+const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFormData }) => {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
@@ -57,6 +58,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading }) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      updateFormData("password", password)
       next();
     }, 2000);
 
@@ -86,7 +88,6 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading }) => {
         value={cPassword}
         setValue={setCPassword}
       />
-
       <Button
         onClick={handleSubmit}
         type="button"

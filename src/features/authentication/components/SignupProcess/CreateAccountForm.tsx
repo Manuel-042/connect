@@ -58,9 +58,10 @@ type CreateAccountFormProps = {
     key?: string;
     next: () => void;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
 }
 
-const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading }) => {
+const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, updateFormData }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({
@@ -139,6 +140,8 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading }
         setLoading(true);
         setTimeout(() => {
             setLoading(false); 
+            updateFormData("name", name);
+            updateFormData("email", email);
             next();
         }, 2000);
 

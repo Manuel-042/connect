@@ -41,10 +41,11 @@ type UsernameFormProps = {
     key?: string;
     next: () => void;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
 }
 
 
-const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading }) => {
+const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFormData }) => {
     const [username, setUsername] = useState("");
 
     const handleSubmit = async () => {
@@ -53,6 +54,7 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading }) => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
+            updateFormData("username", username)
             next();
         }, 2000);
 

@@ -9,9 +9,10 @@ type VerifyAccountFormProps = {
     next: () => void;
     email: string;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
 }
 
-const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLoading }) => {
+const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLoading, updateFormData }) => {
     const length = 6;
     const [otpValues, setOtpValues] = useState(Array(length).fill(""));
     const [isFormValid, setIsFormValid] = useState(false);
@@ -69,6 +70,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
         setLoading(true);
         setTimeout(() => {
             setLoading(false); 
+            updateFormData("otp", otpValues.toString());
             next();
         }, 2000);
 

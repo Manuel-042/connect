@@ -23,6 +23,20 @@ const SignUp = () => {
     const from = location.state?.previousLocation;
     const [loading, setLoading] = useState(false);
 
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        otp: "",
+        password: "",
+        profilePicture: "",
+        username: "",
+        notifications: false,
+    });
+
+    const updateFormData = (key: string, value: string | boolean) => {
+        setFormData((prev) => ({ ...prev, [key]: value }));
+    };
+
     const {
         steps,
         step,
@@ -32,7 +46,7 @@ const SignUp = () => {
         next
     } = useMultiStepForm([
         <CreateAccountForm key="create" />,
-        <VerifyAccountForm key="verify" email="manuel****@gmail.com" />,
+        <VerifyAccountForm key="verify" email={formData.email} />,
         <PasswordForm key="password" />,
         <ProfilePictureForm key="profile" />,
         <UserNameForm key="username" />,
@@ -42,6 +56,7 @@ const SignUp = () => {
     const stepWithProps = React.cloneElement(step, {
         next,
         setLoading,
+        updateFormData
     });
 
 
@@ -90,7 +105,7 @@ const SignUp = () => {
 
                 <img src={twitter} alt="twitter logo" className="w-10 h-10 object-contain mb-7" />
 
-                <form className='flex flex-col justify-between gap-2 mb-7 w-full lg:w-[70%]' onClick={handleSubmit}>
+                <div className='flex flex-col justify-between gap-2 mb-7 w-full lg:w-[70%]' onSubmit={handleSubmit}>
                     <div className="absolute top-3 right-10">{currentStepIndex + 1} / {steps.length}</div>
 
                     {loading ? "Loading..." : stepWithProps}
@@ -105,7 +120,7 @@ const SignUp = () => {
                             {loading ? "Loading..." : (isLastStep ? "Submit" : "Next")}
                         </Button>
                     </div> */}
-                </form>
+                </div>
             </div>
         </div>,
         modalRoot

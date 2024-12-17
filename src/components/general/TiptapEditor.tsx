@@ -71,50 +71,50 @@ const TiptapEditor = () => {
           },
         },
       }),
-      Mention.configure({
-        HTMLAttributes: {
-          class: 'hashtag',
-        },
-        suggestion: {
-          char: '#', 
-          items: ({ query }) => {
-            return users.filter((user) =>
-              user.username.toLowerCase().startsWith(query.toLowerCase())
-            );
-          },
-          render: () => {
-            let component;
+      // Mention.configure({
+      //   HTMLAttributes: {
+      //     class: 'hashtag',
+      //   },
+      //   suggestion: {
+      //     char: '#', 
+      //     items: ({ query }) => {
+      //       return users.filter((user) =>
+      //         user.username.toLowerCase().startsWith(query.toLowerCase())
+      //       );
+      //     },
+      //     render: () => {
+      //       let component;
 
-            return {
-              onStart: (props) => {
-                component = document.createElement('div');
-                component.classList.add('suggestion-container');
-                document.body.appendChild(component);
-              },
-              onUpdate: (props) => {
-                component.innerHTML = props.items
-                  .map(
-                    (item) =>
-                      `<div class="suggestion-item" data-username="${item.username}">
-                        ${item.username}
-                      </div>`
-                  )
-                  .join('');
-              },
-              onKeyDown: (props) => {
-                if (props.event.key === 'Enter') {
-                  props.command(props.items[0]);
-                  return true;
-                }
-                return false;
-              },
-              onExit: () => {
-                component && component.remove();
-              },
-            };
-          },
-        },
-      }),
+      //       return {
+      //         onStart: (props) => {
+      //           component = document.createElement('div');
+      //           component.classList.add('suggestion-container');
+      //           document.body.appendChild(component);
+      //         },
+      //         onUpdate: (props) => {
+      //           component.innerHTML = props.items
+      //             .map(
+      //               (item) =>
+      //                 `<div class="suggestion-item" data-username="${item.username}">
+      //                   ${item.username}
+      //                 </div>`
+      //             )
+      //             .join('');
+      //         },
+      //         onKeyDown: (props) => {
+      //           if (props.event.key === 'Enter') {
+      //             props.command(props.items[0]);
+      //             return true;
+      //           }
+      //           return false;
+      //         },
+      //         onExit: () => {
+      //           component && component.remove();
+      //         },
+      //       };
+      //     },
+      //   },
+      // }),
     ],
     content: '',
   });

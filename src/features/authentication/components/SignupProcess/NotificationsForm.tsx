@@ -6,9 +6,10 @@ type NotificationsFormProps = {
   key?: string;
   next: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  updateFormData: (key: string, value: string | boolean) => void;
 }
 
-const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading }) => {
+const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading, updateFormData }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -16,6 +17,7 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      updateFormData("notifications", true)
       navigate("/home");
     }, 2000);
 
