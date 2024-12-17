@@ -1,6 +1,6 @@
 
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import Button, { buttonStyles } from "../../components/UI/Button";
@@ -21,9 +21,29 @@ const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.previousLocation;
-    const [isFormValid, setIsFormValid] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const { steps, currentStepIndex, step, isFirstStep, back, next, isLastStep, isFourthStep } = useMultiStepForm([<CreateAccountForm onFormValid={setIsFormValid}/>, <VerifyAccountForm email={"ebukaezeanya14@gmail.com"} />, <PasswordForm />, <ProfilePictureForm />, <UserNameForm />, <NotificationsForm />])
+    const {
+        steps,
+        step,
+        currentStepIndex,
+        isFirstStep,
+        back,
+        next
+    } = useMultiStepForm([
+        <CreateAccountForm key="create" />,
+        <VerifyAccountForm key="verify" email="manuel****@gmail.com" />,
+        <PasswordForm key="password" />,
+        <ProfilePictureForm key="profile" />,
+        <UserNameForm key="username" />,
+        <NotificationsForm key="notifications" />
+    ]);
+
+    const stepWithProps = React.cloneElement(step, {
+        next,
+        setLoading,
+    });
+
 
     useEffect(() => {
         disableBodyScroll(document.body);
@@ -73,16 +93,18 @@ const SignUp = () => {
                 <form className='flex flex-col justify-between gap-2 mb-7 w-full lg:w-[70%]' onClick={handleSubmit}>
                     <div className="absolute top-3 right-10">{currentStepIndex + 1} / {steps.length}</div>
 
-                    {step}
+                    {loading ? "Loading..." : stepWithProps}
 
-                    <div className="flex gap-3 items-center w-full my-4">
-                        <Button onClick={next} type="button" disabled={!isFormValid} className={twMerge(buttonStyles(), `w-full py-3 font-bold dark:bg-white text-black disabled:dark:bg-opacity-30 disabled:cursor-not-allowed`)}>{isLastStep
-                            ? "Submit"
-                            : (isFourthStep
-                                ? "Skip for now"
-                                : "Next")}
+                    {/* <div className="flex gap-3 items-center w-full my-4">
+                        <Button
+                            onClick={handleNextStep}
+                            type="button"
+                            disabled={loading || !isFormValid}
+                            className={twMerge(buttonStyles(), "w-full py-3 font-bold")}
+                        >
+                            {loading ? "Loading..." : (isLastStep ? "Submit" : "Next")}
                         </Button>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>,

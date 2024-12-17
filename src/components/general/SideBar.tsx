@@ -36,7 +36,7 @@ export default function SideBar() {
   };
 
   const sidebarItems = [
-    { Icon: LuHome, url: "/", title: "Home" },
+    { Icon: LuHome, url: "/home", title: "Home" },
     { Icon: LuSearch, url: "/explore", title: "Explore" },
     { Icon: LuBell, url: "/notifications", title: "Notifications" },
     { Icon: LuMail, url: "/messages", title: "Messages" },
@@ -44,7 +44,7 @@ export default function SideBar() {
   ];
 
   const sidebarItemsMobile = [
-    { Icon: LuHome, url: "/" },
+    { Icon: LuHome, url: "/home" },
     { Icon: LuSearch, url: "/explore" },
     { Icon: LuBell, url: "/notifications" },
     { Icon: LuMail, url: "/messages" },

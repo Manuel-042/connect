@@ -1,25 +1,27 @@
 import Button, { buttonStyles } from '../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
 import { LuBoomBox, LuCalendarClock, LuFileImage, LuListChecks, LuMapPin, LuSmile } from 'react-icons/lu'
-import useAutosizeTextArea from '../../../hooks/useAutoSizeTextArea'
+// import useAutosizeTextArea from '../../../hooks/useAutoSizeTextArea'
 import { useRef, useState } from 'react'
+import TiptapEditor from "../../../components/general/TiptapEditor"
+
 
 const CreatePost = () => {
     const [postContent, setPostContent] = useState("");
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    // const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    
+    // useAutosizeTextArea(textAreaRef.current, postContent);
 
-    useAutosizeTextArea(textAreaRef.current, postContent);
-
-    const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const val = evt.target?.value;
-      setPostContent(val);
-    };
-
+    // const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //   const val = evt.target?.value;
+    //   setPostContent(val);
+    // };
 
     return (
         <div className="grow w-90">
-            <form className="w-100">
-                <textarea
+            <div className="w-100">
+                <TiptapEditor />
+                {/* <textarea
                     name="postContent"
                     value={postContent}
                     placeholder="What is happening?!"
@@ -27,7 +29,9 @@ const CreatePost = () => {
                     onChange={handleChange}
                     ref={textAreaRef}
                     rows={1}
-                />
+                /> */}
+               
+
                 <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center justify-center text-xl text-blue-700">
                         <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent")}><LuFileImage /></Button>
@@ -39,7 +43,7 @@ const CreatePost = () => {
                     </div>
                     <Button className={postContent ? "cursor-pointer" : "cursor-not-allowed opacity-50"} disabled={!postContent}>Post</Button>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

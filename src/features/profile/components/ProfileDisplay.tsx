@@ -15,7 +15,7 @@ const ProfileDisplay = ({ image, displayname, username, bio, followingCount, fol
     const isLoggedInUser = username === user?.username;
 
     return (
-        <div className="absolute z-50 top-6 px-3 py-4 shadow-sm dark:shadow-neutral-50 w-[250px] hidden group-hover:block bg-black rounded-lg">
+        <div className="absolute z-50 top-6 px-3 py-4 shadow-sm dark:shadow-neutral-50 w-[250px] hidden lg:group-hover:block bg-black rounded-lg">
             <div className="flex items-start justify-between mb-2">
                 <Link to={`/${username}`}>
                     <img src={image} className="w-14 h-14 rounded-full" alt={`${displayname} profile picture`} />

@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import api from "../../../../api/api";
+import Button, { buttonStyles } from "../../../../components/UI/Button";
+import { twMerge } from "tailwind-merge";
 
 type FloatingLabelProps = {
     id: string;
@@ -33,12 +35,13 @@ const FloatingLabelInput = ({
                 onBlur={() => onBlur(id, value)} // Pass id and value
                 maxLength={maxLength}
                 className="px-3 pt-5 w-full h-full border rounded-md bg-transparent outline-none 
-                     border-dark-border text-lg focus:ring-2 focus:ring-secondary-100 focus:border-transparent"
+                     border-dark-border text-lg focus:ring-2 focus:ring-secondary-100 focus:border-transparent autofill:bg-transparent 
+                    autofill:text-white"
             />
             <label
                 htmlFor={id}
                 className={`absolute left-3 transition-all text-lg dark:text-dark-text ${isFocused || value
-                    ? "top-1 text-[0.7rem] text-secondary-100"
+                    ? "top-1 text-sm text-secondary-100"
                     : "top-4 text-gray-500"
                     }`}
             >
@@ -51,11 +54,13 @@ const FloatingLabelInput = ({
     );
 };
 
-interface CreateAccountFormProps {
-    onFormValid: (isValid: boolean) => void;
+type CreateAccountFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ onFormValid }) => {
+const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({
@@ -63,55 +68,83 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ onFormValid }) =>
         email: ""
     });
 
-    const [isNameFocused, setIsNameFocused] = useState(false);  // Separate focus state
-    const [isEmailFocused, setIsEmailFocused] = useState(false); // Separate focus state
+    const [isNameFocused, setIsNameFocused] = useState(false); 
+    const [isEmailFocused, setIsEmailFocused] = useState(false);
 
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const validateEmail = (email: string) => {
         const emailRegex = /^[a-zA-Z0-9.-_+]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
         return emailRegex.test(email);
     };
 
+    // Function to validate the entire form
+    const validateForm = (updatedErrors: { name: string, email: string}) => {
+        const isNameValid = !updatedErrors.name;   
+        const isEmailValid = !updatedErrors.email;
+        setIsFormValid(isNameValid && isEmailValid);
+    };
+
+    const validateField = async (id: string, value: string) => {
+        let updatedErrors = { ...errors };
+    
+        if (id === "name") {
+            updatedErrors.name = value ? "" : "Name is required";
+        }
+    
+        if (id === "email") {
+            if (!value) {
+                updatedErrors.email = "Email is required";
+            } else if (!validateEmail(value)) {
+                updatedErrors.email = "Please enter a valid email";
+            } else {
+                // try {
+                //     setLoading(true);
+                //     const res = await api.post("api/validate-email", { email: value });
+                //     if (res.data.status === 409) {
+                //         updatedErrors.email = "This Email already exists";
+                //     } else if (res.data.status === 400) {
+                //         updatedErrors.email = "Invalid Email";
+                //     } else {
+                //         updatedErrors.email = "";
+                //     }
+                // } catch (error) {
+                //     updatedErrors.email = "Error validating email";
+                // } finally {
+                //     setLoading(false);
+                // }
+            }
+        }
+    
+        setErrors(updatedErrors);
+        validateForm(updatedErrors); // Revalidate form
+    };
+    
+
     const handleBlur = (id: string, value: string) => {
-        let isValid = true;
+
+        validateField(id, value)
 
         if (id === "name") {
             setIsNameFocused(value !== "");
         } else if (id === "email") {
             setIsEmailFocused(value !== "");
         }
+    };
 
-        if (id === "name") {
-            if (!name) {
-                setErrors((prev) => ({ ...prev, name: "Name is required" }));
-                isValid = false;
-            } else {
-                setErrors((prev) => ({ ...prev, name: "" }));
-            }
-        } else if (id === "email") {
-            if (!email) {
-                setErrors((prev) => ({ ...prev, email: "Email is required" }));
-                isValid = false;
-            } else if (!validateEmail(email)) {
-                setErrors((prev) => ({ ...prev, email: "Please enter a valid email" }));
-                isValid = false;
-            } else {
-                api.post('api/token', { email: value })
-                    .then((res) => {
-                        if (res.data.status === 409) {
-                            setErrors((prev) => ({ ...prev, email: "This Email already exists" }));
-                            isValid = false;
-                        } else if (res.data.status === 400) {
-                            setErrors((prev) => ({ ...prev, email: "Invalid Email" }));
-                            isValid = false;
-                        } else {
-                            setErrors((prev) => ({ ...prev, email: "" }));
-                        }
-                    });
-            }
-        }
+    const handleSubmit = async () => {
+        // const success = await api.post('/api/register', { name, email });
 
-        onFormValid(isValid);
+        console.log({name, email})
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false); 
+            next();
+        }, 2000);
+
+        // if (success) {
+        //     next();
+        // }
     };
 
     return (
@@ -139,6 +172,15 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ onFormValid }) =>
                 isFocused={isEmailFocused}
             />
             {errors.email && <p className="text-red-500 text-xs -mt-4">{errors.email}</p>}
+
+            <Button
+                onClick={handleSubmit}
+                type="button"
+                disabled={!isFormValid}
+                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-7 disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
+            >
+                Next
+            </Button>
         </div>
     );
 };

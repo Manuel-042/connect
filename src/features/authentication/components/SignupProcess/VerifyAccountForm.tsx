@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../../../api/api";
+import Button, { buttonStyles } from "../../../../components/UI/Button";
+import { twMerge } from "tailwind-merge";
 
-type Props = {
+type VerifyAccountFormProps = {
+    key?: string;
+    next: () => void;
     email: string;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const VerifyAccountForm = ({ email }: Props) => {
+const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLoading }) => {
     const length = 6;
     const [otpValues, setOtpValues] = useState(Array(length).fill(""));
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const handleInputChange = (index: number, value: string) => {
         if (value.length > 1) return;
@@ -52,6 +59,25 @@ const VerifyAccountForm = ({ email }: Props) => {
         nextField?.focus();
     };
 
+    const handleSubmit = async () => {
+        // const success = await api.post('/api/verify-otp', { otpValues });
+        // if (success) {
+        //     next();
+        // }
+
+        console.log({otpValues})
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false); 
+            next();
+        }, 2000);
+
+    };
+
+    useEffect(() => {
+        setIsFormValid(otpValues.join("").length === 6);
+    }, [otpValues]);
+
     return (
         <div>
             <h1 className="dark:text-white font-semibold text-3xl mb-1">We sent you a code</h1>
@@ -72,6 +98,16 @@ const VerifyAccountForm = ({ email }: Props) => {
                 ))}
             </div>
             <Link to="/i/flow/signup" className="mt-6 text-secondary-100">Didn't recieve email?</Link>
+
+            <Button
+                onClick={handleSubmit}
+                type="button"
+                disabled={!isFormValid}
+                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-14 disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
+            >
+                Next
+            </Button>
+
         </div>
     );
 };
