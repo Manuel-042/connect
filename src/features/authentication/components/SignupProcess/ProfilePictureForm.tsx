@@ -40,7 +40,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
   };
 
   return (
-    <div>
+    <div className="w-full h-full flex flex-col flex-grow">
       <h1 className="dark:text-white font-semibold text-3xl mb-1">Pick a profile picture</h1>
       <p className="dark:text-dark-text text-base mb-7">Have a favourite selfie? Upload it now</p>
 
@@ -61,7 +61,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
 
       </div>
 
-      <div className='mt-7 flex gap-3 flex-col'>
+      <div className='mt-auto flex gap-3 flex-col'>
         <Button
           onClick={handleSubmit}
           type="button"

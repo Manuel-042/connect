@@ -64,7 +64,7 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFor
     };
 
     return (
-        <div>
+        <div className="w-full h-full flex flex-col flex-grow">
             <h1 className="dark:text-white font-semibold text-3xl mb-1">What should we call you?</h1>
             <p className="dark:text-dark-text text-base mb-7">Your @username is unique. You can always change it later.</p>
 
@@ -79,7 +79,7 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFor
             <p className="text-secondary-100 mt-3">Show more</p>
 
 
-            <div className='mt-10 flex gap-3 flex-col'>
+            <div className='mt-auto flex gap-3 flex-col'>
                 <Button
                     onClick={handleSubmit}
                     type="button"

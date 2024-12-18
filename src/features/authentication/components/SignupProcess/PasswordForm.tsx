@@ -73,7 +73,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
 
 
   return (
-    <div>
+    <div className="w-full h-full flex flex-col flex-grow">
       <h1 className="dark:text-white font-semibold text-3xl mb-1">You'll need a password</h1>
       <p className="dark:text-dark-text text-base mb-7">Make sure it's 8 characters or more</p>
       <FloatingLabelInput
@@ -88,11 +88,12 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
         value={cPassword}
         setValue={setCPassword}
       />
+
       <Button
         onClick={handleSubmit}
         type="button"
         disabled={!isFormValid}
-        className={twMerge(buttonStyles(), "w-full py-3 font-bold text-white mt-7 disabled:bg-opacity-60 disabled:cursor-not-allowed hover:bg-opacity-80 disabled:hover:bg-opacity-70")}
+        className={twMerge(buttonStyles(), "w-full py-3 mt-auto font-bold text-white disabled:bg-opacity-60 disabled:cursor-not-allowed hover:bg-opacity-80 disabled:hover:bg-opacity-70")}
       >
         Sign up
       </Button>

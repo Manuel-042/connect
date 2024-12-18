@@ -14,6 +14,7 @@ import PasswordForm from "../../features/authentication/components/SignupProcess
 import ProfilePictureForm from "../../features/authentication/components/SignupProcess/ProfilePictureForm";
 import UserNameForm from "../../features/authentication/components/SignupProcess/UsernameForm";
 import NotificationsForm from "../../features/authentication/components/SignupProcess/NotificationsForm";
+import { Oval } from 'react-loader-spinner'
 
 
 const SignUp = () => {
@@ -105,10 +106,26 @@ const SignUp = () => {
 
                 <img src={twitter} alt="twitter logo" className="w-10 h-10 object-contain mb-7" />
 
-                <div className='flex flex-col justify-between gap-2 mb-7 w-full lg:w-[70%]' onSubmit={handleSubmit}>
+                <div className='flex flex-col items-center flex-grow gap-2 mb-7 w-full lg:w-[70%] min-h-96' onSubmit={handleSubmit}>
+
                     <div className="absolute top-3 right-10">{currentStepIndex + 1} / {steps.length}</div>
 
-                    {loading ? "Loading..." : stepWithProps}
+                    {loading ? (
+
+                        <div className="w-full h-full flex items-center justify-center flex-col flex-grow">
+                            <Oval
+                                visible={true}
+                                height="30"
+                                width="30"
+                                color="#ffffff"
+                                ariaLabel="oval-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                            />
+                        </div>)
+
+                        : stepWithProps
+                    }
 
                     {/* <div className="flex gap-3 items-center w-full my-4">
                         <Button

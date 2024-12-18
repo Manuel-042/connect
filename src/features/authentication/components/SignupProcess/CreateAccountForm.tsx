@@ -151,7 +151,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, 
     };
 
     return (
-        <div>
+        <div className="w-full h-full flex flex-col flex-grow">
             <h1 className="dark:text-white font-semibold text-3xl mb-8">Create your account</h1>
             <FloatingLabelInput
                 id="name"
@@ -180,7 +180,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, 
                 onClick={handleSubmit}
                 type="button"
                 disabled={!isFormValid}
-                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-7 disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
+                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-auto disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
             >
                 Next
             </Button>

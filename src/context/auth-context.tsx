@@ -5,7 +5,7 @@ console.log("Re-Mounts");
 
 type UserProfile = {
     id?: string;
-    username: string;
+    name: string;
     email: string;
 }
 
@@ -24,7 +24,7 @@ type Props = { children: React.ReactNode }
 
 interface CustomJwtPayload extends JwtPayload {
     user_id: string;
-    username: string;
+    name: string;
     email: string;
 }
 
@@ -41,7 +41,7 @@ export default function AuthProvider({ children } : Props) {
         try {
             const response = jwtDecode<CustomJwtPayload>(token);
             console.log({response});
-            setUser({ id: response.user_id, username: response.username, email: response.email });
+            setUser({ id: response.user_id, name: response.name, email: response.email });
             setIsLoggedIn(true);
         } catch (error) {
             console.log("resets isLoggedIn here");

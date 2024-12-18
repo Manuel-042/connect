@@ -15,7 +15,7 @@ const passwordValidation = new RegExp(
 );
 
 const schema = z.object({
-  username: z.string(),
+  name: z.string(),
   email: z.string().email(),
   password: z.string()
     .min(8, "Password must be at least 8 characters")
@@ -45,7 +45,7 @@ const SignupForm: React.FunctionComponent = () => {
     try {
       const response = await api.post('api/register', data);
       console.log(response.data);
-      setUser({ username: data.username, email: data.email });
+      setUser({ name: data.name, email: data.email });
       navigate("/login");
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -93,12 +93,12 @@ const SignupForm: React.FunctionComponent = () => {
       <div className="flex flex-col justify-items-center gap-3 w-full">
         <input
           type="text"
-          {...register("username")}
+          {...register("name")}
           placeholder="username"
           className="border-1 shadow-sm dark:shadow-neutral-800  dark:bg-neutral-700 dark:text-neutral-300 px-4 py-2 rounded-full focus:outline-1"
         />
-        {errors.username && (
-          <p className="text-xs text-red-600">{errors.username.message}</p>
+        {errors.name && (
+          <p className="text-xs text-red-600">{errors.name.message}</p>
         )}
         <input
           type="text"

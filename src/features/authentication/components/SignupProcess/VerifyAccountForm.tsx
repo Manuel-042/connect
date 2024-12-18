@@ -81,7 +81,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
     }, [otpValues]);
 
     return (
-        <div>
+        <div className="w-full h-full flex flex-col flex-grow">
             <h1 className="dark:text-white font-semibold text-3xl mb-1">We sent you a code</h1>
             <p className="dark:text-dark-text text-base mb-7">Enter it below to verify <span>{email}</span></p>
             <div className="flex flex-row justify-items-center gap-2 w-full mb-3">
@@ -105,7 +105,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
                 onClick={handleSubmit}
                 type="button"
                 disabled={!isFormValid}
-                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-14 disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
+                className={twMerge(buttonStyles(), "w-full py-3 font-bold bg-white text-black mt-auto disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-white hover:bg-opacity-80 disabled:hover:bg-white disabled:hover:bg-opacity-50")}
             >
                 Next
             </Button>
