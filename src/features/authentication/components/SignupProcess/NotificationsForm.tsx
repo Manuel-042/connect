@@ -3,22 +3,18 @@ import Button, { buttonStyles } from "../../../../components/UI/Button"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useApiPrivate from "../../../../hooks/useApiPrivate";
+import { StepProps } from "../../../../pages/auth/Signup";
 
 
-type NotificationsFormProps = {
-  key?: string;
-  next: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  updateFormData: (key: string, value: string | boolean) => void;
-}
+type NotificationsFormProps = StepProps
 
-const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading, updateFormData }) => {
+const NotificationsForm: React.FC<Partial<NotificationsFormProps>> = ({ setLoading, updateFormData }) => {
   const navigate = useNavigate();
   const [notification, setNotification] = useState(false)
   const apiPrivate = useApiPrivate()
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoading?.(true);
     setNotification(true)
 
     try {
@@ -27,18 +23,18 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading,
       console.log({ notification });
 
       if (response.status === 200) {
-        setLoading(false);
-        updateFormData("notifications", true)
+        setLoading?.(false);
+        updateFormData?.("notifications", true)
         navigate("/home");
       } else {
-        setLoading(false);
+        setLoading?.(false);
         // setErrors('An unexpected error occurred. Please try again.');
       }
     } catch (error) {
       // setErrors('An error occurred. Please try again later.');
       console.error(error);
     } finally {
-      setLoading(false);
+      setLoading?.(false);
     }
   };
 

@@ -40,7 +40,7 @@ export default function SideBar() {
     { Icon: LuSearch, url: "/explore", title: "Explore" },
     { Icon: LuBell, url: "/notifications", title: "Notifications" },
     { Icon: LuMail, url: "/messages", title: "Messages" },
-    { Icon: LuUserPlus2, url: `/${user?.username}`, title: "Profile" },
+    { Icon: LuUserPlus2, url: `/${user?.name}`, title: "Profile" },
   ];
 
   const sidebarItemsMobile = [

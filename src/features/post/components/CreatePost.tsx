@@ -2,13 +2,14 @@ import Button, { buttonStyles } from '../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
 import { LuBoomBox, LuCalendarClock, LuFileImage, LuListChecks, LuMapPin, LuSmile } from 'react-icons/lu'
 // import useAutosizeTextArea from '../../../hooks/useAutoSizeTextArea'
-import { useRef, useState } from 'react'
+// import { useState } from 'react'
 import TiptapEditor from "../../../components/general/TiptapEditor"
 
 
 const CreatePost = () => {
-    const [postContent, setPostContent] = useState("");
+    // const [postContent, setPostContent] = useState("");
     // const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const postContent = true;
     
     // useAutosizeTextArea(textAreaRef.current, postContent);
 

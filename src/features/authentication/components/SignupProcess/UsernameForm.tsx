@@ -3,6 +3,7 @@ import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import { useAuthContext } from "../../../../context/auth-context";
 import useApiPrivate from "../../../../hooks/useApiPrivate";
+import { StepProps } from "../../../../pages/auth/Signup";
 
 type FloatingLabelProps = {
     id: string;
@@ -39,22 +40,16 @@ const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) 
     );
 };
 
-type UsernameFormProps = {
-    key?: string;
-    next: () => void;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    updateFormData: (key: string, value: string) => void;
-}
+type UsernameFormProps = StepProps
 
-
-const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFormData }) => {
+const UsernameForm: React.FC<Partial<UsernameFormProps>> = ({ next, setLoading, updateFormData }) => {
     const [username, setUsername] = useState("");
     const [errors, setErrors] = useState("");
     const { setToken, decodeToken } = useAuthContext();
     const apiPrivate = useApiPrivate()
 
     const handleSubmit = async () => {
-        setLoading(true);
+        setLoading?.(true);
     
         try {
             const response = await apiPrivate.post('/api/signup/steps/5', { username: username });
@@ -62,11 +57,11 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFor
             console.log({ username });
     
             if (response.status === 200) {
-                setLoading(false);
-                updateFormData("username", username)
+                setLoading?.(false);
+                updateFormData?.("username", username)
                 setToken(response.data.access);
                 decodeToken(response.data.access);
-                next();
+                next?.();
             } else if (response.status === 400) {
                 setErrors(response?.data?.message);
             } else {
@@ -76,7 +71,7 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFor
             setErrors('An error occurred. Please try again later.');
             console.error(error);
         } finally {
-            setLoading(false);
+            setLoading?.(false);
         }
     };
 

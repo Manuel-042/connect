@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import api from "../../../../api/api";
+import { StepProps } from "../../../../pages/auth/Signup";
 
 type FloatingLabelProps = {
   id: string;
@@ -38,15 +39,9 @@ const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) 
   );
 };
 
-type PasswordFormProps = {
-  key?: string;
-  next: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  updateFormData: (key: string, value: string) => void;
-}
+type PasswordFormProps = StepProps
 
-
-const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFormData }) => {
+const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, updateFormData }) => {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
@@ -56,7 +51,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
 });
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoading?.(true);
     let updatedErrors = { ...errors };
 
     if (password.trim() !== cPassword.trim()) {
@@ -68,9 +63,9 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
       console.log(response);
 
       if (response.status === 200) {
-        setLoading(false);
-        updateFormData("password", password)
-        next();
+        setLoading?.(false);
+        updateFormData?.("password", password)
+        next?.();
       } else if (response.status === 409) {
         updatedErrors.password = response?.data?.message;
         setErrors(updatedErrors);
@@ -83,7 +78,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
       setErrors(updatedErrors);
       console.error(error);
     } finally {
-      setLoading(false);
+      setLoading?.(false);
     }
   };
 

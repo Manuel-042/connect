@@ -45,7 +45,7 @@ const ProfilePageContent = () => {
 
     if (!username || !appUser) return null;
 
-    const isLoggedInUser = user?.username === appUser?.username
+    const isLoggedInUser = user?.name === appUser?.username
 
     const labels = isLoggedInUser ? ["Posts", "Replies", "Highlights", "Articles", "Media", "Likes"] : ["Posts", "Replies", "Media"];
 

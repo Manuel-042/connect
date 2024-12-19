@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import api from "../../../../api/api";
 import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
+import { StepProps } from "../../../../pages/auth/Signup";
 
-type VerifyAccountFormProps = {
-    key?: string;
-    next: () => void;
+type VerifyAccountFormProps = StepProps & {
     email: string;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    updateFormData: (key: string, value: string) => void;
 }
 
-const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLoading, updateFormData }) => {
+const VerifyAccountForm: React.FC<Partial<VerifyAccountFormProps>> = ({ next, email, setLoading, updateFormData }) => {
     const length = 6;
     const [otpValues, setOtpValues] = useState(Array(length).fill(""));
     const [isFormValid, setIsFormValid] = useState(false);
@@ -62,7 +59,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
     };
 
     const handleSubmit = async () => {
-        setLoading(true);
+        setLoading?.(true);
     
         try {
             const response = await api.post('/api/signup/steps/2', { otp: otpValues.toString() });
@@ -70,8 +67,8 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
             console.log({ otpValues });
     
             if (response.status === 200) {
-                updateFormData("otp", otpValues.toString());
-                next();
+                updateFormData?.("otp", otpValues.toString());
+                next?.();
             } else if (response.status === 400) {
                 setErrors(response?.data?.message);
             } else {
@@ -81,7 +78,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
             setErrors('An error occurred. Please try again later.');
             console.error(error);
         } finally {
-            setLoading(false);
+            setLoading?.(false);
         }
     };
     

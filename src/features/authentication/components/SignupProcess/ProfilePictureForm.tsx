@@ -4,16 +4,12 @@ import Button, { buttonStyles } from '../../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
 import { useEffect, useState } from 'react'
 import useApiPrivate from '../../../../hooks/useApiPrivate'
+import { StepProps } from "../../../../pages/auth/Signup";
 
 
-type ProfilePictureFormProps = {
-  key?: string;
-  next: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  updateFormData: (key: string, value: string) => void;
-}
+type ProfilePictureFormProps = StepProps
 
-const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoading, updateFormData }) => {
+const ProfilePictureForm: React.FC<Partial<ProfilePictureFormProps>> = ({ next, setLoading, updateFormData }) => {
   const [inputFile, setInputFile] = useState<File | null>(null);
   const [profileImage, setProfileImage] = useState<string>("");
   const apiPrivate = useApiPrivate()
@@ -39,31 +35,31 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
 
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoading?.(true);
 
     try {
       const response = await apiPrivate.post('/api/signup/steps/4', { profile_picture: formData });
       console.log(response);
 
       if (response.status === 200) {
-        setLoading(false);
+        setLoading?.(false);
         console.log("Profile picture uploaded:", response?.data?.avatar_url);
-        updateFormData("profilePicture", response?.data?.avatar_url)
-        next();
+        updateFormData?.("profilePicture", response?.data?.avatar_url)
+        next?.();
       } else {
-        setLoading(false);
+        setLoading?.(false);
         // Set toast message
         // updatedErrors.password = 'An unexpected error occurred. Please try again.';
         // setErrors(updatedErrors);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading?.(false);
       // Set toast message
       // updatedErrors.password = 'An unexpected error occurred. Please try again.';
       // setErrors(updatedErrors);
       console.error(error);
     } finally {
-      setLoading(false);
+      setLoading?.(false);
     }
   };
 

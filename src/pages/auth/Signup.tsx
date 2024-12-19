@@ -16,6 +16,12 @@ import UserNameForm from "../../features/authentication/components/SignupProcess
 import NotificationsForm from "../../features/authentication/components/SignupProcess/NotificationsForm";
 import { Oval } from 'react-loader-spinner'
 
+export type StepProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string | boolean) => void;
+}
 
 const SignUp = () => {
     const modalRoot = document.getElementById('modal-root');
@@ -23,7 +29,6 @@ const SignUp = () => {
     const location = useLocation();
     const from = location.state?.previousLocation;
     const [loading, setLoading] = useState(false);
-
     const [formData, setFormData] = useState({
         name: "",
         email: "",

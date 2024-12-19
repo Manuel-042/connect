@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import api from "../../../../api/api";
 import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
+import { StepProps } from "../../../../pages/auth/Signup";
 
 type FloatingLabelProps = {
     id: string;
@@ -54,14 +55,9 @@ const FloatingLabelInput = ({
     );
 };
 
-type CreateAccountFormProps = {
-    key?: string;
-    next: () => void;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    updateFormData: (key: string, value: string) => void;
-}
+type CreateAccountFormProps = StepProps
 
-const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ next, setLoading, updateFormData }) => {
+const CreateAccountForm: React.FC<Partial<CreateAccountFormProps>> = ({ next, setLoading, updateFormData }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({
@@ -100,7 +96,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ next, setLoading,
                 updatedErrors.email = "Please enter a valid email";
             } else {
                 try {
-                    setLoading(true);
+                    setLoading?.(true);
                     const res = await api.post("api/email_validation", { email: value });
                     if (res.data.status === 409) {
                         updatedErrors.email = "This Email already exists";
@@ -112,7 +108,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ next, setLoading,
                 } catch (error) {
                     updatedErrors.email = "Error validating email";
                 } finally {
-                    setLoading(false);
+                    setLoading?.(false);
                 }
             }
         }
@@ -134,17 +130,17 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ next, setLoading,
     };
 
     const handleSubmit = async () => {
-        setLoading(true);
+        setLoading?.(true);
         const success = await api.post('/signup/steps/1', { name, email });
         console.log(success);
         
         if (success.status === 200) {
-            setLoading(false);
-            updateFormData("name", name);
-            updateFormData("email", email);
-            next()
+            setLoading?.(false);
+            updateFormData?.("name", name);
+            updateFormData?.("email", email);
+            next?.()
         } else {
-            setLoading(false);
+            setLoading?.(false);
         }
 
     };

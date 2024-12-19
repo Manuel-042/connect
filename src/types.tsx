@@ -27,4 +27,47 @@ type UserProps = {
     createdAt: string;
 }
 
-export type {PostProps, UserProps};
+type CreateAccountFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
+}
+
+type VerifyAccountFormProps = {
+    key?: string;
+    next: () => void;
+    email: string;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
+}
+
+type UsernameFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
+}
+
+type ProfilePictureFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
+}
+
+type PasswordFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string) => void;
+}
+
+type NotificationsFormProps = {
+    key?: string;
+    next: () => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    updateFormData: (key: string, value: string | boolean) => void;
+}
+
+export type { PostProps, UserProps, CreateAccountFormProps, VerifyAccountFormProps, UsernameFormProps, ProfilePictureFormProps, PasswordFormProps, NotificationsFormProps };

@@ -12,7 +12,7 @@ type ProfileDisplayProps = Pick<UserProps, 'image' | 'displayname' | 'username' 
 const ProfileDisplay = ({ image, displayname, username, bio, followingCount, followerCount, isVerified }: ProfileDisplayProps) => {
     const { user } = useAuthContext();
 
-    const isLoggedInUser = username === user?.username;
+    const isLoggedInUser = username === user?.name;
 
     return (
         <div className="absolute z-50 top-6 px-3 py-4 shadow-sm dark:shadow-neutral-50 w-[250px] hidden lg:group-hover:block bg-black rounded-lg">
