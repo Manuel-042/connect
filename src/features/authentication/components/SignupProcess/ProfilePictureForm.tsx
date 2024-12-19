@@ -2,7 +2,7 @@ import { LuImagePlus } from 'react-icons/lu'
 import defaultImage from "../../../../assets/profileimage.png"
 import Button, { buttonStyles } from '../../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type ProfilePictureFormProps = {
   key?: string;
@@ -23,9 +23,17 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
     }
   };
 
+  const formData = new FormData();
+
+  useEffect(() => {
+    if (inputFile) {
+      formData.append('profile_picture', inputFile);
+    } else {
+      console.error("No file selected to upload.");
+    }
+  }, [inputFile]);
+
   const handleSubmit = async () => {
-    // const success = await api.post('/api/set-password', { password });
-    console.log({ inputFile })
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -33,6 +41,27 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
     }, 2000);
 
   };
+
+  // const uploadProfilePicture = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append("profile_picture", file);
+
+  //   const response = await fetch("/api/profile-picture", {
+  //     method: "POST",
+  //     headers: {
+  //       "Authorization": `Bearer ${localStorage.getItem("access_token")}`, // Include access token
+  //     },
+  //     body: formData,
+  //   });
+
+  //   const data = await response.json();
+  //   if (response.ok) {
+  //     console.log("Profile picture uploaded:", data.avatar_url);
+  //   } else {
+  //     console.error("Error:", data);
+  //   }
+  // };
+
 
   return (
     <div className="w-full h-full flex flex-col flex-grow">
