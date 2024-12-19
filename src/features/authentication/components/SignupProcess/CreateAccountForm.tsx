@@ -61,7 +61,7 @@ type CreateAccountFormProps = {
     updateFormData: (key: string, value: string) => void;
 }
 
-const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, updateFormData }) => {
+const CreateAccountForm: React.FC<CreateAccountFormProps> = ({ next, setLoading, updateFormData }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({
@@ -69,7 +69,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, 
         email: ""
     });
 
-    const [isNameFocused, setIsNameFocused] = useState(false); 
+    const [isNameFocused, setIsNameFocused] = useState(false);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
 
     const [isFormValid, setIsFormValid] = useState(false);
@@ -80,47 +80,47 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, 
     };
 
     // Function to validate the entire form
-    const validateForm = (updatedErrors: { name: string, email: string}) => {
-        const isNameValid = !updatedErrors.name;   
+    const validateForm = (updatedErrors: { name: string, email: string }) => {
+        const isNameValid = !updatedErrors.name;
         const isEmailValid = !updatedErrors.email;
         setIsFormValid(isNameValid && isEmailValid);
     };
 
     const validateField = async (id: string, value: string) => {
         let updatedErrors = { ...errors };
-    
+
         if (id === "name") {
             updatedErrors.name = value ? "" : "Name is required";
         }
-    
+
         if (id === "email") {
             if (!value) {
                 updatedErrors.email = "Email is required";
             } else if (!validateEmail(value)) {
                 updatedErrors.email = "Please enter a valid email";
             } else {
-                // try {
-                //     setLoading(true);
-                //     const res = await api.post("api/validate-email", { email: value });
-                //     if (res.data.status === 409) {
-                //         updatedErrors.email = "This Email already exists";
-                //     } else if (res.data.status === 400) {
-                //         updatedErrors.email = "Invalid Email";
-                //     } else {
-                //         updatedErrors.email = "";
-                //     }
-                // } catch (error) {
-                //     updatedErrors.email = "Error validating email";
-                // } finally {
-                //     setLoading(false);
-                // }
+                try {
+                    setLoading(true);
+                    const res = await api.post("api/email_validation", { email: value });
+                    if (res.data.status === 409) {
+                        updatedErrors.email = "This Email already exists";
+                    } else if (res.data.status === 400) {
+                        updatedErrors.email = "Invalid Email";
+                    } else {
+                        updatedErrors.email = "";
+                    }
+                } catch (error) {
+                    updatedErrors.email = "Error validating email";
+                } finally {
+                    setLoading(false);
+                }
             }
         }
-    
+
         setErrors(updatedErrors);
         validateForm(updatedErrors); // Revalidate form
     };
-    
+
 
     const handleBlur = (id: string, value: string) => {
 
@@ -134,20 +134,19 @@ const CreateAccountForm: React.FC<CreateAccountFormProps>= ({ next, setLoading, 
     };
 
     const handleSubmit = async () => {
-        // const success = await api.post('/api/register', { name, email });
-
-        console.log({name, email})
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false); 
+        const success = await api.post('/signup/steps/1', { name, email });
+        console.log(success);
+        
+        if (success.status === 200) {
+            setLoading(false);
             updateFormData("name", name);
             updateFormData("email", email);
-            next();
-        }, 2000);
+            next()
+        } else {
+            setLoading(false);
+        }
 
-        // if (success) {
-        //     next();
-        // }
     };
 
     return (

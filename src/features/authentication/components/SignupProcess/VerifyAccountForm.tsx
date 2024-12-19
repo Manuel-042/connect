@@ -16,6 +16,7 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
     const length = 6;
     const [otpValues, setOtpValues] = useState(Array(length).fill(""));
     const [isFormValid, setIsFormValid] = useState(false);
+    const [errors, setErrors] = useState("");
 
     const handleInputChange = (index: number, value: string) => {
         if (value.length > 1) return;
@@ -61,20 +62,29 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
     };
 
     const handleSubmit = async () => {
-        // const success = await api.post('/api/verify-otp', { otpValues });
-        // if (success) {
-        //     next();
-        // }
-
-        console.log({otpValues})
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false); 
-            updateFormData("otp", otpValues.toString());
-            next();
-        }, 2000);
-
+    
+        try {
+            const response = await api.post('/api/signup/steps/2', { otp: otpValues.toString() });
+            console.log(response);
+            console.log({ otpValues });
+    
+            if (response.status === 200) {
+                updateFormData("otp", otpValues.toString());
+                next();
+            } else if (response.status === 400) {
+                setErrors(response?.data?.message);
+            } else {
+                setErrors('An unexpected error occurred. Please try again.');
+            }
+        } catch (error) {
+            setErrors('An error occurred. Please try again later.');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
+    
 
     useEffect(() => {
         setIsFormValid(otpValues.join("").length === 6);
@@ -99,6 +109,8 @@ const VerifyAccountForm: React.FC<VerifyAccountFormProps>= ({ next, email, setLo
                     />
                 ))}
             </div>
+            {errors && <p className="text-red-500 text-xs -mt-2">{errors}</p>}
+
             <Link to="/i/flow/signup" className="mt-6 text-secondary-100">Didn't recieve email?</Link>
 
             <Button

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
+import api from "../../../../api/api";
 
 type FloatingLabelProps = {
   id: string;
@@ -49,22 +50,41 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-
+  const [errors, setErrors] = useState({
+    password: "",
+    cpassword: ""
+});
 
   const handleSubmit = async () => {
-    // const success = await api.post('/api/set-password', { password });
-
-    console.log({ password })
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      updateFormData("password", password)
-      next();
-    }, 2000);
+    let updatedErrors = { ...errors };
 
-    // if (success) {
-    //     next();
-    // }
+    if (password.trim() !== cPassword.trim()) {
+      return
+    }
+
+    try {
+      const response = await api.post('/api/signup/steps/3', { password: password, cpassword: cPassword });
+      console.log(response);
+
+      if (response.status === 200) {
+        setLoading(false);
+        updateFormData("password", password)
+        next();
+      } else if (response.status === 409) {
+        updatedErrors.password = response?.data?.message;
+        setErrors(updatedErrors);
+      } else {
+        updatedErrors.password = 'An unexpected error occurred. Please try again.';
+        setErrors(updatedErrors);
+      }
+    } catch (error) {
+      updatedErrors.password = 'An unexpected error occurred. Please try again.';
+      setErrors(updatedErrors);
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -82,12 +102,16 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ next, setLoading, updateFor
         value={password}
         setValue={setPassword}
       />
+      {errors.password && <p className="text-red-500 text-xs -mt-4">{errors.password}</p>}
+
       <FloatingLabelInput
         id="email"
         label="Confirm Password"
         value={cPassword}
         setValue={setCPassword}
       />
+      {errors.cpassword && <p className="text-red-500 text-xs -mt-4">{errors.cpassword}</p>}
+
 
       <Button
         onClick={handleSubmit}

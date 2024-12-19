@@ -2,7 +2,7 @@ import { LuImagePlus } from 'react-icons/lu'
 import defaultImage from "../../../../assets/profileimage.png"
 import Button, { buttonStyles } from '../../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 type ProfilePictureFormProps = {
   key?: string;
@@ -13,8 +13,6 @@ type ProfilePictureFormProps = {
 const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoading }) => {
   const [inputFile, setInputFile] = useState<File | null>(null);
   const [profileImage, setProfileImage] = useState<string>("");
-  // const imageContainerRef = useRef<HTMLInputElement>(null);
-
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -34,9 +32,6 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
       next();
     }, 2000);
 
-    // if (success) {
-    //     next();
-    // }
   };
 
   return (
