@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
+import { useAuthContext } from "../../../../context/auth-context";
+import useApiPrivate from "../../../../hooks/useApiPrivate";
 
 type FloatingLabelProps = {
     id: string;
@@ -47,20 +49,35 @@ type UsernameFormProps = {
 
 const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFormData }) => {
     const [username, setUsername] = useState("");
+    const [errors, setErrors] = useState("");
+    const { setToken, decodeToken } = useAuthContext();
+    const apiPrivate = useApiPrivate()
 
     const handleSubmit = async () => {
-        // const success = await api.post('/api/set-password', { password });
-        console.log({ username })
         setLoading(true);
-        setTimeout(() => {
+    
+        try {
+            const response = await apiPrivate.post('/api/signup/steps/5', { username: username });
+            console.log(response);
+            console.log({ username });
+    
+            if (response.status === 200) {
+                setLoading(false);
+                updateFormData("username", username)
+                setToken(response.data.access);
+                decodeToken(response.data.access);
+                next();
+            } else if (response.status === 400) {
+                setErrors(response?.data?.message);
+            } else {
+                setErrors('An unexpected error occurred. Please try again.');
+            }
+        } catch (error) {
+            setErrors('An error occurred. Please try again later.');
+            console.error(error);
+        } finally {
             setLoading(false);
-            updateFormData("username", username)
-            next();
-        }, 2000);
-
-        // if (success) {
-        //     next();
-        // }
+        }
     };
 
     return (
@@ -74,6 +91,7 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ next, setLoading, updateFor
                 value={username}
                 setValue={setUsername}
             />
+            {errors && <p className="text-red-500 text-xs -mt-2">{errors}</p>}
 
             <p className="text-secondary-100">@Suggestion1, @Suggestion2</p>
             <p className="text-secondary-100 mt-3">Show more</p>

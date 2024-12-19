@@ -37,7 +37,7 @@ export default function AuthProvider({ children } : Props) {
     
 
     const decodeToken = (token: string) => {
-        console.log("Thisbwas called from the login screen");
+        console.log("This was called from the login or signup screen");
         try {
             const response = jwtDecode<CustomJwtPayload>(token);
             console.log({response});

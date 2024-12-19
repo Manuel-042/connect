@@ -3,16 +3,20 @@ import defaultImage from "../../../../assets/profileimage.png"
 import Button, { buttonStyles } from '../../../../components/UI/Button'
 import { twMerge } from 'tailwind-merge'
 import { useEffect, useState } from 'react'
+import useApiPrivate from '../../../../hooks/useApiPrivate'
+
 
 type ProfilePictureFormProps = {
   key?: string;
   next: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  updateFormData: (key: string, value: string) => void;
 }
 
-const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoading }) => {
+const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoading, updateFormData }) => {
   const [inputFile, setInputFile] = useState<File | null>(null);
   const [profileImage, setProfileImage] = useState<string>("");
+  const apiPrivate = useApiPrivate()
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -33,34 +37,35 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({ next, setLoadin
     }
   }, [inputFile]);
 
+
   const handleSubmit = async () => {
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      const response = await apiPrivate.post('/api/signup/steps/4', { profile_picture: formData });
+      console.log(response);
+
+      if (response.status === 200) {
+        setLoading(false);
+        console.log("Profile picture uploaded:", response?.data?.avatar_url);
+        updateFormData("profilePicture", response?.data?.avatar_url)
+        next();
+      } else {
+        setLoading(false);
+        // Set toast message
+        // updatedErrors.password = 'An unexpected error occurred. Please try again.';
+        // setErrors(updatedErrors);
+      }
+    } catch (error) {
       setLoading(false);
-      next();
-    }, 2000);
-
+      // Set toast message
+      // updatedErrors.password = 'An unexpected error occurred. Please try again.';
+      // setErrors(updatedErrors);
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  // const uploadProfilePicture = async (file: File) => {
-  //   const formData = new FormData();
-  //   formData.append("profile_picture", file);
-
-  //   const response = await fetch("/api/profile-picture", {
-  //     method: "POST",
-  //     headers: {
-  //       "Authorization": `Bearer ${localStorage.getItem("access_token")}`, // Include access token
-  //     },
-  //     body: formData,
-  //   });
-
-  //   const data = await response.json();
-  //   if (response.ok) {
-  //     console.log("Profile picture uploaded:", data.avatar_url);
-  //   } else {
-  //     console.error("Error:", data);
-  //   }
-  // };
 
 
   return (

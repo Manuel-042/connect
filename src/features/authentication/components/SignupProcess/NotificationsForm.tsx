@@ -1,6 +1,9 @@
 import { twMerge } from "tailwind-merge"
 import Button, { buttonStyles } from "../../../../components/UI/Button"
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useApiPrivate from "../../../../hooks/useApiPrivate";
+
 
 type NotificationsFormProps = {
   key?: string;
@@ -11,19 +14,32 @@ type NotificationsFormProps = {
 
 const NotificationsForm: React.FC<NotificationsFormProps> = ({ next, setLoading, updateFormData }) => {
   const navigate = useNavigate();
+  const [notification, setNotification] = useState(false)
+  const apiPrivate = useApiPrivate()
 
   const handleSubmit = async () => {
-    // const success = await api.post('/api/set-password', { password });
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      updateFormData("notifications", true)
-      navigate("/home");
-    }, 2000);
+    setNotification(true)
 
-    // if (success) {
-    //     next();
-    // }
+    try {
+      const response = await apiPrivate.post('/api/signup/steps/6', { notification: notification });
+      console.log(response);
+      console.log({ notification });
+
+      if (response.status === 200) {
+        setLoading(false);
+        updateFormData("notifications", true)
+        navigate("/home");
+      } else {
+        setLoading(false);
+        // setErrors('An unexpected error occurred. Please try again.');
+      }
+    } catch (error) {
+      // setErrors('An error occurred. Please try again later.');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
