@@ -96,7 +96,6 @@ const CreateAccountForm: React.FC<Partial<CreateAccountFormProps>> = ({ next, se
                 updatedErrors.email = "Please enter a valid email";
             } else {
                 try {
-                    setLoading?.(true);
                     const res = await api.post("api/email_validation", { email: value });
                     if (res.data.status === 409) {
                         updatedErrors.email = "This Email already exists";
@@ -107,13 +106,11 @@ const CreateAccountForm: React.FC<Partial<CreateAccountFormProps>> = ({ next, se
                     }
                 } catch (error) {
                     updatedErrors.email = "Error validating email";
-                } finally {
-                    setLoading?.(false);
-                }
             }
         }
 
         setErrors(updatedErrors);
+        console.log({updatedErrors})
         validateForm(updatedErrors); // Revalidate form
     };
 
