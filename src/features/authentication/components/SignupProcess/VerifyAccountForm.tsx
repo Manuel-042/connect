@@ -62,12 +62,12 @@ const VerifyAccountForm: React.FC<Partial<VerifyAccountFormProps>> = ({ next, em
         setLoading?.(true);
     
         try {
-            const response = await api.post('/api/signup/steps/2', { otp: otpValues.toString() });
+            const response = await api.post('/api/signup/steps/2', { otp: otpValues.join('') });
             console.log(response);
             console.log({ otpValues });
     
             if (response.status === 200) {
-                updateFormData?.("otp", otpValues.toString());
+                updateFormData?.("otp", otpValues.join(''));
                 next?.();
             } else if (response.status === 400) {
                 setErrors(response?.data?.message);

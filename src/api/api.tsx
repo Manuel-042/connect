@@ -1,24 +1,36 @@
 import axios from 'axios';
-import getCookie from '../utils/csrf';
+// import getCookie from '../utils/csrf';
 
-const csrftoken = getCookie('csrftoken');
-console.log(csrftoken);
+// const csrftoken = getCookie('csrftoken');
+// console.log(csrftoken);
 
 const api = axios.create({
-  baseURL: 'https://nottwitter-backend.onrender.com/',
+  baseURL: 'http://127.0.0.1:8000/',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrftoken, 
   }
 });
 
+// Request interceptor to log outgoing requests
+api.interceptors.request.use((config) => {
+  console.log('Request Interceptor:', {
+    url: config.url,
+    method: config.method,
+    headers: config.headers,
+    withCredentials: config.withCredentials,
+  });
+  return config;
+}, (error) => {
+  console.error('Request Error:', error);
+  return Promise.reject(error);
+});
+
 export const apiPrivate = axios.create({
-  baseURL: 'https://nottwitter-backend.onrender.com/',
+  baseURL: 'http://127.0.0.1:8000/',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrftoken, 
   }
 });
 
