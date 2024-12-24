@@ -7,6 +7,11 @@ const useApiPrivate = () => {
     const { token } = useAuthContext();
     const refresh = useRefreshToken();
 
+    if (!token) {
+        console.log("No token found");
+        return;
+    }
+
     useEffect(() => {
         const requestInterceptor = apiPrivate.interceptors.request.use(
             (config) => {

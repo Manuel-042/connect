@@ -2,18 +2,34 @@ import { useNavigate } from "react-router-dom"
 import twitter from "../../assets/white-twitter.png"
 import Button from "../../components/UI/Button"
 import { useAuthContext } from "../../context/auth-context"
+import useApiPrivate from "../../hooks/useApiPrivate"
 
 
 const Logout = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
+    const apiPrivate = useApiPrivate();
+    const { setToken } = useAuthContext();
 
     const goBack = () => {
         navigate(-1);
     }
 
-    const handleLogout = () => {
-        navigate(`/?logout=${user?.id}`)
+    const handleLogout = async () => {
+        try {
+            const response = await apiPrivate?.post('/api/logout');
+            console.log(response);
+            setToken("")
+    
+            if (response?.status === 200 || response?.status === 204) {
+                console.log("logout succesful")
+                navigate(`/?logout=${user?.id}`)
+            } else {
+                console.log(response?.data.error)
+            }
+        } catch (error) {
+            console.error(error);
+        } 
     }
 
     return (

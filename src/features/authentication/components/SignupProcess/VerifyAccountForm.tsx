@@ -39,6 +39,14 @@ const VerifyAccountForm: React.FC<Partial<VerifyAccountFormProps>> = ({ next, em
             updatedOtp[index] = "";
             setOtpValues(updatedOtp);
         }
+
+        const allowedChars = /^[0-9]+$/;
+        const char = e.key;
+  
+        // Allow only alphanumeric characters
+        if (!allowedChars.test(char) && e.key !== "Backspace") {
+          e.preventDefault();
+        }
     };
 
     const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
@@ -94,16 +102,17 @@ const VerifyAccountForm: React.FC<Partial<VerifyAccountFormProps>> = ({ next, em
             <div className="flex flex-row justify-items-center gap-2 w-full mb-3">
                 {otpValues.map((value, index) => (
                     <input
-                        key={index}
-                        id={`otp-${index}`}
-                        type="text"
-                        maxLength={1}
-                        value={value}
-                        onChange={(e) => handleInputChange(index, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(index, e)}
-                        onPaste={handlePaste}
-                        className="w-16 border border-dark-border shadow-sm dark:shadow-neutral-800 bg-transparent dark:text-white px-1 py-3 text-center text-3xl font-bold rounded-md outline-none focus:ring-2 focus:ring-secondary-100 focus:border-transparent"
-                    />
+                    key={index}
+                    id={`otp-${index}`}
+                    type="text" 
+                    maxLength={1}
+                    value={value}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    onPaste={handlePaste}
+                    autoComplete="off"
+                    className="w-16 border border-dark-border shadow-sm dark:shadow-neutral-800 bg-transparent dark:text-white px-1 py-3 text-center text-3xl font-bold rounded-md outline-none focus:ring-2 focus:ring-secondary-100 focus:border-transparent"
+                  />
                 ))}
             </div>
             {errors && <p className="text-red-500 text-xs -mt-2">{errors}</p>}

@@ -11,17 +11,17 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 
-const passwordValidation = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-);
+// const passwordValidation = new RegExp(
+//   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+// );
 
 const schema = z.object({
   email: z.string().email(),
   password: z.string()
     .min(8, "Password must be at least 8 characters")
-    .regex(
-      passwordValidation,
-      { message: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character" }),
+    // .regex(
+    //   passwordValidation,
+    //   { message: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character" }),
 })
 
 type FormFields = z.infer<typeof schema>

@@ -1,7 +1,6 @@
 import { twMerge } from "tailwind-merge"
 import Button, { buttonStyles } from "../../../../components/UI/Button"
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import useApiPrivate from "../../../../hooks/useApiPrivate";
 import { StepProps } from "../../../../pages/auth/Signup";
 
@@ -10,19 +9,17 @@ type NotificationsFormProps = StepProps
 
 const NotificationsForm: React.FC<Partial<NotificationsFormProps>> = ({ setLoading, updateFormData }) => {
   const navigate = useNavigate();
-  const [notification, setNotification] = useState(false)
   const apiPrivate = useApiPrivate()
 
   const handleSubmit = async () => {
     setLoading?.(true);
-    setNotification(true)
+    const notificationValue = true; 
 
     try {
-      const response = await apiPrivate.post('/api/signup/steps/6', { notification: notification });
+      const response = await apiPrivate?.post('/api/signup/steps/6', { notification: notificationValue });
       console.log(response);
-      console.log({ notification });
 
-      if (response.status === 200) {
+      if (response?.status === 200) {
         setLoading?.(false);
         updateFormData?.("notifications", true)
         navigate("/home");

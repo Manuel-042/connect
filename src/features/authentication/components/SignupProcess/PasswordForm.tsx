@@ -3,15 +3,17 @@ import Button, { buttonStyles } from "../../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import api from "../../../../api/api";
 import { StepProps } from "../../../../pages/auth/Signup";
+import { useAuthContext } from "../../../../context/auth-context";
 
 type FloatingLabelProps = {
   id: string;
   label: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
+  onBlur: (value: string) => void;
 }
 
-const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) => {
+const FloatingLabelInput = ({ id, label, value, setValue, onBlur }: FloatingLabelProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -22,14 +24,14 @@ const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) 
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(value !== "")}
+        onBlur={() => { setIsFocused(value !== ""); if (onBlur) { onBlur(value) } }}
         className="px-3 pt-5 w-full h-full border rounded-md bg-transparent outline-none 
                      border-dark-border text-lg focus:ring-2 focus:ring-secondary-100 focus:border-transparent"
       />
       <label
         htmlFor={id}
         className={`absolute left-3 transition-all text-lg dark:text-dark-text ${isFocused || value
-          ? "top-1 text-[0.7rem] text-secondary-100"
+          ? "top-1 text-sm text-secondary-100"
           : "top-4 text-gray-500"
           }`}
       >
@@ -41,6 +43,10 @@ const FloatingLabelInput = ({ id, label, value, setValue }: FloatingLabelProps) 
 
 type PasswordFormProps = StepProps
 
+const passwordValidation = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+);
+
 const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, updateFormData }) => {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
@@ -48,43 +54,103 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
   const [errors, setErrors] = useState({
     password: "",
     cpassword: ""
-});
+  });
+  const [touched, setTouched] = useState({
+    password: false,
+    cpassword: false,
+  });
+  const { setToken, decodeToken } = useAuthContext();
+
 
   const handleSubmit = async () => {
     setLoading?.(true);
-    let updatedErrors = { ...errors };
-
+    setErrors({ password: "", cpassword: "" }); 
+  
     if (password.trim() !== cPassword.trim()) {
-      return
+      setErrors((prev) => ({
+        ...prev,
+        cpassword: "Both passwords must match",
+      }));
+      setIsFormValid(false);
+      setLoading?.(false); // Stop loading on error
+      return;
     }
-
+  
     try {
-      const response = await api.post('/api/signup/steps/3', { password: password, cpassword: cPassword });
-      console.log(response);
-
-      if (response.status === 200) {
+      const response = await api.post("/api/signup/steps/3", {
+        password: password,
+        cpassword: cPassword,
+      });
+  
+      if (response.status === 201) {
         setLoading?.(false);
-        updateFormData?.("password", password)
+        updateFormData?.("password", password);
+        setToken(response.data.access);
+        decodeToken(response.data.access);
         next?.();
       } else if (response.status === 409) {
-        updatedErrors.password = response?.data?.message;
-        setErrors(updatedErrors);
+        setErrors((prev) => ({
+          ...prev,
+          password: response?.data?.message || response?.data?.error || "Conflict error occurred.",
+        }));
       } else {
-        updatedErrors.password = 'An unexpected error occurred. Please try again.';
-        setErrors(updatedErrors);
+        setErrors((prev) => ({
+          ...prev,
+          password: response?.data?.message || response?.data?.error || "An unexpected error occurred. Please try again.",
+        }));
       }
     } catch (error) {
-      updatedErrors.password = 'An unexpected error occurred. Please try again.';
-      setErrors(updatedErrors);
+      setErrors((prev) => ({
+        ...prev,
+        password: "An unexpected error occurred. Please try again.",
+      }));
       console.error(error);
     } finally {
       setLoading?.(false);
     }
   };
-
+  
   useEffect(() => {
-    setIsFormValid(password !== "" && cPassword !== "");
-  }, [password, cPassword]);
+    const hasErrors = errors.password || errors.cpassword;
+    const isValid =
+      password !== "" && cPassword !== "" && password === cPassword && !hasErrors;
+  
+    setIsFormValid(isValid);
+  }, [password, cPassword, errors]);
+
+  const handleBlur = (field: "password" | "cpassword", value: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+
+    if (field === "password") {
+      if (value.length < 8) {
+        setErrors((prev) => ({
+          ...prev,
+          password: "Password must be more than 8 characters",
+        }));
+        setIsFormValid(false);
+      } else if (!passwordValidation.test(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          password:
+            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+        }));
+        setIsFormValid(false);
+      } else {
+        setErrors((prev) => ({ ...prev, password: "" }));
+      }
+    } else if (field === "cpassword") {
+      if (value !== password) {
+        setErrors((prev) => ({
+          ...prev,
+          cpassword: "Passwords do not match",
+        }));
+        setIsFormValid(false);
+      } else {
+        setErrors((prev) => ({ ...prev, cpassword: "" }));
+      }
+    }
+  };
+  
 
 
   return (
@@ -96,17 +162,22 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
         label="Password"
         value={password}
         setValue={setPassword}
+        onBlur={(value) => handleBlur("password", value)}
       />
-      {errors.password && <p className="text-red-500 text-xs -mt-4">{errors.password}</p>}
+      {touched.password && errors.password && (
+        <p className="text-red-500 text-xs -mt-4">{errors.password}</p>
+      )}
 
       <FloatingLabelInput
         id="email"
         label="Confirm Password"
         value={cPassword}
         setValue={setCPassword}
+        onBlur={(value) => handleBlur("cpassword", value)}
       />
-      {errors.cpassword && <p className="text-red-500 text-xs -mt-4">{errors.cpassword}</p>}
-
+      {touched.cpassword && errors.cpassword && (
+        <p className="text-red-500 text-xs -mt-4">{errors.cpassword}</p>
+      )}  
 
       <Button
         onClick={handleSubmit}
