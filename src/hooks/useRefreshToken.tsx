@@ -6,7 +6,7 @@ const useRefreshToken = () => {
     const { setToken, decodeToken } = useAuthContext()
 
     const refresh = async () => {
-        const response = await api.get('api/token/refresh');
+        const response = await api.post('api/token/refresh');
         if (response) {
             console.log(response.data)
             setToken(response.data.accessToken)

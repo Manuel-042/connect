@@ -70,4 +70,42 @@ type NotificationsFormProps = {
     updateFormData: (key: string, value: string | boolean) => void;
 }
 
-export type { PostProps, UserProps, CreateAccountFormProps, VerifyAccountFormProps, UsernameFormProps, ProfilePictureFormProps, PasswordFormProps, NotificationsFormProps };
+type MentionUser =  {
+    username: string;
+    avatar: string;
+    profile_username: string;
+    is_following: boolean;
+    is_follower: boolean;
+}
+
+type MentionListProps =  {
+    items: MentionUser[];
+    command: (props: { id: string }) => void;
+    editor: any;
+}
+
+
+type MediaItem = {
+    url: string;
+    width: number;
+    height: number;
+    type: "image" | "gif";
+}
+
+type PollChoice = {
+    text: string;
+    id: string;
+}
+
+type PollLength = {
+    days: number;
+    hours: number;
+    minutes: number;
+}
+
+type PollData =  {
+    choices: PollChoice[];
+    length: PollLength;
+}
+
+export type { PostProps, UserProps, CreateAccountFormProps, VerifyAccountFormProps, UsernameFormProps, ProfilePictureFormProps, PasswordFormProps, NotificationsFormProps, MentionListProps, MentionUser, MediaItem, PollChoice, PollData, PollLength };

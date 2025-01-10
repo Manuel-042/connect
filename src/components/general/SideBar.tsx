@@ -4,26 +4,22 @@ import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/auth-context";
-import users from "../../data/users.json"
-import { UserProps } from "../../types";
 import MoreDisplay from "./MoreDisplay";
 import AccountSetting from "./AccountSetting";
-
 
 
 export default function SideBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { userProfile } = useAuthContext();
 
   // Ensure hooks are always called
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMoreDisplayOpen, setIsMoreDisplayOpen] = useState(false);
   const [isAccountSettingOpen, setIsAccountSettingOpen] = useState(false);
-  const [appUser, setAppUser] = useState<UserProps | null>(null);
 
   // Early return outside hook logic
-  if (!user) {
+  if (!userProfile) {
     return null; 
   }
 
@@ -40,7 +36,7 @@ export default function SideBar() {
     { Icon: LuSearch, url: "/explore", title: "Explore" },
     { Icon: LuBell, url: "/notifications", title: "Notifications" },
     { Icon: LuMail, url: "/messages", title: "Messages" },
-    { Icon: LuUserPlus2, url: `/${user?.name}`, title: "Profile" },
+    { Icon: LuUserPlus2, url: `/${userProfile?.name}`, title: "Profile" },
   ];
 
   const sidebarItemsMobile = [
@@ -51,18 +47,10 @@ export default function SideBar() {
   ];
 
   useEffect(() => {
-    const foundUser = users.find(usr => usr.id === Number(user.id));
-    setAppUser(foundUser || null);
-  }, [user]);
-
-  useEffect(() => {
     const index = sidebarItems.findIndex(item => location.pathname === item.url);
     setActiveIndex(index !== -1 ? index : 0);
   }, [location]);
 
-  if (!appUser) return null;
-
-  
 
   const handleClick = () => {
     navigate('/compose/post', {
@@ -108,16 +96,16 @@ export default function SideBar() {
         </div>
 
         <Button onClick={toggleAccountSettingOpen} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 xl:hidden bg-transparent hover:bg-transparent mt-auto w-10 h-10")}>
-          <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+          <img src={userProfile?.image} alt={`${userProfile?.name} profile picture`} className="rounded-full w-full h-full" />
         </Button>
 
         <div className="hidden xl:flex mt-auto items-center gap-3 w-full">
           <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "p-0 bg-transparent hover:bg-transparent w-10 h-10")}>
-            <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+            <img src={userProfile?.image} alt={`${userProfile?.name} profile picture`} className="rounded-full w-full h-full" />
           </Button>
           <div>
-            <p className="font-bold dark:text-white">{appUser?.displayname}</p>
-            <p className="-mt-1 dark:text-gray-400">@{appUser?.username}</p>
+            <p className="font-bold dark:text-white">{userProfile?.name}</p>
+            <p className="-mt-1 dark:text-gray-400">@{userProfile?.username}</p>
           </div>
           <div className="justify-self-end ms-auto">
             <LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} />
@@ -140,7 +128,7 @@ export default function SideBar() {
       </aside>
 
       <MoreDisplay isOpen={isMoreDisplayOpen} toggleMoreDisplayOpen={toggleMoreDisplayOpen}/>
-      <AccountSetting isOpen={isAccountSettingOpen} toggleAccountSettingOpen={toggleAccountSettingOpen} user={appUser}/>
+      <AccountSetting isOpen={isAccountSettingOpen} toggleAccountSettingOpen={toggleAccountSettingOpen}/>
     </>
   );
 }

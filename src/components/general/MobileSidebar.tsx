@@ -1,22 +1,26 @@
 import { ElementType } from 'react';
-import { UserProps } from '../../types';
 import { formatCount } from '../../utils/formatCount';
 import { LuUserPlus2, LuBookmark, LuSettings, LuLogOut, LuPlusCircle } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import Button, { buttonStyles } from '../UI/Button';
+import { useAuthContext } from '../../context/auth-context';
 
 
 type MobileSideBarProps = {
     isOpen: boolean;
     onClose: () => void;
-    user: UserProps
 }
 
-const MobileSidebar = ({ isOpen, onClose, user }: MobileSideBarProps) => {
+const MobileSidebar = ({ isOpen, onClose }: MobileSideBarProps) => {
+    const { userProfile } = useAuthContext();
+
+    if (!userProfile) {
+        return null;
+    }
 
     const sidebarItems = [
-        { Icon: LuUserPlus2, url: `/${user.username}`, title: "Profile" },
+        { Icon: LuUserPlus2, url: `/${userProfile.username}`, title: "Profile" },
         { Icon: LuBookmark, url: "/i/bookmarks", title: "Bookmark" },
         { Icon: LuSettings, url: "/settings", title: "Settings and Privacy" },
         { Icon: LuLogOut, url: "/logout", title: "Logout" }
@@ -28,15 +32,15 @@ const MobileSidebar = ({ isOpen, onClose, user }: MobileSideBarProps) => {
             <div className={`w-[85%] bg-black h-full shadow-md shadow-white`}>
                 <div className="p-4 text-white">
                     <div className='flex items-start justify-between'>
-                        <img src={user.image} alt={`${user.displayname} profile`} className="rounded-full w-10 h-10 mb-1" />
+                        <img src={userProfile?.image} alt={`${userProfile?.name} profile`} className="rounded-full w-10 h-10 mb-1" />
                         <Button  className={twMerge(buttonStyles({ variant: "ghost" }), "bg-transparent dark:focus:bg-transparent p-0")}><LuPlusCircle className="text-2xl"/></Button>
                     </div>
-                    <h2 className='font-extrabold'>{user.displayname}</h2>
-                    <p className='text-sm text-dark-text mb-2'>@{user.username}</p>
+                    <h2 className='font-extrabold'>{userProfile?.name}</h2>
+                    <p className='text-sm text-dark-text mb-2'>@{userProfile?.username}</p>
 
                     <div className='flex items-center gap-4 text-sm'>
-                        <p className='text-dark-text'><span className='text-white'>{formatCount(user.followingCount)}</span> Following</p>
-                        <p className='text-dark-text'><span className='text-white'>{formatCount(user.followerCount)}</span> Followers</p>
+                        <p className='text-dark-text'><span className='text-white'>{formatCount(userProfile?.followingCount || 0)}</span> Following</p>
+                        <p className='text-dark-text'><span className='text-white'>{formatCount(userProfile?.followerCount || 0)}</span> Followers</p>
                     </div>
 
                     <nav className="flex flex-col gap-3 w-full mt-7">

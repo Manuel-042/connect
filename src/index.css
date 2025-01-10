@@ -132,6 +132,7 @@ body {
   color: #aaa;
   pointer-events: none;
   height: 0;
+  display: block;
 }
 
 .ProseMirror {
@@ -143,16 +144,23 @@ body {
   }
 }
 
-.ProseMirror[contenteditable="true"]:empty::before {
+/* .ProseMirror[contenteditable="true"]:empty::before {
   content: "What's happening...";
   color: white;
-}
-
-/* input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-  box-shadow: 0 0 0px 1000px transparent inset !important;
-  -webkit-text-fill-color: inherit !important;
+  position: absolute;
+  pointer-events: none;
 } */
+
+.mention {
+  background-color: rgba(88, 5, 255, .05);
+  border-radius: 0.3rem;
+  box-decoration-break: clone;
+  color: #1d9bf0;
+  padding: 0.05rem 0.3rem;
+  &::after {
+    content: "\200B";
+  }
+}
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */

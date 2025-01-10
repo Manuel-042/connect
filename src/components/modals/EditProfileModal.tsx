@@ -41,9 +41,9 @@ const EditProfileModal = () => {
 
     return ReactDOM.createPortal(
         <div className="modal-overlay1" onClick={handleCloseModal}>
-            <div onClick={e => e.stopPropagation()}>
+            <div onClick={e => e.stopPropagation()} className='w-2/4'>
                 {user && (
-                    <div className='bg-black rounded-2xl w-2/4 px-2 pt-2 pb-4'>
+                    <div className='bg-black rounded-2xl w-full px-2 pt-2 pb-4'>
                         <div className='flex items-center justify-between mb-2'>
                             <div className='flex items-center justify-center gap-2'>
                                 <Button onClick={handleCloseModal} className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "bg-transparent text-neutral-300")}><LuX className='w-48 h-48' /></Button>

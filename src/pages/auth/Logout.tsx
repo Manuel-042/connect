@@ -6,7 +6,7 @@ import useApiPrivate from "../../hooks/useApiPrivate"
 
 
 const Logout = () => {
-    const { user } = useAuthContext();
+    const { userProfile } = useAuthContext();
     const navigate = useNavigate();
     const apiPrivate = useApiPrivate();
     const { setToken } = useAuthContext();
@@ -23,7 +23,7 @@ const Logout = () => {
     
             if (response?.status === 200 || response?.status === 204) {
                 console.log("logout succesful")
-                navigate(`/?logout=${user?.id}`)
+                navigate(`/?logout=${userProfile?.id}`)
             } else {
                 console.log(response?.data.error)
             }

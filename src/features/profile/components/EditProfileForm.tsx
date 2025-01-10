@@ -1,64 +1,86 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from "zod"
-import { zodResolver } from '@hookform/resolvers/zod';
-import { AxiosError } from 'axios';
 import { UserProps } from '../../../types';
 import Button, { buttonStyles } from '../../../components/UI/Button';
 import { twMerge } from 'tailwind-merge';
 import { LuImagePlus, LuX } from 'react-icons/lu';
-import { useRef } from 'react';
+import { useRef, useState, Dispatch, SetStateAction } from 'react';
+import useApiPrivate from '../../../hooks/useApiPrivate';
 
-const MAX_UPLOAD_SIZE = 5000000;
-const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+type FloatingLabelProps = {
+    id: string;
+    label: string;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
+    maxLength?: number;
+    onBlur: (id: string, value: string) => void;
+    setIsFocused: Dispatch<SetStateAction<boolean>>;
+    isFocused: boolean;
+};
 
-const schema = z.object({
-    coverphoto: z
-        .instanceof(File)
-        .optional()
-        .refine((file) => {
-            return !file || file.size <= MAX_UPLOAD_SIZE;
-        }, 'File size must be less than 3MB')
-        .refine((file) => {
-            if (!file) return 
-            return ACCEPTED_FILE_TYPES.includes(file.type);
-        }, 'File must be a PNG or JPG or IPEG or WEBP'),
-    profilephoto: z
-        .instanceof(File)
-        .optional()
-        .refine((file) => {
-            return !file || file.size <= MAX_UPLOAD_SIZE;
-        }, 'File size must be less than 3MB')
-        .refine((file) => {
-            if (!file) return 
-            return ACCEPTED_FILE_TYPES.includes(file.type);
-        }, 'File must be a PNG or JPG or IPEG or WEBP'),
-    name: z.string(),
-    bio: z.string(),
-})
+const FloatingLabelInput = ({
+    id,
+    label,
+    value,
+    setValue,
+    maxLength,
+    onBlur,
+    isFocused,
+    setIsFocused,
+}: FloatingLabelProps) => {
+    return (
+        <div className="relative h-[60px] mt-2 mb-1">
+            <input
+                type="text"
+                id={id}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => onBlur(id, value)} // Pass id and value
+                maxLength={maxLength}
+                className="px-3 pt-5 w-full h-full border rounded-md bg-transparent outline-none 
+                     border-dark-border text-lg dark:text:white focus:ring-2 focus:ring-secondary-100 focus:border-transparent autofill:bg-transparent 
+                    autofill:text-white"
+            />
+            <label
+                htmlFor={id}
+                className={`absolute left-3 transition-all text-lg dark:text-dark-text ${isFocused || value
+                        ? "top-1 text-sm text-secondary-100"
+                        : "top-4 text-gray-500"
+                    }`}
+            >
+                {label}
+            </label>
+            {maxLength && (
+                <div className="text-[0.8rem] absolute top-2 right-2 dark:text-dark-text">
+                    {value.length} / {maxLength}
+                </div>
+            )}
+        </div>
+    );
+};
 
-type FormFields = z.infer<typeof schema>
+
 type EditProfileProps = Pick<UserProps, 'displayname' | 'bio' | 'image' | 'coverPhoto'>;
 
 
 const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displayname, bio, coverPhoto, image }: EditProfileProps) => {
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<FormFields>({ defaultValues: { name: displayname, bio: bio }, resolver: zodResolver(schema) });
     const coverPhotoRef = useRef<HTMLInputElement>(null)
     const profilePhotoRef = useRef<HTMLInputElement>(null)
+    const [errors, setErrors] = useState({ name: "", username: "", bio: ""});
 
-    const onSubmit: SubmitHandler<FormFields> = async (data) => {
-        try {
-            console.log("Submitted data:", data);
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                if (!err.response) {
-                    setError('root', { message: "No server response" })
-                } else {
-                    console.log(err.response?.data);
-                }
-            } else {
-                console.error("Non Axios error:", err)
-            }
-        }
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [biography, setBiography] = useState("");
+    const [isNameFocused, setIsNameFocused] = useState(false);
+    const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [isChecking, setIsChecking] = useState(false); 
+    const [isValid, setIsValid] = useState(true); 
+
+    const apiPrivate = useApiPrivate();
+    let debounceTimeout: NodeJS.Timeout;
+
+    const handleSubmit = async () => {
+        console.log("here")
     }
 
     const handleOpenCoverPhoto = () => {
@@ -73,15 +95,66 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
         }
     };
 
+    const validateForm = (updatedErrors: typeof errors) => {
+        const isNameValid = !updatedErrors.name;
+        const isUsernameValid =  !updatedErrors.username;
+        const isBioValid =  !updatedErrors.bio;
+
+        setIsFormValid(isNameValid && isUsernameValid && isBioValid);
+    };
+
+    const validateField = async (id: string, value: string) => {
+        let updatedErrors = { ...errors };
+
+        if (id === "name") {
+            updatedErrors.name = value ? "" : "Name can't be blank";
+        }
+
+        if (id === "username") {
+            if (!value) {
+                updatedErrors.username = "Username can't be blank";
+            } else {
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(async () => {
+
+                    try {
+                        const response = await apiPrivate?.post("/api/username/check", { username });
+                        if (response?.status === 200 && response?.data?.isAvailable) {
+                            updatedErrors.username = "" ;
+                            setIsValid(true);
+                        } else {
+                            updatedErrors.username = "Username already exists" ;
+                            setIsValid(false);
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        updatedErrors.username = "An error occurred. Please try again later." ;
+                        setIsValid(false);
+                    } finally {
+                        setIsChecking(false);
+                    }
+                }, 500)              
+            }
+        }
+
+        console.log("Errors:", updatedErrors);
+        setErrors(updatedErrors);
+        validateForm(updatedErrors);
+    };
+
+    const handleBlur = (id: string, value: string) => {
+        validateField(id, value);
+        if (id === "name") setIsNameFocused(value !== "");
+        if (id === "username") setIsUsernameFocused(value !== "");
+    };
 
     return (
-        <form className="flex flex-col items-center gap-2 w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col items-center gap-2 w-full" onSubmit={handleSubmit}>
             <div className="flex flex-col justify-items-center gap-3 w-full">
                 <div className='relative'>
                     <div className="h-48 cursor-pointer relative">
                         <input
                             type="file"
-                            {...register("coverphoto")}
                             id="coverphoto"
                             className="hidden"
                             ref={coverPhotoRef}
@@ -104,12 +177,12 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
                     <div className='w-28 h-28 absolute left-5 top-32 cursor-pointer'>
                         <input
                             type="file"
-                            {...register("profilephoto")}
                             id="profilephoto"
                             className="hidden"
                             ref={profilePhotoRef}
                         />
                         <img src={image} alt={`${displayname} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
+
                         <div className='overlay absolute top-0 rounded-full w-full h-full bg-black bg-opacity-40 flex items-center justify-center'>
                             <label htmlFor='profilephoto' className='rounded-full'>
                                 <Button onClick={handleOpenProfilePhoto} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-neutral-200 bg-black bg-opacity-60 hover:bg-black hover:bg-opacity-50')}>
@@ -121,19 +194,33 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
                 </div>
 
                 {/* Name and Bio Fields */}
-                <div className='mt-14 flex flex-col gap-3'>
-                    <div className='text-left flex flex-col gap-2'>
-                        <label htmlFor='name' className='text-base font-bold'>Your Name</label>
-                        <input
-                            type="text"
-                            {...register("name")}
-                            placeholder="Enter your Display name"
-                            id="name"
-                            className="border-1 shadow-sm dark:shadow-neutral-800 bg-neutral-700 text-neutral-300 px-4 py-2 rounded-md focus:outline-1"
-                        />
-                        {errors.name && <p className="text-xs text-red-600">{errors.name.message}</p>}
-                    </div>
-                    <div className='text-left flex flex-col gap-2'>
+                <div className='mt-14 flex flex-col gap-2'>
+                    <FloatingLabelInput
+                        id="name"
+                        label="Name"
+                        value={name}
+                        setValue={setName}
+                        maxLength={50}
+                        onBlur={handleBlur}
+                        setIsFocused={setIsNameFocused}
+                        isFocused={isNameFocused}
+                    />
+                    {errors.name && <p className="text-xs text-red-600">{errors.name}</p>}
+            
+                    <FloatingLabelInput
+                        id="name"
+                        label="Username"
+                        value={name}
+                        setValue={setUsername}
+                        maxLength={12}
+                        onBlur={handleBlur}
+                        setIsFocused={setIsUsernameFocused}
+                        isFocused={isUsernameFocused}
+                    />
+                    {errors.username && <p className="text-xs text-red-600">{errors.username}</p>}
+
+
+                    {/* <div className='text-left flex flex-col gap-2'>
                         <label htmlFor='bio' className='text-base font-bold'>Your Bio</label>
                         <textarea
                             {...register("bio")}
@@ -142,7 +229,7 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
                             className="border-1 resize-none shadow-sm dark:shadow-neutral-800 bg-neutral-700 text-neutral-300 px-4 py-2 rounded-md focus:outline-1 w-full"
                         ></textarea>
                         {errors.bio && <p className="text-xs text-red-600">{errors.bio.message}</p>}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </form>

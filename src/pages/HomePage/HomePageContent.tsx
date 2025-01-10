@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ForYou } from "../../features/feed";
 import { Following } from "../../features/feed";
 import { useAuthContext } from "../../context/auth-context";
-import { UserProps } from "../../types";
-import users from "../../data/users.json"
 import { CreatePost } from "../../features/post";
 import Button, { buttonStyles } from "../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
@@ -15,23 +13,11 @@ import MobileSidebar from "../../components/general/MobileSidebar";
 
 const HomePageContent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { user } = useAuthContext();
+  const { userProfile } = useAuthContext();
   const { isProfileSidebarOpen, toggleProfileSidebar } = useMobileSidebar();
   const location = useLocation();
 
-  const [appUser, setAppUser] = useState<UserProps | null>(null);
-
-  if (!user) return null;
-
-  useEffect(() => {
-    const foundUser = users.find(usr => usr.id === Number(user.id));
-    if (!foundUser) {
-      return
-    }
-    setAppUser(foundUser);
-  }, [user])
-
-  if (!appUser) return null;
+  if (!userProfile) return null;
 
   const labels = ["For You", "Following"];
 
@@ -41,7 +27,7 @@ const HomePageContent = () => {
         
         <div className="sm:hidden flex items-center justify-between mt-2 mb-3 px-4">
           <Button onClick={toggleProfileSidebar} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), " p-0 bg-transparent hover:bg-transparent w-9 h-9")}>
-            <img src={appUser?.image} alt={`${appUser?.displayname} profile picture`} className="rounded-full w-full h-full" />
+            <img src={userProfile?.image} alt={`${userProfile?.name} profile picture`} className="rounded-full w-full h-full" />
           </Button>
 
           <Button className={twMerge(buttonStyles(), "bg-transparent w-7 h-7 p-0 ms-3")}>
@@ -68,7 +54,7 @@ const HomePageContent = () => {
 
       <div className="hidden post sm:flex self-start w-full px-4 py-5 gap-2 border-b border-dark-border ">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
-          <img src={appUser?.image} className="rounded-full w-full h-full object-contain object-center" alt={`${appUser?.displayname} profile image`} />
+          <img src={userProfile?.image} className="rounded-full w-full h-full object-contain object-center" alt={`${userProfile?.name} profile image`} />
         </div>
         <CreatePost />
       </div>
@@ -90,8 +76,7 @@ const HomePageContent = () => {
         </Link>
       </div>
 
-      <MobileSidebar isOpen={isProfileSidebarOpen} onClose={toggleProfileSidebar} user={appUser} />
-
+      <MobileSidebar isOpen={isProfileSidebarOpen} onClose={toggleProfileSidebar} />
     </>
   );
 }

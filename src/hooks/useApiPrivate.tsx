@@ -2,20 +2,22 @@ import { apiPrivate } from '../api/api';
 import { useAuthContext } from '../context/auth-context';
 import { useEffect } from 'react';
 import useRefreshToken from './useRefreshToken';
+import { AxiosInstance } from 'axios';
 
-const useApiPrivate = () => {
+const useApiPrivate = (): AxiosInstance => {
     const { token } = useAuthContext();
     const refresh = useRefreshToken();
 
-    if (!token) {
-        console.log("No token found");
-        return;
-    }
+    useEffect(() => {        
+        if (!token) {
+            console.log("No token found, skipping interceptors setup.");
+            return;
+        }
 
-    useEffect(() => {
         const requestInterceptor = apiPrivate.interceptors.request.use(
             (config) => {
                 if (!config?.headers['Authorization']) {
+                    console.log("Setting Authorization header:", token);
                     config.headers['Authorization'] = `Bearer ${token}`;
                 }
                 return config;
@@ -30,7 +32,7 @@ const useApiPrivate = () => {
             response => response,
             async (error) => {
                 const prevRequest = error?.config
-                if (error?.response?.status === 403 && !prevRequest?.sent) {
+                if (error?.response?.status === 401 && !prevRequest?.sent) {
                     prevRequest.sent = true;
                     const newAccessToken = await refresh();
                     prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;

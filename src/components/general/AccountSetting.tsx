@@ -1,18 +1,25 @@
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import { buttonStyles } from '../UI/Button';
-import { UserProps } from '../../types';
+import { useAuthContext } from '../../context/auth-context';
 
 type AccountSettingProps = {
     isOpen: boolean;
     toggleAccountSettingOpen: () => void;
-    user: UserProps;
 }
 
-const AccountSetting = ({ isOpen, toggleAccountSettingOpen, user }: AccountSettingProps) => {
+const AccountSetting = ({ isOpen, toggleAccountSettingOpen }: AccountSettingProps) => {
+    const { userProfile } = useAuthContext();
+
+    if (!userProfile) {
+        return null;
+    }
+
+    console.log(userProfile);
+    
     const sidebarItems = [
         { url: `/i/flow/login`, title: `Add an existing account` },
-        { url: "/logout", title: `Log out @${user.username}` },
+        { url: "/logout", title: `Log out @${userProfile.username}` },
     ];
 
 
