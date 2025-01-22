@@ -1,23 +1,16 @@
-import { useState } from 'react';
 import { LuPlus, LuX } from 'react-icons/lu';
 import { v4 as uuidv4 } from 'uuid';
 import { PollChoice, PollLength } from '../../../types';
 
 interface PollCreatorProps {
     onClose: () => void;
+    choices: PollChoice[];
+    setChoices: React.Dispatch<React.SetStateAction<PollChoice[]>>
+    pollLength: PollLength;
+    setPollLength:  React.Dispatch<React.SetStateAction<PollLength>>
 }
 
-const PollCreator = ({ onClose }: PollCreatorProps) => {
-    const [choices, setChoices] = useState<PollChoice[]>([
-        { text: '', id: uuidv4() },
-        { text: '', id: uuidv4() }
-    ]);
-
-    const [pollLength, setPollLength] = useState<PollLength>({
-        days: 1,
-        hours: 0,
-        minutes: 0
-    });
+const PollCreator = ({ onClose, choices, setChoices, pollLength, setPollLength }: PollCreatorProps) => {
 
     const addChoice = () => {
         if (choices.length < 4) {

@@ -89,7 +89,7 @@ type MediaItem = {
     url: string;
     width: number;
     height: number;
-    type: "image" | "gif";
+    type: "image" | "gif" | "video";
 }
 
 type PollChoice = {

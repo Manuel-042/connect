@@ -15,11 +15,12 @@ import useApiPrivate from '../../../hooks/useApiPrivate';
 import { ReactRenderer } from '@tiptap/react'
 import tippy from 'tippy.js'
 import MentionList from '../../../components/general/MentionList';
-import { MentionUser, MediaItem } from '../../../types';
+import { MentionUser, MediaItem, PollChoice, PollLength } from '../../../types';
 import debounce from "lodash/debounce"
 import { useEditor } from '@tiptap/react';
 import MediaCarousel from './MediaCarousel'
 import PollCreator from './PollCreator'
+import { v4 as uuidv4 } from 'uuid';
 
 interface SuggestionKeydownProps {
     event: KeyboardEvent;
@@ -30,12 +31,24 @@ const CreatePost = () => {
     const [showEmojis, setShowEmojis] = useState(false);
     const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
     const [showPoll, setShowPoll] = useState(false);
+    const [postType, setPostType] = useState("");
     const navigate = useNavigate()
     const location = useLocation()
-    const { gifPreview } = useGifContext();
+    const { gifPreview, setGifPreview } = useGifContext();
     const { theme } = useThemeContext();
     const apiPrivate = useApiPrivate();
     const pickerRef = useRef<HTMLDivElement>(null);
+
+    const [choices, setChoices] = useState<PollChoice[]>([
+        { text: '', id: uuidv4() },
+        { text: '', id: uuidv4() }
+    ]);
+
+    const [pollLength, setPollLength] = useState<PollLength>({
+        days: 1,
+        hours: 0,
+        minutes: 0
+    });
 
     const fetchMentions = debounce(async (query, resolve, reject) => {
         if (!query.trim()) {
@@ -128,23 +141,31 @@ const CreatePost = () => {
         content: '',
         onUpdate: ({ editor }) => {
             const isEmpty = editor.isEmpty;
+            setPostType("text");
             setPostContent(!isEmpty);
         }
     });
 
     const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
         console.log("File input changed");
+        setPostType("media")
 
         const files = e.target.files;
 
         if (files) {
             const fileArray = Array.from(files);
-            const newMediaItems = fileArray.map(file => ({
-                url: URL.createObjectURL(file),
-                width: 0,
-                height: 0,
-                type: "image" as const
-            }));
+
+            const newMediaItems = fileArray.map(file => {
+                const fileType = file.type.startsWith("image/") ? "image" : file.type.startsWith("video/") ? "video" : "unknown";
+            
+                return {
+                    url: URL.createObjectURL(file),
+                    width: 0,  
+                    height: 0,
+                    type: fileType as "image" | "video" 
+                };
+            });
+            
 
             setMediaItems(prev => {
                 const combined = [...prev, ...newMediaItems];
@@ -152,6 +173,12 @@ const CreatePost = () => {
             });
         }
     }
+
+    useEffect(() => {
+        return () => {
+            mediaItems.forEach(item => URL.revokeObjectURL(item.url));
+        };
+    }, [mediaItems]);
 
     const handleShowGIFs = () => {
         navigate('/i/foundMedia/search', {
@@ -161,6 +188,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (gifPreview) {
+            setPostType("media")
             setMediaItems(prev => {
                 if (prev.length >= 4) return prev;
                 return [...prev, { ...gifPreview, type: "gif" }];
@@ -169,7 +197,9 @@ const CreatePost = () => {
     }, [gifPreview]);
 
     const onRemoveMedia = (index: number) => {
+        setPostType("text")
         setMediaItems(prev => prev.filter((_, i) => i !== index));
+        setGifPreview(null);
     };
 
     const onEmojiClick = ({ emoji }: EmojiClickData) => {
@@ -182,12 +212,55 @@ const CreatePost = () => {
     }
 
     const handleShowPoll = () => {
+        setPostType("poll")
         setShowPoll(true);
     };
 
     const handleClosePoll = () => {
         setShowPoll(false);
     };
+
+    const handleSubmitPosts = () => {
+        const contentJSON = editor?.getJSON();
+        const contentHTML = editor?.getHTML();
+    
+        const postData: Record<string, any> = {
+            content: contentJSON,
+            html: contentHTML,
+        };
+
+        console.log(postType);
+    
+        if (postType === "media") {
+            const mediaData = mediaItems.map((media) => ({
+                url: media.url,
+                type: media.type,
+            }));
+            postData["media"] = mediaData;
+        } else if (postType === "poll") {
+            postData["poll"] = {
+                choices: choices.filter(choice => choice.text.trim()),
+                length: pollLength,
+            };
+        }
+    
+        console.log({ postData });
+
+        // Clear content
+        editor?.commands.clearContent(); 
+        setChoices([
+            { text: '', id: uuidv4() },
+            { text: '', id: uuidv4() }
+        ]);
+        setPollLength({
+            days: 1,
+            hours: 0,
+            minutes: 0
+        });
+        setShowPoll(false)
+        setMediaItems([]); 
+    };
+    
 
 
 
@@ -203,11 +276,13 @@ const CreatePost = () => {
                     />
                 )}
 
-                {showPoll && <PollCreator onClose={handleClosePoll} />}
+                {showPoll && <PollCreator onClose={handleClosePoll} choices={choices} setChoices={setChoices} pollLength={pollLength} setPollLength={setPollLength}/>}
 
                 <div className="relative flex items-center justify-between mt-2 border-t pt-2 border-dark-border">
                     <div className="flex items-center justify-center text-xl text-blue-700">
-                        <input type="file" onChange={handleFileSelected} className="hidden" id="ImageUpload" accept="image/jpg, image/jpeg, image/png, image/webp" multiple />
+
+                        <input type="file" onChange={handleFileSelected} className="hidden" id="ImageUpload" accept="image/jpg, image/jpeg, image/png, image/webp, video/mp4, video/x-m4v, video/*" multiple />
+
                         <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent")}> <label htmlFor="ImageUpload" className="cursor-pointer"><LuFileImage /></label> </Button>
                         <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent")} onClick={handleShowGIFs}><LuBoomBox /></Button>
                         <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent hidden mlg:block", showPoll && "text-blue-500")} onClick={handleShowPoll} disabled={showPoll}><LuListChecks /></Button>
@@ -215,7 +290,7 @@ const CreatePost = () => {
                         <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent hidden mlg:block")}><LuCalendarClock /></Button>
                         <Button disabled className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-not-allowed bg-transparent opacity-50")}><LuMapPin /></Button>
                     </div>
-                    <Button className={`py-2 ${postContent ? "cursor-pointer" : "cursor-not-allowed opacity-50"}`} disabled={!postContent}>Post</Button>
+                    <Button className={`py-2 ${postContent ? "cursor-pointer" : "cursor-not-allowed opacity-50"}`} disabled={!postContent} onClick={handleSubmitPosts}>Post</Button>
 
                     {showEmojis && <div ref={pickerRef} className={`absolute top-12 left-3 z-30`}>
                         <EmojiPicker height={400} width={300} onEmojiClick={onEmojiClick} theme={theme as Theme} />
