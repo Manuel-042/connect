@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import users from "../../data/users.json"
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { LuArrowLeft, LuBadgeCheck, LuCalendarDays, LuMail, LuMoreHorizontal } from 'react-icons/lu';
+import { LuArrowLeft, LuBadgeCheck, LuCalendarDays, LuMail, LuEllipsis } from 'react-icons/lu';
 import Button, { buttonStyles } from '../../components/UI/Button';
 import { formatCount } from '../../utils/formatCount';
 import { twMerge } from 'tailwind-merge';
@@ -83,7 +83,7 @@ const ProfilePageContent = () => {
                             :
                             <div className='flex items-center gap-2'>
                                 <div className='border rounded-full border-dark-border'>
-                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuMoreHorizontal className='text-xl' /></Button>
+                                    <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuEllipsis className='text-xl' /></Button>
                                 </div>
                                 <div className='border rounded-full border-dark-border'>
                                     <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), 'cursor-pointer w-10 h-10 text-white bg-transparent')}><LuMail className='text-xl' /></Button>

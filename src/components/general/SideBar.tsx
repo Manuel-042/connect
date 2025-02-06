@@ -1,5 +1,5 @@
 import { ElementType, useEffect, useState } from "react";
-import { LuMenu, LuSearch, LuBell, LuMail, LuUserPlus2, LuLeaf, LuHome, LuCircleEllipsis, LuMoreHorizontal } from "react-icons/lu";
+import { LuMenu, LuSearch, LuBell, LuMail, LuUserRoundPlus, LuLeaf, LuHouse, LuCircleEllipsis, LuEllipsis } from "react-icons/lu";
 import Button, { buttonStyles } from "../UI/Button";
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -32,15 +32,15 @@ export default function SideBar() {
   };
 
   const sidebarItems = [
-    { Icon: LuHome, url: "/home", title: "Home" },
+    { Icon: LuHouse, url: "/home", title: "Home" },
     { Icon: LuSearch, url: "/explore", title: "Explore" },
     { Icon: LuBell, url: "/notifications", title: "Notifications" },
     { Icon: LuMail, url: "/messages", title: "Messages" },
-    { Icon: LuUserPlus2, url: `/${userProfile?.name}`, title: "Profile" },
+    { Icon: LuUserRoundPlus, url: `/${userProfile?.name}`, title: "Profile" },
   ];
 
   const sidebarItemsMobile = [
-    { Icon: LuHome, url: "/home" },
+    { Icon: LuHouse, url: "/home" },
     { Icon: LuSearch, url: "/explore" },
     { Icon: LuBell, url: "/notifications" },
     { Icon: LuMail, url: "/messages" },
@@ -108,7 +108,7 @@ export default function SideBar() {
             <p className="-mt-1 dark:text-gray-400">@{userProfile?.username}</p>
           </div>
           <div className="justify-self-end ms-auto">
-            <LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} />
+            <LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} />
           </div>
         </div>
       </aside>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import users from "../../../data/users.json"
-import { LuBadgeCheck, LuDot, LuMoreHorizontal } from "react-icons/lu";
+import { LuBadgeCheck, LuDot, LuEllipsis } from "react-icons/lu";
 import formatDate from "../../../utils/formatDate";
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../../components/UI/Button";
@@ -77,7 +77,7 @@ function Message({ user_id, last_message, last_message_date, is_unread, onClick,
                     </div> 
                 </div>
                 {is_unread && <div className="my-auto ms-auto w-[8px] h-[8px] bg-secondary rounded-full"></div>}
-                <div className={`justify-self-center ${!is_unread && 'ms-auto'}  my-auto`}><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "cursor-pointer p-0 w-5 h-5 dark:text-gray-500  dark:hover:text-primary")} /></div>
+                <div className={`justify-self-center ${!is_unread && 'ms-auto'}  my-auto`}><LuEllipsis className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "cursor-pointer p-0 w-5 h-5 dark:text-gray-500  dark:hover:text-primary")} /></div>
             </div>
         </div>
     );

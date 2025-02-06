@@ -1,4 +1,4 @@
-import { LuBoomBox, LuFileImage, LuSendHorizonal, LuSmile } from "react-icons/lu";
+import { LuBoomBox, LuFileImage, LuSendHorizontal, LuSmile } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../../../components/UI/Button";
 import useAutosizeTextArea from "../../../hooks/useAutoSizeTextArea"
@@ -130,7 +130,7 @@ const MessageForm = () => {
                             rows={1}
                         ></textarea>
                     </div>
-                    <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent")}><LuSendHorizonal className="text-xl" /></Button>
+                    <Button className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer bg-transparent")}><LuSendHorizontal className="text-xl" /></Button>
                 </form>
             </div>
         </div>

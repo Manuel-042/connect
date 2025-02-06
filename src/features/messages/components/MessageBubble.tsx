@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import messageDateFormat from '../../../utils/MessageDateFormat';
 import Button, { buttonStyles } from '../../../components/UI/Button';
 import { twMerge } from 'tailwind-merge';
-import { LuSmilePlus, LuMoreHorizontal } from 'react-icons/lu';
+import { LuSmilePlus, LuEllipsis } from 'react-icons/lu';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { useThemeContext } from '../../../context/theme-context';
 import { Theme } from 'emoji-picker-react';
@@ -55,7 +55,7 @@ const MessageBubble: React.FC<MessageProps> = ({ message, currentUserId }) => {
                 {isSender && (
                     <div className={`invisible group-hover:visible flex items-center gap-1 ms-auto`}>
                         <Button type="button" onClick={handleShowReaction} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuSmilePlus className="text-lg" /></Button>
-                        <Button type="button" className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuMoreHorizontal className="text-lg" /></Button>
+                        <Button type="button" className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuEllipsis className="text-lg" /></Button>
                     </div>
                 )}
                 <div
@@ -70,7 +70,7 @@ const MessageBubble: React.FC<MessageProps> = ({ message, currentUserId }) => {
                 {!isSender && (
                     <div className={`invisible group-hover:visible flex items-center gap-1 me-auto`}>
                         <Button type="button" onClick={handleShowReaction} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuSmilePlus className="text-lg" /></Button>
-                        <Button type="button" className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuMoreHorizontal className="text-lg" /></Button>
+                        <Button type="button" className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-gray-400 text-opacity-10 cursor-pointer bg-transparent")}><LuEllipsis className="text-lg" /></Button>
                     </div>
                 )}
             </div>

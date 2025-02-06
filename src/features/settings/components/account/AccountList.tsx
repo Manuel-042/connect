@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { LuHeartCrack, LuKeyRound, LuUser2 } from 'react-icons/lu';
+import { LuHeartCrack, LuKeyRound, LuUserRound } from 'react-icons/lu';
 import Account from './Account';
 
 const data = [
-    { Icon: LuUser2, url: "/settings/your_twitter_data/account", title: "Account Information", subtitle: "See your account information like your phone number and email address" },
+    { Icon: LuUserRound, url: "/settings/your_twitter_data/account", title: "Account Information", subtitle: "See your account information like your phone number and email address" },
     { Icon: LuKeyRound, url: "/settings/password", title: "Change Password", subtitle: "Change your password at any time" },
     { Icon: LuHeartCrack, url: "/settings/deactivate", title: "Deactivate your account", subtitle: "Find out how to deactivate your account" }
 ];

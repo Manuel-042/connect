@@ -1,4 +1,4 @@
-import { LuArrowLeft, LuSearch, LuXCircle } from "react-icons/lu"
+import { LuArrowLeft, LuSearch, LuCircleX } from "react-icons/lu"
 import { twMerge } from "tailwind-merge"
 import { buttonStyles } from "../../components/UI/Button"
 import { useState } from "react";
@@ -48,7 +48,7 @@ const SettingsPageContent = () => {
             onChange={handleChange} />
         </form>
 
-        {searchContent && (<div className="absolute top-[4.2rem] md:top-50 right-10 md:right-28 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuXCircle className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 md:w-10 md:h-10 text-white')} /></div>)}
+        {searchContent && (<div className="absolute top-[4.2rem] md:top-50 right-10 md:right-28 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuCircleX className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 md:w-10 md:h-10 text-white')} /></div>)}
       </div>
 
       <SettingsList />

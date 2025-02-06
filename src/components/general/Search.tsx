@@ -1,4 +1,4 @@
-import { LuBadgeCheck, LuSearch, LuXCircle } from 'react-icons/lu'
+import { LuBadgeCheck, LuSearch, LuCircleX } from 'react-icons/lu'
 import { twMerge } from 'tailwind-merge'
 import { buttonStyles } from '../UI/Button'
 import { useEffect, useState } from 'react';
@@ -121,7 +121,7 @@ const Search = ({ updateIsFocused }: Props) => {
                     value={searchQuery}
                     onChange={handleChange}
                 />
-                {searchQuery && (<div className="absolute top-3 right-10 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuXCircle className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 dark:text-white')} /></div>)}
+                {searchQuery && (<div className="absolute top-3 right-10 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuCircleX className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 dark:text-white')} /></div>)}
             </form>
 
             {searchQuery && (

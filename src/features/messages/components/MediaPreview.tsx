@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../../../components/UI/Button";
-import { LuXCircle } from "react-icons/lu";
+import { LuCircleX } from "react-icons/lu";
 
 
 type TenorImagePreview = {
@@ -23,7 +23,7 @@ const MediaPreview = ({ media, onRemove }: MediaPreviewProps) => {
                 alt="Selected GIF"
                 className="rounded-xl w-full h-full"
             />
-            <Button type="button" onClick={onRemove} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-black dark:hover:bg-opacity-30  absolute top-2 right-3 cursor-pointer bg-transparent")}><LuXCircle className="text-3xl" /></Button>
+            <Button type="button" onClick={onRemove} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "dark:text-black dark:hover:bg-opacity-30  absolute top-2 right-3 cursor-pointer bg-transparent")}><LuCircleX className="text-3xl" /></Button>
         </div>
     );
 };

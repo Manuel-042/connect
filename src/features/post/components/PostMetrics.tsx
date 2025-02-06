@@ -1,4 +1,4 @@
-import { LuMessageSquare, LuRepeat2, LuHeart, LuBarChart, LuBookmark, LuUpload } from "react-icons/lu";
+import { LuMessageSquare, LuRepeat2, LuHeart, LuChartNoAxesColumnIncreasing, LuBookmark, LuUpload } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { buttonStyles } from "../../../components/UI/Button"
 import { formatCount } from "../../../utils/formatCount";
@@ -31,7 +31,7 @@ const PostMetrics = ({comments, retweets, likes, views, showViews = true, bookma
                 <span className="-ms-2">{formatCount(likes)}</span>
             </div>
             {showViews && <div className="flex items-center justify-between gap-0.5 text-sm dark:text-dark-text dark:hover:text-primary">
-                <LuBarChart className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), `${isLarge ? 'w-10 h-10' : '' } cursor-pointer text-white dark:text-dark-text dark:hover:text-primary` )} />
+                <LuChartNoAxesColumnIncreasing className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), `${isLarge ? 'w-10 h-10' : '' } cursor-pointer text-white dark:text-dark-text dark:hover:text-primary` )} />
                 <span className="-ms-2">{formatCount(views)}</span>
             </div>}
 

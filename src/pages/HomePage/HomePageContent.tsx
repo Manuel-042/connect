@@ -23,7 +23,7 @@ const HomePageContent = () => {
 
   return (
     <>
-      <div className="sm:sticky top-0">
+      <div className="sm:sticky top-0 z-[9999]">
         
         <div className="sm:hidden flex items-center justify-between mt-2 mb-3 px-4">
           <Button onClick={toggleProfileSidebar} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), " p-0 bg-transparent hover:bg-transparent w-9 h-9")}>
@@ -39,7 +39,7 @@ const HomePageContent = () => {
           </Button>
         </div>
 
-        <div className="flex border-b bg-white dark:bg-black z-20 items-center justify-between border-dark-border">
+        <div className="flex border-b bg-white bg-opacity-70 dark:bg-black z-20 items-center justify-between border-dark-border">
           {labels.map((label, index) => (
             <button
               key={index}

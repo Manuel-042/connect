@@ -1,4 +1,4 @@
-import { LuBadgeCheck, LuMoreHorizontal, LuDot } from "react-icons/lu";
+import { LuBadgeCheck, LuEllipsis, LuDot } from "react-icons/lu";
 import { buttonStyles } from "../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
@@ -80,7 +80,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                                 <p className="dark:text-neutral-300">{postContent}</p>
                             </div>
                         </div>
-                        <div className="justify-self-end ms-auto"><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} /></div>
+                        <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} /></div>
                     </div>
 
                     <div className="mb-4">

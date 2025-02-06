@@ -1,4 +1,4 @@
-import { LuBellRing, LuUnlink, LuUser2, LuPartyPopper, LuHeart, LuUserPlus, LuMessageCircle, LuTag } from 'react-icons/lu';
+import { LuBellRing, LuUnlink, LuUserRound, LuPartyPopper, LuHeart, LuUserPlus, LuMessageCircle, LuTag } from 'react-icons/lu';
 
 import { twMerge } from 'tailwind-merge';
 import { buttonStyles } from '../../../components/UI/Button';
@@ -6,7 +6,7 @@ import { buttonStyles } from '../../../components/UI/Button';
 const iconMap: { [key: string]: React.ElementType } = {
     new_post_notification: LuBellRing,
     login_alert: LuUnlink,
-    new_follower: LuUser2,
+    new_follower: LuUserRound,
     anniversary: LuPartyPopper,
     friend_anniversary: LuPartyPopper,
     like: LuHeart,

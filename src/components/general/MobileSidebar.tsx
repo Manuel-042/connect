@@ -1,6 +1,6 @@
 import { ElementType } from 'react';
 import { formatCount } from '../../utils/formatCount';
-import { LuUserPlus2, LuBookmark, LuSettings, LuLogOut, LuPlusCircle } from "react-icons/lu";
+import { LuUserRoundPlus, LuBookmark, LuSettings, LuLogOut, LuCircleFadingPlus } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import Button, { buttonStyles } from '../UI/Button';
@@ -20,7 +20,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSideBarProps) => {
     }
 
     const sidebarItems = [
-        { Icon: LuUserPlus2, url: `/${userProfile.username}`, title: "Profile" },
+        { Icon: LuUserRoundPlus, url: `/${userProfile.username}`, title: "Profile" },
         { Icon: LuBookmark, url: "/i/bookmarks", title: "Bookmark" },
         { Icon: LuSettings, url: "/settings", title: "Settings and Privacy" },
         { Icon: LuLogOut, url: "/logout", title: "Logout" }
@@ -33,7 +33,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSideBarProps) => {
                 <div className="p-4 text-white">
                     <div className='flex items-start justify-between'>
                         <img src={userProfile?.image} alt={`${userProfile?.name} profile`} className="rounded-full w-10 h-10 mb-1" />
-                        <Button  className={twMerge(buttonStyles({ variant: "ghost" }), "bg-transparent dark:focus:bg-transparent p-0")}><LuPlusCircle className="text-2xl"/></Button>
+                        <Button  className={twMerge(buttonStyles({ variant: "ghost" }), "bg-transparent dark:focus:bg-transparent p-0")}><LuCircleFadingPlus className="text-2xl"/></Button>
                     </div>
                     <h2 className='font-extrabold'>{userProfile?.name}</h2>
                     <p className='text-sm text-dark-text mb-2'>@{userProfile?.username}</p>

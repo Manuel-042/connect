@@ -1,4 +1,4 @@
-import { LuArrowLeft, LuLeaf, LuMoreHorizontal, LuSearch, LuXCircle } from "react-icons/lu"
+import { LuArrowLeft, LuLeaf, LuEllipsis, LuSearch, LuCircleX } from "react-icons/lu"
 import { twMerge } from "tailwind-merge"
 import Button, { buttonStyles } from "../../components/UI/Button"
 import { useState } from "react";
@@ -90,7 +90,7 @@ const SearchPageContent = () => {
                                 className="w-5/6 bg-transparent px-2 h-5 text-sm font-semibold sm:h-auto md:py-1 border-0 outline-0 dark:text-white placeholder:text-dark-text"
                                 value={searchContent}
                                 onChange={handleChange} />
-                            {searchContent && (<div className="absolute top-3 right-10 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuXCircle className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 text-white')} /></div>)}
+                            {searchContent && (<div className="absolute top-3 right-10 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuCircleX className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'cursor-pointer w-5 h-5 p-0 text-white')} /></div>)}
                         </form>
 
                     </div>
@@ -100,7 +100,7 @@ const SearchPageContent = () => {
                             buttonStyles({ variant: "blueghost", size: "icon" }),
                             'bg-transparent cursor-pointer w-7 h-7 p-0 dark:text-white'
                         )}>
-                            <LuMoreHorizontal className="text-lg" />
+                            <LuEllipsis className="text-lg" />
                         </Button>
                     </div>
 

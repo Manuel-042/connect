@@ -4,7 +4,7 @@ import postData from "../../data/posts.json"
 import { useEffect, useState } from 'react';
 import { PostProps } from '../../types';
 import { PostMetrics } from '../../features/post/index';
-import { LuX, LuMoreHorizontal, LuBadgeCheck, LuDot } from "react-icons/lu";
+import { LuX, LuEllipsis, LuBadgeCheck, LuDot } from "react-icons/lu";
 import Button, { buttonStyles } from '../UI/Button';
 import { twMerge } from 'tailwind-merge';
 import EmblaCarousel from '../UI/Carousel';
@@ -94,7 +94,7 @@ const PostModal = () => {
                                         </div>
                                         <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
                                     </div>
-                                    <div className="justify-self-end ms-auto"><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
+                                    <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
                                 </div>
                             </div>
 
@@ -136,7 +136,7 @@ const PostModal = () => {
                                             <p className="dark:text-gray-500 -mt-1">@iamphinehas1</p>
                                         </div>
                                     </div>
-                                    <div className="justify-self-end ms-auto"><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
+                                    <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
                                 </div>
                                 <p className="dark:text-neutral-300 text-l -mt-3 mb-3">{post.postContent}</p>
 
@@ -157,7 +157,7 @@ const PostModal = () => {
                                             <p className="dark:text-gray-500 -mt-1">@iamphinehas1</p>
                                         </div>
                                     </div>
-                                    <div className="justify-self-end ms-auto"><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
+                                    <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
                                 </div>
                                 <p className="dark:text-neutral-300 text-l -mt-3 mb-3">{post.postContent}</p>
 
@@ -178,7 +178,7 @@ const PostModal = () => {
                                             <p className="dark:text-gray-500 -mt-1">@iamphinehas1</p>
                                         </div>
                                     </div>
-                                    <div className="justify-self-end ms-auto"><LuMoreHorizontal className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
+                                    <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
                                 </div>
                                 <p className="dark:text-neutral-300 text-l -mt-3 mb-3">{post.postContent}</p>
 

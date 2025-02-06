@@ -1,4 +1,4 @@
-import { LuSearch, LuSettings, LuArrowLeft, LuXCircle, LuMailPlus } from "react-icons/lu";
+import { LuSearch, LuSettings, LuArrowLeft, LuCircleX, LuMailPlus } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../../components/UI/Button";
 import { useEffect, useState } from "react";
@@ -79,7 +79,7 @@ const MessagePageContent = () => {
                         value={searchContent}
                         onChange={handleChange}
                     />
-                    {searchContent && (<div className="absolute top-50 right-5 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuXCircle className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'p-1 cursor-pointer w-7 h-7 text-white')} /></div>)}
+                    {searchContent && (<div className="absolute top-50 right-5 z-30" onMouseDown={(event) => event.preventDefault()} onClick={clearSearch}><LuCircleX className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), 'p-1 cursor-pointer w-7 h-7 text-white')} /></div>)}
                 </form>
             </div>
 
