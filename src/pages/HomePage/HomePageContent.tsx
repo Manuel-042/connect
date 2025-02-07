@@ -54,7 +54,7 @@ const HomePageContent = () => {
 
       <div className="hidden post sm:flex self-start w-full px-4 py-5 gap-2 border-b border-dark-border ">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
-          <img src={userProfile?.image} className="rounded-full w-full h-full object-contain object-center" alt={`${userProfile?.name} profile image`} />
+          <img src={userProfile?.image} className="rounded-full w-full h-full object-cover object-center" alt={`${userProfile?.name} profile image`} />
         </div>
         <CreatePost />
       </div>

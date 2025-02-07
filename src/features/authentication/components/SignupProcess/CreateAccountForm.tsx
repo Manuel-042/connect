@@ -5,6 +5,8 @@ import { twMerge } from "tailwind-merge";
 import { StepProps } from "../../../../pages/auth/Signup";
 import { Oval } from "react-loader-spinner";
 import { AxiosError } from "axios";
+import { LuX, LuCheck } from "react-icons/lu";
+
 
 type FloatingLabelProps = {
     id: string;
@@ -56,12 +58,12 @@ const FloatingLabelInput = ({
                     />
                 </div>
             ) : valid === true ? (
-                <div className="absolute top-5 right-4 border rounded-full text-xs text-white bg-green-700 border-green-700">
-                    ✔
+                <div className="absolute top-6 right-4 border rounded-full text-xs dark:text-white bg-green-700 border-green-700">
+                    <LuCheck />
                 </div>
             ) : valid === false ? (
-                <div className="absolute top-5 right-4 border rounded-full text-xs text-white bg-red-700 border-red-700">
-                    ✖
+                <div className="absolute top-6 right-4 border rounded-full text-xs dark:text-white bg-red-700 border-red-700">
+                    <LuX />
                 </div>
             ) : null}
             <label
@@ -132,15 +134,12 @@ const CreateAccountForm: React.FC<Partial<StepProps>> = ({ next, setLoading, upd
                     if (res.status === 200) {
                         updatedValidEmail = true;
                         updatedErrors.email = "";
-                    } else {
-                        updatedValidEmail = false;
-                        updatedErrors.email = "Invalid or already registered email";
-                    }
+                    } 
                 } catch (error) {
                     updatedValidEmail = false;
                     updatedErrors.email =
                         error instanceof AxiosError
-                            ? error.response?.data?.error || "Error validating email"
+                            ? error.response?.data?.error || error.response?.data?.message || "Error validating email"
                             : "Unexpected error occurred";
                 } finally {
                     setValidationLoading(false);
@@ -211,7 +210,7 @@ const CreateAccountForm: React.FC<Partial<StepProps>> = ({ next, setLoading, upd
                 isFocused={isNameFocused}
                 valid={null}
             />
-            {errors.name && <p className="text-red-500 text-xs -mt-4">{errors.name}</p>}
+            {errors.name && <p className="text-red-500 text-xs -mt-3">{errors.name}</p>}
 
             <FloatingLabelInput
                 id="email"
@@ -224,7 +223,7 @@ const CreateAccountForm: React.FC<Partial<StepProps>> = ({ next, setLoading, upd
                 isFocused={isEmailFocused}
                 valid={validEmail}
             />
-            {errors.email && <p className="text-red-500 text-xs -mt-4">{errors.email}</p>}
+            {errors.email && <p className="text-red-500 text-xs -mt-3">{errors.email}</p>}
 
             <Button
                 onClick={handleSubmit}

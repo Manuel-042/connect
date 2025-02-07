@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import api from "../../../../api/api";
 import { StepProps } from "../../../../pages/auth/Signup";
 import { useAuthContext } from "../../../../context/auth-context";
+import PasswordChecklist from "react-password-checklist";
 
 type FloatingLabelProps = {
   id: string;
@@ -11,9 +12,15 @@ type FloatingLabelProps = {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   onBlur: (value: string) => void;
-}
+};
 
-const FloatingLabelInput = ({ id, label, value, setValue, onBlur }: FloatingLabelProps) => {
+const FloatingLabelInput = ({
+  id,
+  label,
+  value,
+  setValue,
+  onBlur,
+}: FloatingLabelProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -24,16 +31,22 @@ const FloatingLabelInput = ({ id, label, value, setValue, onBlur }: FloatingLabe
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => { setIsFocused(value !== ""); if (onBlur) { onBlur(value) } }}
+        onBlur={() => {
+          setIsFocused(value !== "");
+          if (onBlur) {
+            onBlur(value);
+          }
+        }}
         className="px-3 pt-5 w-full h-full border rounded-md bg-transparent outline-none 
                      border-dark-border text-lg focus:ring-2 focus:ring-secondary-100 focus:border-transparent"
       />
       <label
         htmlFor={id}
-        className={`absolute left-3 transition-all text-lg dark:text-dark-text ${isFocused || value
-          ? "top-1 text-sm text-secondary-100"
-          : "top-4 text-gray-500"
-          }`}
+        className={`absolute left-3 transition-all text-lg dark:text-dark-text ${
+          isFocused || value
+            ? "top-1 text-sm text-secondary-100"
+            : "top-4 text-gray-500"
+        }`}
       >
         {label}
       </label>
@@ -41,19 +54,22 @@ const FloatingLabelInput = ({ id, label, value, setValue, onBlur }: FloatingLabe
   );
 };
 
-type PasswordFormProps = StepProps
+type PasswordFormProps = StepProps;
 
-const passwordValidation = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-);
+const passwordValidation =
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^\w\d\s]).{8,}$/;
 
-const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, updateFormData }) => {
+const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
+  next,
+  setLoading,
+  updateFormData,
+}) => {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({
     password: "",
-    cpassword: ""
+    cpassword: "",
   });
   const [touched, setTouched] = useState({
     password: false,
@@ -61,11 +77,10 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
   });
   const { setToken, decodeToken } = useAuthContext();
 
-
   const handleSubmit = async () => {
     setLoading?.(true);
-    setErrors({ password: "", cpassword: "" }); 
-  
+    setErrors({ password: "", cpassword: "" });
+
     if (password.trim() !== cPassword.trim()) {
       setErrors((prev) => ({
         ...prev,
@@ -75,13 +90,13 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
       setLoading?.(false); // Stop loading on error
       return;
     }
-  
+
     try {
       const response = await api.post("/api/signup/steps/3", {
         password: password,
         cpassword: cPassword,
       });
-  
+
       if (response.status === 201) {
         setLoading?.(false);
         updateFormData?.("password", password);
@@ -91,12 +106,18 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
       } else if (response.status === 409) {
         setErrors((prev) => ({
           ...prev,
-          password: response?.data?.message || response?.data?.error || "Conflict error occurred.",
+          password:
+            response?.data?.message ||
+            response?.data?.error ||
+            "Conflict error occurred.",
         }));
       } else {
         setErrors((prev) => ({
           ...prev,
-          password: response?.data?.message || response?.data?.error || "An unexpected error occurred. Please try again.",
+          password:
+            response?.data?.message ||
+            response?.data?.error ||
+            "An unexpected error occurred. Please try again.",
         }));
       }
     } catch (error) {
@@ -109,12 +130,15 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
       setLoading?.(false);
     }
   };
-  
+
   useEffect(() => {
     const hasErrors = errors.password || errors.cpassword;
     const isValid =
-      password !== "" && cPassword !== "" && password === cPassword && !hasErrors;
-  
+      password !== "" &&
+      cPassword !== "" &&
+      password === cPassword &&
+      !hasErrors;
+
     setIsFormValid(isValid);
   }, [password, cPassword, errors]);
 
@@ -150,13 +174,15 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
       }
     }
   };
-  
-
 
   return (
     <div className="w-full h-full flex flex-col flex-grow">
-      <h1 className="dark:text-white font-semibold text-3xl mb-1">You'll need a password</h1>
-      <p className="dark:text-dark-text text-base mb-7">Make sure it's 8 characters or more</p>
+      <h1 className="dark:text-white font-semibold text-3xl mb-1">
+        You'll need a password
+      </h1>
+      <p className="dark:text-dark-text text-base mb-7">
+        Make sure it's 8 characters or more
+      </p>
       <FloatingLabelInput
         id="name"
         label="Password"
@@ -177,13 +203,24 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({ next, setLoading, 
       />
       {touched.cpassword && errors.cpassword && (
         <p className="text-red-500 text-xs -mt-4">{errors.cpassword}</p>
-      )}  
+      )}
+      <PasswordChecklist
+        rules={["minLength", "specialChar", "number", "capital", "match"]}
+        minLength={8}
+        value={password}
+        valueAgain={cPassword}
+        iconSize={12}
+        className="text-xs mb-3 password-checklist"
+      />
 
       <Button
         onClick={handleSubmit}
         type="button"
         disabled={!isFormValid}
-        className={twMerge(buttonStyles(), "w-full py-3 mt-auto font-bold text-white disabled:bg-opacity-60 disabled:cursor-not-allowed hover:bg-opacity-80 disabled:hover:bg-opacity-70")}
+        className={twMerge(
+          buttonStyles(),
+          "w-full py-3 mt-auto font-bold text-white disabled:bg-opacity-60 disabled:cursor-not-allowed hover:bg-opacity-80 disabled:hover:bg-opacity-70"
+        )}
       >
         Sign up
       </Button>
