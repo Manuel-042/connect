@@ -53,7 +53,8 @@ const ForgotForm: React.FunctionComponent = () => {
           <p className="text-xs text-red-600">{errors.email.message}</p>
         )}
       </div>
-      <Button type="submit" disabled={isSubmitting} className={`w-full mt-3 flex items-center justify-center ${isSubmitting ? "cursor-not-allowed" : ""}`}> {isSubmitting ? (<Oval
+      <Button type="submit" disabled={isSubmitting} className={`w-full mt-3 flex items-center justify-center ${isSubmitting ? "cursor-not-allowed" : ""}`}> {isSubmitting ? (
+        <Oval
           visible={true}
           height="30"
           width="30"

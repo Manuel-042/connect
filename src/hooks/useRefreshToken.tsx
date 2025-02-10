@@ -8,11 +8,11 @@ const useRefreshToken = () => {
     const refresh = async () => {
         const response = await api.post('api/token/refresh');
         if (response) {
-            console.log(response.data)
-            setToken(response.data.accessToken)
-            decodeToken(response.data.accessToken)
+            console.log({"refresh token data":response.data})
+            setToken(response.data.access)
+            decodeToken(response.data.access)
         }
-        return response.data.accessToken
+        return response.data.access
     }
 
     return refresh;

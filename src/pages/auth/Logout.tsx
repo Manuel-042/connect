@@ -5,7 +5,8 @@ import { useAuthContext } from "../../context/auth-context";
 import useApiPrivate from "../../hooks/useApiPrivate";
 import { useToast } from "../../hooks/useToast";
 import { AxiosError } from "axios";
-
+import { Oval } from "react-loader-spinner";
+import { useState } from "react";
 
 const Logout = () => {
   const { userProfile } = useAuthContext();
@@ -13,6 +14,7 @@ const Logout = () => {
   const apiPrivate = useApiPrivate();
   const { setToken } = useAuthContext();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const goBack = () => {
     navigate(-1);
@@ -20,17 +22,13 @@ const Logout = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await apiPrivate?.post("/api/logout");
-      console.log(response);
-      setToken("");
+      setIsSubmitting(true);
+      await apiPrivate?.post("/api/logout");
+      setToken(null);
 
-      if (response?.status === 200 || response?.status === 204) {
-        console.log("logout succesful");
-        toast.success("Logout successful!");
-        navigate(`/?logout=${userProfile?.id}`);
-      } else {
-        console.log(response?.data.error);
-      }
+      console.log("Logout successful");
+      toast.success("Logout successful!");
+      navigate(`/?logout=${userProfile?.id}`);
     } catch (err) {
       if (err instanceof AxiosError) {
         if (!err.response) {
@@ -47,6 +45,8 @@ const Logout = () => {
         console.error("Non Axios error:", err);
         toast.error("An unexpected error occurred");
       }
+    } finally {
+        setIsSubmitting(false);
     }
   };
 
@@ -73,10 +73,24 @@ const Logout = () => {
         <div className="flex flex-col flex-1 w-full">
           <Button
             onClick={handleLogout}
-            className="dark:bg-white dark:text-black text-sm font-bold mb-2 py-3"
+            disabled={isSubmitting}
+            className={`dark:bg-white dark:text-black dark:hover:bg-opacity-80 text-sm font-bold mb-2 py-3 flex items-center justify-center ${isSubmitting ? "cursor-not-allowed" : ""}`}
           >
-            Log out
+            {isSubmitting ? (
+              <Oval
+                visible={true}
+                height="24"
+                width="24"
+                color="#ffffff"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              "Log Out"
+            )}
           </Button>
+
           <Button
             onClick={goBack}
             className="bg-transparent dark:focus:bg-dark-border border border-dark-border text-white text-sm font-bold py-3"

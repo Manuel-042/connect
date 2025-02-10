@@ -23,9 +23,7 @@ export const useUserProfile = (userId: string, token: string) => {
   return useQuery<ProfileData, Error>({
     queryKey: ["profile", userId],
     queryFn: async () => {
-      const response = await apiPrivate.get(`/api/profile/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await apiPrivate.get(`/api/profile/${userId}`);
       return response.data;
     },
     enabled: Boolean(userId) && Boolean(token),
