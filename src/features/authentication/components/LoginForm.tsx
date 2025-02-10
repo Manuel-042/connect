@@ -31,9 +31,7 @@ type FormFields = z.infer<typeof schema>;
 
 const LoginForm: React.FunctionComponent = () => {
   const { setToken, userProfile, decodeToken } = useAuthContext();
-  const { toast, ToasterComponent } = useToast({
-    richColors: true,
-  });
+  const { toast } = useToast();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,10 +54,10 @@ const LoginForm: React.FunctionComponent = () => {
 
   const password = watch("password", ""); 
   useEffect(() => {
-    if (errors.email) {
+    if (errors.email?.message) {
       toast.error(errors.email.message);
     }
-    if (errors.password) {
+    if (errors.password?.message) {
       toast.error(errors.password.message);
     }
   }, [errors.email, errors.password]);
@@ -73,12 +71,8 @@ const LoginForm: React.FunctionComponent = () => {
       setToken(response.data.access);
       decodeToken(response.data.access);
       reset();
-      
       toast.success("Login successful!");
-
-      setTimeout(() => {
-        navigate(from, { replace: true });
-      }, 500);
+      navigate(from, { replace: true });
     } catch (err) {
       if (err instanceof AxiosError) {
         if (!err.response) {
@@ -120,7 +114,6 @@ const LoginForm: React.FunctionComponent = () => {
       className="flex flex-col items-center gap-2 w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      {ToasterComponent}
       <div className="flex flex-col justify-items-center gap-3 w-full">
         <input
           type="text"
@@ -128,7 +121,6 @@ const LoginForm: React.FunctionComponent = () => {
           placeholder="email"
           className="border-1 shadow-sm dark:shadow-neutral-800  dark:bg-neutral-700 dark:text-neutral-300  px-4 py-2 rounded-full focus:outline-1"
         />
-        {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
         <div className="relative">
           <input
             type={type}
@@ -156,7 +148,6 @@ const LoginForm: React.FunctionComponent = () => {
             className="text-xs"
           />
         )}
-        {errors.password && <span className="text-red-500 text-xs">{errors.password.message}</span>}
       </div>
       <Link
         to="/forgot-password"

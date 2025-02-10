@@ -1,8 +1,9 @@
-import { Toaster, toast, ToasterProps } from "sonner";
+import { toast, Toaster, ToasterProps } from "sonner";
 
 export function useToast(toasterProps?: ToasterProps) {
+
   return {
     toast,
-    ToasterComponent: <Toaster {...toasterProps} />,
+    ToasterComponent: <Toaster {...(toasterProps || {})} />,
   };
 }

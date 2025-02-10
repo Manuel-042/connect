@@ -8,6 +8,16 @@ const useApiPrivate = (): AxiosInstance => {
     const { token } = useAuthContext();
     const refresh = useRefreshToken();
 
+    useEffect(() => {
+        if (token) {
+          apiPrivate.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          console.log("Default Authorization header set to:", token);
+        } else {
+          delete apiPrivate.defaults.headers.common["Authorization"];
+          console.log("Token is undefined. Authorization header removed.");
+        }
+    }, [token]);
+
     useEffect(() => {        
         if (!token) {
             console.log("No token found, skipping interceptors setup.");

@@ -3,6 +3,7 @@ import Button, { buttonStyles } from "../../../../components/UI/Button"
 import { useNavigate } from "react-router-dom";
 import useApiPrivate from "../../../../hooks/useApiPrivate";
 import { StepProps } from "../../../../pages/auth/Signup";
+import { useAuthContext } from "../../../../context/auth-context";
 
 
 type NotificationsFormProps = StepProps
@@ -10,6 +11,7 @@ type NotificationsFormProps = StepProps
 const NotificationsForm: React.FC<Partial<NotificationsFormProps>> = ({ setLoading, updateFormData }) => {
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate()
+  const { refreshUserProfile } = useAuthContext()
 
   const handleSubmit = async () => {
     setLoading?.(true);
@@ -21,14 +23,13 @@ const NotificationsForm: React.FC<Partial<NotificationsFormProps>> = ({ setLoadi
 
       if (response?.status === 200) {
         setLoading?.(false);
-        updateFormData?.("notifications", true)
+        updateFormData?.("notifications", true);
+        refreshUserProfile()
         navigate("/home");
       } else {
         setLoading?.(false);
-        // setErrors('An unexpected error occurred. Please try again.');
       }
     } catch (error) {
-      // setErrors('An error occurred. Please try again later.');
       console.error(error);
     } finally {
       setLoading?.(false);
@@ -50,7 +51,7 @@ const NotificationsForm: React.FC<Partial<NotificationsFormProps>> = ({ setLoadi
         </Button>
 
         <Button
-          onClick={() => navigate("/home")}
+          onClick={() => {refreshUserProfile(); navigate("/home")}}
           type="button"
           className={twMerge(buttonStyles(), "w-full py-3 font-bold text-white bg-transparent border border-white disabled:bg-transparent disabled:cursor-not-allowed hover:bg-transparent disabled:hover:bg-transparent")}
         >

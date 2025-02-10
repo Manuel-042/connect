@@ -44,11 +44,15 @@ import { PostProps, UserProps } from "./types"
 import CreatePostModal from "./components/modals/CreatePostModal"
 import Login from "./pages/auth/Login"
 import Landing from "./pages/Landing"
+import { useToast } from "./hooks/useToast"
 
 function App() {
   const { theme } = useThemeContext();
   const [invertedIndex, setInvertedIndex] = useState<{ [key: string]: number[] }>({});
   const [invertedIndex2, setInvertedIndex2] = useState<{ [key: string]: number[] }>({});
+  const { ToasterComponent } = useToast({
+    richColors: true
+  });
 
   useEffect(() => {
     const fetchCSRFToken = async () => {
@@ -138,6 +142,7 @@ function App() {
 
   return (
     <div className={theme}>
+      {ToasterComponent}
       <div className="dark:bg-black">
         <div className="">
           <GifProvider>

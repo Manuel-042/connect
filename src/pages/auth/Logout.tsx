@@ -12,9 +12,7 @@ const Logout = () => {
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
   const { setToken } = useAuthContext();
-  const { toast, ToasterComponent } = useToast({
-    richColors: true,
-  });
+  const { toast } = useToast();
 
   const goBack = () => {
     navigate(-1);
@@ -57,7 +55,6 @@ const Logout = () => {
       className={`fixed top-0 z-50 overflow-hidden left-0 h-full w-full flex items-center justify-center transition-transform transform`}
       style={{ background: "rgba(91, 112, 131, 0.7)" }}
     >
-        {ToasterComponent}
       <div
         className={`bg-black flex flex-col rounded-3xl items-center justify-center p-6 w-4/5 sm:w-[30%]`}
       >
