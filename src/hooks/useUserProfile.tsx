@@ -1,17 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useApiPrivate from "./useApiPrivate";
-
-export type ProfileData = {
-  avatar: string;
-  cover_image: string;
-  username: string;
-  bio: string;
-  follower_count: number;
-  following_count: number;
-  is_creator: boolean;
-  is_verified: boolean;
-  created_at: string;
-};
+import { ProfileData } from "../types";
 
 export const useUserProfile = (userId: string, token: string) => {
   const apiPrivate = useApiPrivate();

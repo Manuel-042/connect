@@ -4,34 +4,16 @@ import { useUserProfile } from "../hooks/useUserProfile";
 import { useToast } from "../hooks/useToast";
 import useApiPrivate from "../hooks/useApiPrivate";
 import { useQueryClient } from "@tanstack/react-query";
+import { ProfileData, User } from "../types";
 
 console.log("AuthProvider re-mounted");
-
-type User = {
-  id: string;
-  name: string;
-  email: string;
-};
-
-type Profile = {
-  image: string;
-  coverPhoto: string;
-  username: string;
-  bio: string;
-  followerCount: number;
-  followingCount: number;
-  isCreator: boolean;
-  isVerified: boolean;
-  createdAt: string;
-};
-
-export type UserProfile = User & Partial<Profile>;
 
 type AuthContextType = {
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   isLoggedIn: boolean;
-  userProfile: UserProfile | null;
+  userInfo: User | null;
+  profileData: ProfileData | undefined;
   decodeToken: (token: string) => void;
   refreshUserProfile: () => void;
 };
@@ -42,7 +24,7 @@ type Props = { children: React.ReactNode };
 
 interface CustomJwtPayload extends JwtPayload {
   user_id: string;
-  name: string;
+  username: string;
   email: string;
 }
 
@@ -63,7 +45,7 @@ export default function AuthProvider({ children }: Props) {
         setUserId(decoded.user_id);
         setUserInfo({
           id: decoded.user_id,
-          name: decoded.name,
+          username: decoded.username,
           email: decoded.email,
         });
 
@@ -93,32 +75,34 @@ export default function AuthProvider({ children }: Props) {
     error: profileError,
   } = useUserProfile(userId || "", token || "");
 
-  
+  console.log({ "profile data in auth context": profileData})
+
   if (profileError) {
     console.error(profileError)
     toast.error(JSON.stringify(profileError));
   }
 
-  const mergedUserProfile: UserProfile | null = userInfo
-  ? {
-      ...userInfo,
-      image: profileData?.avatar || "https://res.cloudinary.com/diq51knlu/image/upload/user-image_wykazb",           
-      coverPhoto: profileData?.cover_image, 
-      username: profileData?.username,
-      bio: profileData?.bio,
-      followerCount: profileData?.follower_count,
-      followingCount: profileData?.following_count,
-      isCreator: profileData?.is_creator,
-      isVerified: profileData?.is_verified,
-      createdAt: profileData?.created_at,
-    }
-  : null;
+  // const mergedUserProfile: ProfileData = userInfo
+  // ? {
+  //     ...userInfo,
+  //     avatar: profileData?.avatar || "https://res.cloudinary.com/diq51knlu/image/upload/user-image_wykazb",           
+  //     cover_image: profileData?.cover_image, 
+  //     username: profileData?.username,
+  //     bio: profileData?.bio,
+  //     follower_count: profileData?.follower_count,
+  //     following_count: profileData?.following_count,
+  //     is_creator: profileData?.is_creator,
+  //     is_verified: profileData?.is_verified,
+  //     created_at: profileData?.created_at,
+  //   }
+  // : null;
 
   const contextValue: AuthContextType = {
     token,
     setToken,
     isLoggedIn,
-    userProfile: mergedUserProfile, 
+    userInfo,
+    profileData, 
     decodeToken,
     refreshUserProfile,
   };

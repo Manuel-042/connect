@@ -5,6 +5,8 @@ import api from "../../../../api/api";
 import { StepProps } from "../../../../pages/auth/Signup";
 import { useAuthContext } from "../../../../context/auth-context";
 import PasswordChecklist from "react-password-checklist";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useToast } from "../../../../hooks/useToast";
 
 type FloatingLabelProps = {
   id: string;
@@ -12,6 +14,19 @@ type FloatingLabelProps = {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   onBlur: (value: string) => void;
+  initialType: string;
+  initialIcon: JSX.Element;
+  isVisible: {
+    password1: boolean;
+    password2: boolean;
+  };
+  setIsVisible: Dispatch<
+    SetStateAction<{
+      password1: boolean;
+      password2: boolean;
+    }>
+  >;
+  visibilityKey: "password1" | "password2";
 };
 
 const FloatingLabelInput = ({
@@ -20,13 +35,35 @@ const FloatingLabelInput = ({
   value,
   setValue,
   onBlur,
+  visibilityKey,
+  initialType,
+  initialIcon,
+  setIsVisible,
+  isVisible,
 }: FloatingLabelProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [inputType, setInputType] = useState(initialType);
+  const [currentIcon, setCurrentIcon] = useState(initialIcon);
+
+  const handleToggle = () => {
+    setIsVisible((prev) => ({
+      ...prev,
+      [visibilityKey]: !prev[visibilityKey],
+    }));
+
+    if (inputType === "password") {
+      setInputType("text");
+      setCurrentIcon(<FaEye />);
+    } else {
+      setInputType("password");
+      setCurrentIcon(<FaEyeSlash />);
+    }
+  };
 
   return (
     <div className="relative h-[60px] mb-4">
       <input
-        type="text"
+        type={initialType}
         id={id}
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -50,6 +87,13 @@ const FloatingLabelInput = ({
       >
         {label}
       </label>
+      <span
+        className={`absolute top-[12px] z-10 right-[20px] text-white cursor-pointer ${isVisible[visibilityKey] ? "visible" : "invisible"}`}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={handleToggle}
+      >
+        {currentIcon}
+      </span>
     </div>
   );
 };
@@ -67,6 +111,11 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isVisible, setIsVisible] = useState({
+    password1: false,
+    password2: false,
+  });
+
   const [errors, setErrors] = useState({
     password: "",
     cpassword: "",
@@ -76,6 +125,7 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
     cpassword: false,
   });
   const { setToken, decodeToken } = useAuthContext();
+  const { toast } = useToast();
 
   const handleSubmit = async () => {
     setLoading?.(true);
@@ -87,48 +137,54 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
         cpassword: "Both passwords must match",
       }));
       setIsFormValid(false);
-      setLoading?.(false); // Stop loading on error
+      setLoading?.(false);
       return;
     }
 
     try {
       const response = await api.post("/api/signup/steps/3", {
-        password: password,
-        cpassword: cPassword,
+        password,
+        cPassword,
       });
-
-      if (response.status === 201) {
-        setLoading?.(false);
-        updateFormData?.("password", password);
-        setToken(response.data.access);
-        decodeToken(response.data.access);
-        next?.();
-      } else if (response.status === 409) {
-        setErrors((prev) => ({
-          ...prev,
-          password:
-            response?.data?.message ||
-            response?.data?.error ||
-            "Conflict error occurred.",
-        }));
+    
+      setLoading?.(false);
+      updateFormData?.("password", password);
+      toast.success("User Account Created successfully");
+      setToken(response.data.access);
+      decodeToken(response.data.access);
+      next?.();
+    } catch (error: any) {
+      if (error.response) {
+        if (error.response.status === 409) {
+          toast.error(error.response.data?.message || error.response.data?.error || "Conflict error occurred.",)
+          setErrors((prev) => ({
+            ...prev,
+            password:
+              error.response.data?.message ||
+              error.response.data?.error ||
+              "Conflict error occurred.",
+          }));
+        } else {
+          toast.error(error.response.data?.message || error.response.data?.error || "Conflict error occurred.",)
+          setErrors((prev) => ({
+            ...prev,
+            password:
+              error.response.data?.message ||
+              error.response.data?.error ||
+              "An unexpected error occurred. Please try again.",
+          }));
+        }
       } else {
         setErrors((prev) => ({
           ...prev,
-          password:
-            response?.data?.message ||
-            response?.data?.error ||
-            "An unexpected error occurred. Please try again.",
+          password: "An unexpected error occurred. Please try again.",
         }));
       }
-    } catch (error) {
-      setErrors((prev) => ({
-        ...prev,
-        password: "An unexpected error occurred. Please try again.",
-      }));
       console.error(error);
     } finally {
       setLoading?.(false);
     }
+    
   };
 
   useEffect(() => {
@@ -189,6 +245,11 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
         value={password}
         setValue={setPassword}
         onBlur={(value) => handleBlur("password", value)}
+        initialType="password"
+        initialIcon={<FaEyeSlash />}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        visibilityKey="password1"
       />
       {touched.password && errors.password && (
         <p className="text-red-500 text-xs -mt-4">{errors.password}</p>
@@ -200,6 +261,11 @@ const PasswordForm: React.FC<Partial<PasswordFormProps>> = ({
         value={cPassword}
         setValue={setCPassword}
         onBlur={(value) => handleBlur("cpassword", value)}
+        initialType="password"
+        initialIcon={<FaEyeSlash />}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        visibilityKey="password2"
       />
       {touched.cpassword && errors.cpassword && (
         <p className="text-red-500 text-xs -mt-4">{errors.cpassword}</p>

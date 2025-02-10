@@ -38,9 +38,9 @@ import SettingsRightContent from "./pages/SettingsPage/SettingsRightContent";
 import Logout from "./pages/auth/Logout";
 import SearchPageContent from "./pages/SearchPage/SearchPageContent";
 import SearchRightContent from "./pages/SearchPage/SearchRightContent";
-import posts from "./data/posts.json";
-import users from "./data/users.json";
-import { PostProps, UserProps } from "./types";
+// import posts from "./data/posts.json";
+// import users from "./data/users.json";
+// import { Posts, User } from "./types";
 import CreatePostModal from "./components/modals/CreatePostModal";
 import Login from "./pages/auth/Login";
 import Landing from "./pages/Landing";
@@ -51,12 +51,12 @@ import useRefreshToken from "./hooks/useRefreshToken";
 
 function App() {
   const { theme } = useThemeContext();
-  const [invertedIndex, setInvertedIndex] = useState<{
-    [key: string]: number[];
-  }>({});
-  const [invertedIndex2, setInvertedIndex2] = useState<{
-    [key: string]: number[];
-  }>({});
+  // const [invertedIndex, setInvertedIndex] = useState<{
+  //   [key: string]: number[];
+  // }>({});
+  // const [invertedIndex2, setInvertedIndex2] = useState<{
+  //   [key: string]: number[];
+  // }>({});
   const { toast, ToasterComponent } = useToast({
     richColors: true,
   });
@@ -103,74 +103,74 @@ function App() {
     }
   }, [token, refresh, rehydrationAttempted]);
 
-  useEffect(() => {
-    const addPostToIndex = (
-      post: PostProps,
-      currentIndex: { [key: string]: number[] }
-    ) => {
-      const words = post.postContent.toLowerCase().split(/\s+/);
-      console.log(words);
+  // useEffect(() => {
+  //   const addPostToIndex = (
+  //     post: Posts,
+  //     currentIndex: { [key: string]: number[] }
+  //   ) => {
+  //     const words = post.postContent.toLowerCase().split(/\s+/);
+  //     console.log(words);
 
-      const newIndex = { ...currentIndex };
+  //     const newIndex = { ...currentIndex };
 
-      words.forEach((word) => {
-        if (!newIndex[word]) {
-          newIndex[word] = [];
-        }
-        if (!newIndex[word].includes(post.postId)) {
-          newIndex[word].push(post.postId);
-        }
-      });
+  //     words.forEach((word) => {
+  //       if (!newIndex[word]) {
+  //         newIndex[word] = [];
+  //       }
+  //       if (!newIndex[word].includes(post.postId)) {
+  //         newIndex[word].push(post.postId);
+  //       }
+  //     });
 
-      return newIndex;
-    };
+  //     return newIndex;
+  //   };
 
-    if (posts.posts.length > 0) {
-      let newInvertedIndex: { [key: string]: number[] } = {};
+  //   if (posts.posts.length > 0) {
+  //     let newInvertedIndex: { [key: string]: number[] } = {};
 
-      posts.posts.forEach((post) => {
-        newInvertedIndex = addPostToIndex(post, newInvertedIndex);
-      });
+  //     posts.posts.forEach((post) => {
+  //       newInvertedIndex = addPostToIndex(post, newInvertedIndex);
+  //     });
 
-      setInvertedIndex(newInvertedIndex);
-    }
-  }, [posts.posts]);
+  //     setInvertedIndex(newInvertedIndex);
+  //   }
+  // }, [posts.posts]);
 
-  useEffect(() => {
-    const addUserToIndex = (
-      user: UserProps,
-      currentIndex: { [key: string]: number[] }
-    ) => {
-      const words =
-        user.displayname.toLowerCase().split(/[\s_]+/) &&
-        user.username.toLowerCase().split(/[\s_]+/);
+  // useEffect(() => {
+  //   const addUserToIndex = (
+  //     user: User,
+  //     currentIndex: { [key: string]: number[] }
+  //   ) => {
+  //     const words =
+  //       user.displayname.toLowerCase().split(/[\s_]+/) &&
+  //       user.username.toLowerCase().split(/[\s_]+/);
 
-      const newIndex = { ...currentIndex };
+  //     const newIndex = { ...currentIndex };
 
-      words.forEach((word) => {
-        if (!newIndex[word]) {
-          newIndex[word] = [];
-        }
-        if (!newIndex[word].includes(user.id)) {
-          newIndex[word].push(user.id);
-        }
-      });
+  //     words.forEach((word) => {
+  //       if (!newIndex[word]) {
+  //         newIndex[word] = [];
+  //       }
+  //       if (!newIndex[word].includes(user.id)) {
+  //         newIndex[word].push(user.id);
+  //       }
+  //     });
 
-      return newIndex;
-    };
+  //     return newIndex;
+  //   };
 
-    if (users.length > 0) {
-      let newInvertedIndex: { [key: string]: number[] } = {};
+  //   if (users.length > 0) {
+  //     let newInvertedIndex: { [key: string]: number[] } = {};
 
-      users.forEach((usr) => {
-        newInvertedIndex = addUserToIndex(usr, newInvertedIndex);
-      });
+  //     users.forEach((usr) => {
+  //       newInvertedIndex = addUserToIndex(usr, newInvertedIndex);
+  //     });
 
-      setInvertedIndex2(newInvertedIndex);
-    }
-  }, [users]);
+  //     setInvertedIndex2(newInvertedIndex);
+  //   }
+  // }, [users]);
 
-  console.log({ invertedIndex, invertedIndex2 });
+  //console.log({ invertedIndex, invertedIndex2 });
 
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;

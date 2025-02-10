@@ -7,8 +7,7 @@ import api from "../../../api/api";
 import { useAuthContext } from "../../../context/auth-context";
 import { AxiosError } from "axios";
 import { Oval } from "react-loader-spinner";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 import { useToast } from "../../../hooks/useToast";
@@ -30,8 +29,9 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 const LoginForm: React.FunctionComponent = () => {
-  const { setToken, userProfile, decodeToken } = useAuthContext();
+  const { setToken, profileData, userInfo, decodeToken } = useAuthContext();
   const { toast } = useToast();
+  console.log({"PROFILE DATA": profileData})
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,7 +45,7 @@ const LoginForm: React.FunctionComponent = () => {
     watch,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
-    defaultValues: { email: userProfile?.email },
+    defaultValues: { email: userInfo?.email },
     resolver: zodResolver(schema),
   });
   const [type, setType] = useState("password");

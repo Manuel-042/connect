@@ -13,11 +13,11 @@ import MobileSidebar from "../../components/general/MobileSidebar";
 
 const HomePageContent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { userProfile } = useAuthContext();
+  const { profileData } = useAuthContext();
   const { isProfileSidebarOpen, toggleProfileSidebar } = useMobileSidebar();
   const location = useLocation();
 
-  if (!userProfile) return null;
+  if (!profileData) return null;
 
   const labels = ["For You", "Following"];
 
@@ -27,7 +27,7 @@ const HomePageContent = () => {
         
         <div className="sm:hidden flex items-center justify-between mt-2 mb-3 px-4">
           <Button onClick={toggleProfileSidebar} className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), " p-0 bg-transparent hover:bg-transparent w-9 h-9")}>
-            <img src={userProfile?.image} alt={`${userProfile?.name} profile picture`} className="rounded-full w-full h-full" />
+            <img src={profileData?.avatar} alt={`${profileData?.user.username} profile picture`} className="rounded-full w-full h-full" />
           </Button>
 
           <Button className={twMerge(buttonStyles(), "bg-transparent w-7 h-7 p-0 ms-3")}>
@@ -54,7 +54,7 @@ const HomePageContent = () => {
 
       <div className="hidden post sm:flex self-start w-full px-4 py-5 gap-2 border-b border-dark-border ">
         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer w-30">
-          <img src={userProfile?.image} className="rounded-full w-full h-full" alt={`${userProfile?.name} profile image`} />
+          <img src={profileData?.avatar} className="rounded-full w-full h-full" alt={`${profileData?.user.username} profile image`} />
         </div>
         <CreatePost />
       </div>

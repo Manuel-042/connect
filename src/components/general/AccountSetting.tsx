@@ -9,17 +9,15 @@ type AccountSettingProps = {
 }
 
 const AccountSetting = ({ isOpen, toggleAccountSettingOpen }: AccountSettingProps) => {
-    const { userProfile } = useAuthContext();
+    const { profileData } = useAuthContext();
 
-    if (!userProfile) {
+    if (!profileData) {
         return null;
     }
-
-    console.log(userProfile);
     
     const sidebarItems = [
         { url: `/i/flow/login`, title: `Add an existing account` },
-        { url: "/logout", title: `Log out @${userProfile.username}` },
+        { url: "/logout", title: `Log out @${profileData?.username}` },
     ];
 
 

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useApiPrivate from './useApiPrivate';
 
-export const useUserByUsername = (username: string) => {
+export const useUserByUsername = (username: string, isLoggedInUser: boolean) => {
     const apiPrivate = useApiPrivate();
 
     const fetchUserByUsername = async () => {
@@ -15,6 +15,6 @@ export const useUserByUsername = (username: string) => {
     return useQuery({
         queryKey: ["user", username],
         queryFn: fetchUserByUsername,
-        enabled: !!username,
+        enabled: !isLoggedInUser,
     });
 };
