@@ -178,6 +178,7 @@ export default function SideBar() {
                 buttonStyles({ variant: "blueghost", size: "icon" }),
                 "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary"
               )}
+              onClick={toggleAccountSettingOpen}
             />
           </div>
         </div>

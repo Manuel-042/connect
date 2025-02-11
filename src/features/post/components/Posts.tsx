@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
 // import ProfileDisplay from "../../profile/components/ProfileDisplay";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import type { User } from "../../../types";
+import type { ProfileData } from "../../../types";
 import PostMetrics from "./PostMetrics";
 import formatDate from "../../../utils/formatDate";
 import users from "../../../data/users.json"
@@ -19,7 +19,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [user, setUser] = useState<User | any>(null);
+    const [user, setUser] = useState<ProfileData | null>(null);
 
     useEffect(() => {
         const foundUser = users.find(user => Number(user.user.id) === Number(userId));
@@ -41,7 +41,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                 <div className="max-w-[15%]">
                     <Link to={`/${user?.username}`}>
                         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer">
-                            <img src={user?.image} className="rounded-full w-full h-full object-contain object-center" alt="user image" />
+                            <img src={user?.avatar} className="rounded-full w-full h-full object-contain object-center" alt="user image" />
                         </div>
                     </Link>
                 </div>
@@ -52,7 +52,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                             <div className="hidden group relative sm:flex items-center justify-start">
                                 <Link to={`/${user?.username}`}>
                                     <div className="flex items-center justify-center gap-2 cursor-pointer">
-                                        <p className="hover:underline font-bold dark:text-neutral-300">{user?.displayname} <span className="inline-block">{user?.isVerified && <LuBadgeCheck className="text-primary" />}</span></p>
+                                        <p className="hover:underline font-bold dark:text-neutral-300">{user?.user.username} <span className="inline-block">{user?.is_verified && <LuBadgeCheck className="text-primary" />}</span></p>
                                         <p className="dark:text-gray-500 max-w-24 md:max-w-full truncate">@{user?.username}</p>
                                     </div>
                                 </Link>
@@ -65,7 +65,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                                 <Link to={`/${user?.username}`}>
                                     <div className="flex flex-col items-start justify-center gap-1 cursor-pointer">
 
-                                        <p className="w-full hover:underline font-bold dark:text-neutral-300 flex items-center gap-1">{user?.displayname} {user?.isVerified && <LuBadgeCheck className="text-primary" />}</p>
+                                        <p className="w-full hover:underline font-bold dark:text-neutral-300 flex items-center gap-1">{user?.user.username} {user?.is_verified && <LuBadgeCheck className="text-primary" />}</p>
 
                                         <div className="flex items-center text-[0.9rem] -mt-1">
                                             <p className="dark:text-gray-500">@{user?.username}</p>
