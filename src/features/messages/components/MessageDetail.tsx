@@ -35,7 +35,7 @@ const MessageDetail = ({ user_id, account_id }: MessageDetailProps) => {
     const [message, setMessage] = useState<MessageProps>();
 
     useEffect(() => {
-        const foundUser = users.find(user => user.id === Number(user_id));
+        const foundUser = users.find(user => Number(user.user.id) === Number(user_id));
         const foundMessage = messages.messages.find(msg => Number(msg.user_id) === Number(user_id));
 
         if (foundUser) {

@@ -2,9 +2,9 @@ import { LuBadgeCheck, LuSearch, LuCircleX } from 'react-icons/lu'
 import { twMerge } from 'tailwind-merge'
 import { buttonStyles } from '../UI/Button'
 import { useEffect, useState } from 'react';
-import invertedIndexData from "../../data/invertedIndex.json"
-import posts from "../../data/posts.json"
-import users from "../../data/users.json"
+//import invertedIndexData from "../../data/invertedIndex.json"
+//import posts from "../../data/posts.json"
+//import users from "../../data/users.json"
 import { Posts, ProfileData } from '../../types';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -18,16 +18,16 @@ const Search = ({ updateIsFocused }: Props) => {
     const [searchQuery, setsearchQuery] = useState("");
     const [userMatches, setUserMatches] = useState<ProfileData[]>();
 
-    interface InvertedIndex {
-        posts: {
-            [key: string]: number[];  
-        };
-        users: {
-            [key: string]: number[];
-        };
-    }
+    // interface InvertedIndex {
+    //     posts: {
+    //         [key: string]: number[];  
+    //     };
+    //     users: {
+    //         [key: string]: number[];
+    //     };
+    // }
 
-    const invertedIndex: InvertedIndex = invertedIndexData;
+    //const invertedIndex: InvertedIndex = invertedIndexData;
 
     const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const Search = ({ updateIsFocused }: Props) => {
         const val = evt.target?.value;
         setsearchQuery(val);
 
-        const query = searchQuery.toLowerCase();
+        //const query = searchQuery.toLowerCase();
         const userMatches: ProfileData[] = [];
 
         // Object.keys(invertedIndex.users).forEach(word => {
@@ -65,29 +65,31 @@ const Search = ({ updateIsFocused }: Props) => {
     };
 
     // Updated search function
-    const searchInInvertedIndex = (searchQuery: string, invertedIndex: InvertedIndex, posts: Posts[]) => {
-        const results: Posts[] = [];
-        const query = searchQuery.toLowerCase();
-        console.log({"Search Query": searchQuery, "Inverted Index": invertedIndex, "All Posts": posts})
+    // const searchInInvertedIndex = (searchQuery: string, invertedIndex: InvertedIndex, posts: Posts[]) => {
+    //     const results: Posts[] = [];
+    //     const query = searchQuery.toLowerCase();
+    //     console.log({"Search Query": searchQuery, "Inverted Index": invertedIndex, "All Posts": posts})
 
-        Object.keys(invertedIndex.posts).forEach(word => {
-            if (word.includes(query)) {
-                console.log(invertedIndex.posts[word]);
+    //     Object.keys(invertedIndex.posts).forEach(word => {
+    //         if (word.includes(query)) {
+    //             console.log(invertedIndex.posts[word]);
                 
-                invertedIndex.posts[word].forEach((postId: number) => {
-                    const post = posts.find(post => post.postId === postId);
-                    console.log(post);
-                    if (post && !results.some(result => result.postId === postId)) {
-                        results.push(post);
-                    }
-                });
-            }
-        });
+    //             invertedIndex.posts[word].forEach((postId: number) => {
+    //                 const post = posts.find(post => post.postId === postId);
+    //                 console.log(post);
+    //                 if (post && !results.some(result => result.postId === postId)) {
+    //                     results.push(post);
+    //                 }
+    //             });
+    //         }
+    //     });
 
-        console.log({"Results": results});
-        setSearchResults(results);
-        console.log({"Search Results": searchResults});
-    };
+    //     console.log({"Results": results});
+    //     setSearchResults(results);
+    //     console.log({"Search Results": searchResults});
+    // };
+
+
 
     const clearSearch = (evt: React.MouseEvent) => {
         evt.preventDefault();

@@ -19,7 +19,7 @@ const MobileCreatePost = () => {
     if (!profileData) return null;
   
     useEffect(() => {
-      const foundUser = users.find(usr => usr.id === Number(profileData?.user.id));
+      const foundUser = users.find(usr => Number(usr.user.id) === Number(profileData?.user.id));
       if (!foundUser) {
         return
       }

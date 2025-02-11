@@ -20,7 +20,7 @@ const TopTab = ({ query, setActiveIndex, posts }: Props) => {
     const filteredPosts = posts.filter(post => post.postContent.toLowerCase().includes(query.toLowerCase()))
 
     const filteredUsers = users.filter(usr => 
-        (usr.displayname && usr.displayname.toLowerCase().includes(query.toLowerCase())) || 
+        (usr.user.username && usr.user.username.toLowerCase().includes(query.toLowerCase())) || 
         (usr.username && usr.username.toLowerCase().includes(query.toLowerCase()))
     )
 
@@ -41,13 +41,13 @@ const TopTab = ({ query, setActiveIndex, posts }: Props) => {
                         {filteredUsers.slice(0, limit).map((user, index) => (
                             <RecommendedUser
                                 key={index}
-                                avatar={user.image}
-                                user={user}
+                                avatar={user.avatar}
+                                user={user.user}
                                 username={user.username}
                                 bio={user.bio}
-                                follower_count={user.followerCount}
-                                following_count={user.followingCount}
-                                is_verified={user.isVerified}
+                                follower_count={user.follower_count}
+                                following_count={user.following_count}
+                                is_verified={user.is_verified}
                             />
                         ))}
                         <div className="px-3 py-3 text-sm font-semibold cursor-pointer hover:bg-gray-500 hover:bg-opacity-20 "><p onClick={handleShowMore} className="text-secondary-100">Show more</p></div>

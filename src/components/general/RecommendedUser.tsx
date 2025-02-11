@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { LuBadgeCheck } from "react-icons/lu";
 import { ProfileData } from "../../types";
 
-type RecommendedUserProps = ProfileData & {
-  variant: string;
-  showBio: boolean;
-  show_creator: boolean;
+type RecommendedUserProps = Partial<ProfileData> & {
+  variant?: string;
+  showBio?: boolean;
+  show_creator?: boolean;
 };
+
 const RecommendedUser = ({
   avatar,
   user,
@@ -32,7 +33,7 @@ const RecommendedUser = ({
           <div>
             <img
               src={avatar}
-              alt={`${user.username}'s profile picture`}
+              alt={`${user?.username}'s profile picture`}
               className="w-10 h-10 rounded-full"
             />
           </div>

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button, { buttonStyles } from '../UI/Button';
 import { twMerge } from 'tailwind-merge';
-import EditProfileForm from '../../features/profile/components/EditProfileForm';
+// import EditProfileForm from '../../features/profile/components/EditProfileForm';
 import { LuX } from 'react-icons/lu';
 import { useEffect } from 'react';
 
@@ -52,7 +52,7 @@ const EditProfileModal = () => {
                             <Button className={twMerge(buttonStyles(), 'cursor-pointer bg-white text-black hover:bg-neutral-300 font-bold')} disabled={true}>Save</Button>
                         </div>
 
-                        <EditProfileForm displayname={user?.displayname} bio={user?.bio} coverPhoto={user?.coverPhoto} image={user?.image} />
+                        {/* <EditProfileForm displayname={user?.displayname} bio={user?.bio} coverPhoto={user?.coverPhoto} image={user?.image} /> */}
                     </div>
                 )}
             </div>

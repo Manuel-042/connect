@@ -8,7 +8,7 @@ type Props = {
 const PeopleTab = ({ query }: Props) => {
 
     const filteredUsers = users.filter(usr => 
-        (usr.displayname && usr.displayname.toLowerCase().includes(query.toLowerCase())) || 
+        (usr.user.username && usr.user.username.toLowerCase().includes(query.toLowerCase())) || 
         (usr.username && usr.username.toLowerCase().includes(query.toLowerCase()))
     )
 
@@ -21,13 +21,13 @@ const PeopleTab = ({ query }: Props) => {
                             {filteredUsers.map((user, index) => (
                                 <RecommendedUser
                                     key={index}
-                                    image={user.image}
-                                    displayname={user.displayname}
+                                    avatar={user.avatar}
+                                    user={user.user}
                                     username={user.username}
                                     bio={user.bio}
-                                    followerCount={user.followerCount}
-                                    followingCount={user.followingCount}
-                                    isVerified={user.isVerified}
+                                    follower_count={user.follower_count}
+                                    following_count={user.following_count}
+                                    is_verified={user.is_verified}
                                     showBio={true}
                                 />
                             ))}

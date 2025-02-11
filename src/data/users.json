@@ -1,275 +1,338 @@
 [
   {
-      "id": 1,
-      "image": "https://loremflickr.com/200/200?random=2",
-      "coverPhoto": "https://loremflickr.com/800/200?random=22",
-      "displayname": "manueldev",
+    "user": {
+      "id": "1",
       "username": "therealmanuel",
-      "bio": "Software Engineer 💻✨",
-      "followerCount": 112000000,
-      "followingCount": 1000,
-      "isCreator": true,
-      "isVerified": true,
-      "createdAt": "2023-11-01T12:00:00Z"
+      "email": "therealmanuel@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=2",
+    "cover_image": "https://loremflickr.com/800/200?random=22",
+    "username": "therealmanuel",
+    "bio": "Software Engineer 💻✨",
+    "follower_count": 112000000,
+    "following_count": 1000,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-11-01T12:00:00Z"
   },
   {
-      "id": 2,
-      "image": "https://loremflickr.com/200/200?random=3",
-      "coverPhoto": "https://loremflickr.com/800/200?random=23",
-      "displayname": "ZenCoin",
+    "user": {
+      "id": "2",
       "username": "ZenCoinOnTon",
-      "bio": "not impersonating anyone || tweeting anything & everything || turn notis on || ig: FearBuck || DM for submissions || for promo copiumx@yahoo.com || @Roobet",
-      "followerCount": 52000,
-      "followingCount": 99,
-      "isCreator": false,
-      "isVerified": false,
-      "createdAt": "2023-09-15T14:30:00Z"
+      "email": "zencoinonton@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=3",
+    "cover_image": "https://loremflickr.com/800/200?random=23",
+    "username": "ZenCoinOnTon",
+    "bio": "not impersonating anyone || tweeting anything & everything || turn notis on || ig: FearBuck || DM for submissions || for promo copiumx@yahoo.com || @Roobet",
+    "follower_count": 52000,
+    "following_count": 99,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2023-09-15T14:30:00Z"
   },
   {
-      "id": 3,
-      "image": "https://loremflickr.com/200/200?random=4",
-      "coverPhoto": "https://loremflickr.com/800/200?random=24",
-      "displayname": "CryptoMaster",
+    "user": {
+      "id": "3",
       "username": "cryptomaster101",
-      "bio": "Decentralized advocate | Crypto tips & updates | Follow for news",
-      "followerCount": 200000,
-      "followingCount": 500,
-      "isCreator": true,
-      "isVerified": false,
-      "createdAt": "2023-10-20T08:45:00Z"
+      "email": "cryptomaster101@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=4",
+    "cover_image": "https://loremflickr.com/800/200?random=24",
+    "username": "cryptomaster101",
+    "bio": "Decentralized advocate | Crypto tips & updates | Follow for news",
+    "follower_count": 200000,
+    "following_count": 500,
+    "is_creator": true,
+    "is_verified": false,
+    "created_at": "2023-10-20T08:45:00Z"
   },
   {
-      "id": 4,
-      "image": "https://loremflickr.com/200/200?random=5",
-      "coverPhoto": "https://loremflickr.com/800/200?random=25",
-      "displayname": "FitnessGuru",
+    "user": {
+      "id": "4",
       "username": "fitlife",
-      "bio": "Passionate about health & fitness | Daily workout tips | #FitnessLife",
-      "followerCount": 150000,
-      "followingCount": 1200,
-      "isCreator": false,
-      "isVerified": true,
-      "createdAt": "2023-08-05T16:20:00Z"
+      "email": "fitlife@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=5",
+    "cover_image": "https://loremflickr.com/800/200?random=25",
+    "username": "fitlife",
+    "bio": "Passionate about health & fitness | Daily workout tips | #FitnessLife",
+    "follower_count": 150000,
+    "following_count": 1200,
+    "is_creator": false,
+    "is_verified": true,
+    "created_at": "2023-08-05T16:20:00Z"
   },
   {
-      "id": 5,
-      "image": "https://loremflickr.com/200/200?random=6",
-      "coverPhoto": "https://loremflickr.com/800/200?random=26",
-      "displayname": "TechSavvy",
+    "user": {
+      "id": "5",
       "username": "techsavvypro",
-      "bio": "Exploring the latest in tech | Gadgets, AI & programming | Stay updated!",
-      "followerCount": 75000,
-      "followingCount": 300,
-      "isCreator": true,
-      "isVerified": true,
-      "createdAt": "2023-07-15T13:55:00Z"
+      "email": "techsavvypro@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=6",
+    "cover_image": "https://loremflickr.com/800/200?random=26",
+    "username": "techsavvypro",
+    "bio": "Exploring the latest in tech",
+    "follower_count": 75000,
+    "following_count": 300,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-07-15T13:55:00Z"
   },
   {
-      "id": 6,
-      "image": "https://loremflickr.com/200/200?random=7",
-      "coverPhoto": "https://loremflickr.com/800/200?random=27",
-      "displayname": "TravelBug",
+    "user": {
+      "id": "6",
       "username": "wanderlust",
-      "bio": "Globetrotter | Sharing travel experiences & tips | Let's explore the world!",
-      "followerCount": 120000,
-      "followingCount": 600,
-      "isCreator": false,
-      "isVerified": false,
-      "createdAt": "2023-06-01T09:40:00Z"
+      "email": "wanderlust@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=7",
+    "cover_image": "https://loremflickr.com/800/200?random=27",
+    "username": "wanderlust",
+    "bio": "Globetrotter | Sharing travel experiences & tips | Let's explore the world!",
+    "follower_count": 120000,
+    "following_count": 600,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2023-06-01T09:40:00Z"
   },
   {
-      "id": 7,
-      "image": "https://loremflickr.com/200/200?random=8",
-      "coverPhoto": "https://loremflickr.com/800/200?random=28",
-      "displayname": "ChefExtraordinaire",
+    "user": {
+      "id": "7",
       "username": "chefmaster",
-      "bio": "Mastering the culinary arts | Recipes & cooking tips | Bon Appétit!",
-      "followerCount": 90000,
-      "followingCount": 200,
-      "isCreator": true,
-      "isVerified": false,
-      "createdAt": "2023-05-10T17:15:00Z"
+      "email": "chefmaster@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=8",
+    "cover_image": "https://loremflickr.com/800/200?random=28",
+    "username": "chefmaster",
+    "bio": "Mastering the culinary arts | Recipes & cooking tips | Bon Appétit!",
+    "follower_count": 90000,
+    "following_count": 200,
+    "is_creator": true,
+    "is_verified": false,
+    "created_at": "2023-05-10T17:15:00Z"
   },
   {
-      "id": 8,
-      "image": "https://loremflickr.com/200/200?random=9",
-      "coverPhoto": "https://loremflickr.com/800/200?random=29",
-      "displayname": "TheHistorian",
+    "user": {
+      "id": "8",
       "username": "historybuff",
-      "bio": "Exploring the past to understand the present | #HistoryFacts | Education",
-      "followerCount": 60000,
-      "followingCount": 150,
-      "isCreator": false,
-      "isVerified": false,
-      "createdAt": "2023-04-25T15:30:00Z"
+      "email": "historybuff@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=9",
+    "cover_image": "https://loremflickr.com/800/200?random=29",
+    "username": "historybuff",
+    "bio": "Exploring the past to understand the present | #HistoryFacts | Education",
+    "follower_count": 60000,
+    "following_count": 150,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2023-04-25T15:30:00Z"
   },
   {
-      "id": 9,
-      "image": "https://loremflickr.com/200/200?random=10",
-      "coverPhoto": "https://loremflickr.com/800/200?random=30",
-      "displayname": "Fashionista",
+    "user": {
+      "id": "9",
       "username": "styletrendsetter",
-      "bio": "Bringing you the latest in fashion | Style tips & trends | #Fashionista",
-      "followerCount": 85000,
-      "followingCount": 300,
-      "isCreator": true,
-      "isVerified": true,
-      "createdAt": "2023-04-02T12:00:00Z"
+      "email": "styletrendsetter@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=10",
+    "cover_image": "https://loremflickr.com/800/200?random=30",
+    "username": "styletrendsetter",
+    "bio": "Bringing you the latest in fashion | Style tips & trends | #Fashionista",
+    "follower_count": 85000,
+    "following_count": 300,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-04-02T12:00:00Z"
   },
   {
-      "id": 10,
-      "image": "https://loremflickr.com/200/200?random=11",
-      "coverPhoto": "https://loremflickr.com/800/200?random=31",
-      "displayname": "EcoWarrior",
+    "user": {
+      "id": "10",
       "username": "earth_hero",
-      "bio": "Promoting eco-friendly living | Sustainable tips & nature love | #GoGreen",
-      "followerCount": 40000,
-      "followingCount": 100,
-      "isCreator": false,
-      "isVerified": false,
-      "createdAt": "2023-03-15T11:10:00Z"
+      "email": "earth_hero@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=11",
+    "cover_image": "https://loremflickr.com/800/200?random=31",
+    "username": "earth_hero",
+    "bio": "Promoting eco-friendly living | Sustainable tips & nature love | #GoGreen",
+    "follower_count": 40000,
+    "following_count": 100,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2023-03-15T11:10:00Z"
   },
   {
-    "id": 11,
-    "image": "https://loremflickr.com/200/200?random=12",
-    "coverPhoto": "https://loremflickr.com/800/200?random=12",
-    "displayname": "MusicMania",
+    "user": {
+      "id": "11",
+      "username": "musiclover",
+      "email": "musiclover@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=12",
+    "cover_image": "https://loremflickr.com/800/200?random=12",
     "username": "musiclover",
     "bio": "Tunes for every mood | Sharing playlists, reviews, & music news",
-    "followerCount": 130000,
-    "followingCount": 250,
-    "isCreator": true,
-    "isVerified": true,
-    "createdAt": "2023-02-15"
+    "follower_count": 130000,
+    "following_count": 250,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-02-15T00:00:00Z"
   },
   {
-    "id": 12,
-    "image": "https://loremflickr.com/200/200?random=13",
-    "coverPhoto": "https://loremflickr.com/800/200?random=13",
-    "displayname": "ArtisticSoul",
+    "user": {
+      "id": "12",
+      "username": "creativemind",
+      "email": "creativemind@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=13",
+    "cover_image": "https://loremflickr.com/800/200?random=13",
     "username": "creativemind",
     "bio": "Art enthusiast | Painting, sketching, & photography | #ArtLover",
-    "followerCount": 95000,
-    "followingCount": 400,
-    "isCreator": false,
-    "isVerified": true,
-    "createdAt": "2022-07-12"
+    "follower_count": 95000,
+    "following_count": 400,
+    "is_creator": false,
+    "is_verified": true,
+    "created_at": "2022-07-12T00:00:00Z"
   },
   {
-    "id": 13,
-    "image": "https://loremflickr.com/200/200?random=14",
-    "coverPhoto": "https://loremflickr.com/800/200?random=14",
-    "displayname": "GameMaster",
+    "user": {
+      "id": "13",
+      "username": "pro_gamer",
+      "email": "pro_gamer@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=14",
+    "cover_image": "https://loremflickr.com/800/200?random=14",
     "username": "pro_gamer",
     "bio": "Gaming is my life | Tips, tricks, & streams | Follow for game updates",
-    "followerCount": 220000,
-    "followingCount": 700,
-    "isCreator": true,
-    "isVerified": false,
-    "createdAt": "2021-08-30"
+    "follower_count": 220000,
+    "following_count": 700,
+    "is_creator": true,
+    "is_verified": false,
+    "created_at": "2021-08-30T00:00:00Z"
   },
   {
-    "id": 14,
-    "image": "https://loremflickr.com/200/200?random=15",
-    "coverPhoto": "https://loremflickr.com/800/200?random=15",
-    "displayname": "ScienceGeek",
+    "user": {
+      "id": "14",
+      "username": "sciencelover",
+      "email": "sciencelover@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=15",
+    "cover_image": "https://loremflickr.com/800/200?random=15",
     "username": "sciencelover",
     "bio": "Curious about the world around us | Science facts & discoveries",
-    "followerCount": 50000,
-    "followingCount": 80,
-    "isCreator": false,
-    "isVerified": false,
-    "createdAt": "2022-04-18"
+    "follower_count": 50000,
+    "following_count": 80,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2022-04-18T00:00:00Z"
   },
   {
-    "id": 15,
-    "image": "https://loremflickr.com/200/200?random=16",
-    "coverPhoto": "https://loremflickr.com/800/200?random=16",
-    "displayname": "InvestorPro",
+    "user": {
+      "id": "15",
+      "username": "financewhiz",
+      "email": "financewhiz@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=16",
+    "cover_image": "https://loremflickr.com/800/200?random=16",
     "username": "financewhiz",
     "bio": "Helping you invest smart | Market trends & finance tips | #Investor",
-    "followerCount": 140000,
-    "followingCount": 650,
-    "isCreator": true,
-    "isVerified": false,
-    "createdAt": "2021-11-25"
+    "follower_count": 140000,
+    "following_count": 650,
+    "is_creator": true,
+    "is_verified": false,
+    "created_at": "2021-11-25T00:00:00Z"
   },
   {
-    "id": 16,
-    "image": "https://loremflickr.com/200/200?random=17",
-    "coverPhoto": "https://loremflickr.com/800/200?random=17",
-    "displayname": "FoodieLover",
+    "user": {
+      "id": "16",
+      "username": "yumyum",
+      "email": "yumyum@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=17",
+    "cover_image": "https://loremflickr.com/800/200?random=17",
     "username": "yumyum",
     "bio": "Eating my way through the city | Food reviews & recipes",
-    "followerCount": 110000,
-    "followingCount": 90,
-    "isCreator": false,
-    "isVerified": false,
-    "createdAt": "2022-10-05"
+    "follower_count": 110000,
+    "following_count": 90,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2022-10-05T00:00:00Z"
   },
   {
-    "id": 17,
-    "image": "https://loremflickr.com/200/200?random=18",
-    "coverPhoto": "https://loremflickr.com/800/200?random=18",
-    "displayname": "MindfulnessCoach",
+    "user": {
+      "id": "17",
+      "username": "mindfulpath",
+      "email": "mindfulpath@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=18",
+    "cover_image": "https://loremflickr.com/800/200?random=18",
     "username": "mindfulpath",
     "bio": "Helping you find peace | Mindfulness tips & mental health awareness",
-    "followerCount": 70000,
-    "followingCount": 140,
-    "isCreator": true,
-    "isVerified": true,
-    "createdAt": "2023-05-20"
+    "follower_count": 70000,
+    "following_count": 140,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-05-20T00:00:00Z"
   },
   {
-    "id": 18,
-    "image": "https://loremflickr.com/200/200?random=19",
-    "coverPhoto": "https://loremflickr.com/800/200?random=19",
-    "displayname": "PetLover",
+    "user": {
+      "id": "18",
+      "username": "animal_lover",
+      "email": "animal_lover@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=19",
+    "cover_image": "https://loremflickr.com/800/200?random=19",
     "username": "animal_lover",
     "bio": "Celebrating all things pets | Tips & stories for animal lovers",
-    "followerCount": 30000,
-    "followingCount": 60,
-    "isCreator": false,
-    "isVerified": false,
-    "createdAt": "2022-12-11"
+    "follower_count": 30000,
+    "following_count": 60,
+    "is_creator": false,
+    "is_verified": false,
+    "created_at": "2022-12-11T00:00:00Z"
   },
   {
-    "id": 19,
-    "image": "https://loremflickr.com/200/200?random=20",
-    "coverPhoto": "https://loremflickr.com/800/200?random=20",
-    "displayname": "MovieBuff",
+    "user": {
+      "id": "19",
+      "username": "cinemalover",
+      "email": "cinemalover@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=20",
+    "cover_image": "https://loremflickr.com/800/200?random=20",
     "username": "cinemalover",
     "bio": "Movie reviews, news & trivia | Follow for the best film insights",
-    "followerCount": 200000,
-    "followingCount": 800,
-    "isCreator": true,
-    "isVerified": true,
-    "createdAt": "2021-03-23"
+    "follower_count": 200000,
+    "following_count": 800,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2021-03-23T00:00:00Z"
   },
   {
-    "id": 20,
-    "image": "https://loremflickr.com/200/200?random=21",
-    "coverPhoto": "https://loremflickr.com/800/200?random=21",
-    "displayname": "CodingNinja",
+    "user": {
+      "id": "20",
+      "username": "dev_guru",
+      "email": "dev_guru@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=21",
+    "cover_image": "https://loremflickr.com/800/200?random=21",
     "username": "dev_guru",
     "bio": "Programming tips & tech talk | Sharing code insights | #CodeLife",
-    "followerCount": 170000,
-    "followingCount": 1000,
-    "isCreator": true,
-    "isVerified": true,
-    "createdAt": "2023-01-09"
+    "follower_count": 170000,
+    "following_count": 1000,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-01-09T00:00:00Z"
   },
   {
-    "id": 21,
-    "image": "https://loremflickr.com/200/200?random=43",
-    "coverPhoto": "https://loremflickr.com/800/200?random=42",
-    "displayname": "BarcaGuru",
+    "user": {
+      "id": "21",
+      "username": "sport_guru",
+      "email": "sport_guru@example.com"
+    },
+    "avatar": "https://loremflickr.com/200/200?random=43",
+    "cover_image": "https://loremflickr.com/800/200?random=42",
     "username": "sport_guru",
     "bio": "Messi fan | Sport Analyst",
-    "followerCount": 170000,
-    "followingCount": 1000,
-    "isCreator": true,
-    "isVerified": true,
-    "createdAt": "2023-01-09"
+    "follower_count": 170000,
+    "following_count": 1000,
+    "is_creator": true,
+    "is_verified": true,
+    "created_at": "2023-01-09T00:00:00Z"
   }
 ]

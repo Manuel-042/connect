@@ -11,7 +11,7 @@ type RecommenderUserListProps = {
 }
 
 function RecommenderUserList({limit, variant = "default", showBio, show_creator}: RecommenderUserListProps) {
-    const filteredUsers = show_creator ? users.filter(user => user.isCreator === true) : users;
+    const filteredUsers = show_creator ? users.filter(user => user.is_creator === true) : users;
     const more = filteredUsers.length > limit;
   
   return (
@@ -19,16 +19,16 @@ function RecommenderUserList({limit, variant = "default", showBio, show_creator}
       {filteredUsers.slice(0, limit).map((user, index) => (
         <RecommendedUser
           key={index}
-          image={user.image}
-          displayname={user.displayname}
+          avatar={user.avatar}
+          user={user.user}
           username={user.username}
           bio={user.bio}
-          followerCount={user.followerCount}
-          followingCount={user.followingCount}
+          follower_count={user.follower_count}
+          following_count={user.following_count}
           variant={variant}
           showBio={showBio}
           show_creator={show_creator}
-          isVerified={user.isVerified}
+          is_verified={user.is_verified}
         />
       ))}
       {more && <div className="px-3 py-3 text-sm font-semibold hover:bg-gray-500 hover:bg-opacity-20 "><p><Link to="/i/connect_people" className="text-secondary-100">Show more</Link></p></div>}

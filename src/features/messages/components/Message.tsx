@@ -46,7 +46,7 @@ function Message({ user_id, last_message, last_message_date, is_unread, onClick,
     const { profileData } = useAuthContext();
 
     useEffect(() => {
-        const foundUser = users.find(user => user.id === Number(user_id));
+        const foundUser = users.find(user => Number(user.user.id) === Number(user_id));
         setAppUser(foundUser);
     }, [user_id, users]);
 

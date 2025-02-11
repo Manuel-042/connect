@@ -2,7 +2,7 @@ import { LuBadgeCheck, LuEllipsis, LuDot } from "react-icons/lu";
 import { buttonStyles } from "../../../components/UI/Button";
 import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
-import ProfileDisplay from "../../profile/components/ProfileDisplay";
+// import ProfileDisplay from "../../profile/components/ProfileDisplay";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { Posts, User } from "../../../types";
 import PostMetrics from "./PostMetrics";
@@ -19,7 +19,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
     const [user, setUser] = useState<User | any>(null);
 
     useEffect(() => {
-        const foundUser = users.find(user => user.id === Number(userId));
+        const foundUser = users.find(user => Number(user.user.id) === Number(userId));
         if (!foundUser) {
             return
         }
