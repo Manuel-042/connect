@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import RecommendedUser from "../../../components/general/RecommendedUser";
 import users from "../../../data/users.json"
-import { Post } from "../../post";
-import { Posts } from "../../../types";
+import { Posts } from "../../post";
+import type { Posts as PostType } from "../../../types";
 
 type Props = {
     query: string;
-    posts: Posts[] | []
+    posts: PostType[] | []
     setActiveIndex: (index: number) => void;
 }
 
@@ -56,7 +56,7 @@ const TopTab = ({ query, setActiveIndex, posts }: Props) => {
 
                 <div className="w-full flex flex-col relative">
                     {filteredPosts.map((post, index) => (
-                        <Post
+                        <Posts
                             key={index} 
                             postId={post.postId} 
                             userId={post.user.id}

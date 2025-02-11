@@ -1,8 +1,8 @@
-import { Posts } from "../../../types";
-import { Post } from "../../post";
+import type { Posts as PostType } from "../../../types";
+import { Posts } from "../../post";
 
 type Props = {
-    posts: Posts[] | []
+    posts: PostType[] | []
     query: string;
 }
 
@@ -31,7 +31,7 @@ const LatestTab = ({ query, posts }: Props) => {
             {filteredPosts.length > 0 ? (
                 <div className="w-full flex flex-col relative">
                     {filteredPosts.map((post, index) => (
-                        <Post
+                        <Posts
                             key={index}
                             postId={post.postId}
                             userId={post.user.id}
