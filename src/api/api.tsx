@@ -23,7 +23,7 @@ api.interceptors.request.use((config) => {
 });
 
 export const apiPrivate = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: 'https://nottwitter-backend.onrender.com',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
