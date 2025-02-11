@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import RecommendedUser from "../../../components/general/RecommendedUser";
 import users from "../../../data/users.json"
 import { Post } from "../../post";
-import { PostProps } from "../../../types";
+import { Posts } from "../../../types";
 
 type Props = {
     query: string;
-    posts: PostProps[] | []
+    posts: Posts[] | []
     setActiveIndex: (index: number) => void;
 }
 
@@ -41,13 +41,13 @@ const TopTab = ({ query, setActiveIndex, posts }: Props) => {
                         {filteredUsers.slice(0, limit).map((user, index) => (
                             <RecommendedUser
                                 key={index}
-                                image={user.image}
-                                displayname={user.displayname}
+                                avatar={user.image}
+                                user={user}
                                 username={user.username}
                                 bio={user.bio}
-                                followerCount={user.followerCount}
-                                followingCount={user.followingCount}
-                                isVerified={user.isVerified}
+                                follower_count={user.followerCount}
+                                following_count={user.followingCount}
+                                is_verified={user.isVerified}
                             />
                         ))}
                         <div className="px-3 py-3 text-sm font-semibold cursor-pointer hover:bg-gray-500 hover:bg-opacity-20 "><p onClick={handleShowMore} className="text-secondary-100">Show more</p></div>
@@ -59,7 +59,7 @@ const TopTab = ({ query, setActiveIndex, posts }: Props) => {
                         <Post
                             key={index} 
                             postId={post.postId} 
-                            userId={post.userId}
+                            userId={post.user.id}
                             postContent={post.postContent}
                             datePosted={post.datePosted}
                             images={post.images} 

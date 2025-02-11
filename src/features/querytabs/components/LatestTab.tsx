@@ -1,8 +1,8 @@
-import { PostProps } from "../../../types";
+import { Posts } from "../../../types";
 import { Post } from "../../post";
 
 type Props = {
-    posts: PostProps[] | []
+    posts: Posts[] | []
     query: string;
 }
 
@@ -34,7 +34,7 @@ const LatestTab = ({ query, posts }: Props) => {
                         <Post
                             key={index}
                             postId={post.postId}
-                            userId={post.userId}
+                            userId={post.user.id}
                             postContent={post.postContent}
                             datePosted={post.datePosted}
                             images={post.images}

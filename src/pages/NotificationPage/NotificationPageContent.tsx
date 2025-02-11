@@ -1,28 +1,17 @@
 import { LuLeaf, LuSettings } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../../components/UI/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NotificationList } from "../../features/notifications/index";
 import { useAuthContext } from "../../context/auth-context";
-import { UserProps } from "../../types";
-import users from "../../data/users.json"
 import { Link, useLocation } from "react-router-dom";
 
 const NotificationPageContent = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const { user } = useAuthContext();
-    const [appUser, setAppUser] = useState<UserProps | null>(null);
+    const { profileData } = useAuthContext();
     const location = useLocation();
 
-    if (!user) return null;
-
-    useEffect(() => {
-        const foundUser = users.find(usr => usr.id === Number(user.id));
-        if (!foundUser) {
-            return
-        }
-        setAppUser(foundUser);
-    }, [user])
+    if (!profileData) return null;
 
     const labels = ["All", "Verified", "Mentions"];
 
@@ -34,8 +23,8 @@ const NotificationPageContent = () => {
                     <div className="flex items-center gap-5 md:gap-3">
                         <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "md:hidden p-0 bg-transparent hover:bg-transparent w-8 h-8")}>
                         <img
-                            src={appUser?.image}
-                            alt={`${appUser?.displayname} profile picture`}
+                            src={profileData?.avatar}
+                            alt={`${profileData?.user.username} profile picture`}
                             className="w-full h-full rounded-full object-cover"
                         />
                         </Button>

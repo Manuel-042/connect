@@ -4,27 +4,27 @@ import Button, { buttonStyles } from '../../../components/UI/Button';
 import { twMerge } from 'tailwind-merge';
 import { LuArrowLeft, LuBoomBox, LuCalendarClock, LuFileImage, LuListChecks, LuMapPin, LuSmile } from 'react-icons/lu';
 import { useAuthContext } from '../../../context/auth-context';
-import { UserProps } from '../../../types';
+import { User } from '../../../types';
 import users from "../../../data/users.json"
 import { Link, useLocation } from 'react-router-dom';
 
 const MobileCreatePost = () => {
     const [postContent, setPostContent] = useState("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const { user } = useAuthContext();
+    const { profileData } = useAuthContext();
     const location = useLocation();
 
-    const [appUser, setAppUser] = useState<UserProps | null>(null);
+    const [appUser, setAppUser] = useState<User | any>(null);
   
-    if (!user) return null;
+    if (!profileData) return null;
   
     useEffect(() => {
-      const foundUser = users.find(usr => usr.id === Number(user.id));
+      const foundUser = users.find(usr => usr.id === Number(profileData?.user.id));
       if (!foundUser) {
         return
       }
       setAppUser(foundUser);
-    }, [user])
+    }, [profileData])
 
     useAutosizeTextArea(textAreaRef.current, postContent);
 

@@ -9,7 +9,7 @@ import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 
 const Logout = () => {
-  const { userProfile } = useAuthContext();
+  const { profileData } = useAuthContext();
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
   const { setToken } = useAuthContext();
@@ -28,7 +28,7 @@ const Logout = () => {
 
       console.log("Logout successful");
       toast.success("Logout successful!");
-      navigate(`/?logout=${userProfile?.id}`);
+      navigate(`/?logout=${profileData?.user.id}`);
     } catch (err) {
       if (err instanceof AxiosError) {
         if (!err.response) {

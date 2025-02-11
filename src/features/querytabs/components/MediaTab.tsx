@@ -1,10 +1,10 @@
 import { LuFiles } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { buttonStyles } from '../../../components/UI/Button';
-import { PostProps } from '../../../types';
+import { Posts } from '../../../types';
 
 type Props = {
-    posts: PostProps[] | []
+    posts: Posts[] | []
     query: string;
 }
 

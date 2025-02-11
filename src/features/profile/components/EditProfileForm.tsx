@@ -1,9 +1,9 @@
-import { UserProps } from '../../../types';
 import Button, { buttonStyles } from '../../../components/UI/Button';
 import { twMerge } from 'tailwind-merge';
 import { LuImagePlus, LuX } from 'react-icons/lu';
 import { useRef, useState, Dispatch, SetStateAction } from 'react';
 import useApiPrivate from '../../../hooks/useApiPrivate';
+import { ProfileData } from '../../../types';
 
 type FloatingLabelProps = {
     id: string;
@@ -34,7 +34,7 @@ const FloatingLabelInput = ({
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 onFocus={() => setIsFocused(true)}
-                onBlur={() => onBlur(id, value)} // Pass id and value
+                onBlur={() => onBlur(id, value)} 
                 maxLength={maxLength}
                 className="px-3 pt-5 w-full h-full border rounded-md bg-transparent outline-none 
                      border-dark-border text-lg dark:text:white focus:ring-2 focus:ring-secondary-100 focus:border-transparent autofill:bg-transparent 
@@ -58,18 +58,14 @@ const FloatingLabelInput = ({
     );
 };
 
-
-type EditProfileProps = Pick<UserProps, 'displayname' | 'bio' | 'image' | 'coverPhoto'>;
-
-
-const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displayname, bio, coverPhoto, image }: EditProfileProps) => {
+const EditProfileForm: React.FunctionComponent<ProfileData> = ({ user, cover_image, avatar }: ProfileData) => {
     const coverPhotoRef = useRef<HTMLInputElement>(null)
     const profilePhotoRef = useRef<HTMLInputElement>(null)
     const [errors, setErrors] = useState({ name: "", username: "", bio: ""});
 
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
-    const [biography, setBiography] = useState("");
+    //const [biography, setBiography] = useState("");
     const [isNameFocused, setIsNameFocused] = useState(false);
     const [isUsernameFocused, setIsUsernameFocused] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
@@ -142,6 +138,8 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
         validateForm(updatedErrors);
     };
 
+    console.log({isChecking, isFormValid, isValid})
+
     const handleBlur = (id: string, value: string) => {
         validateField(id, value);
         if (id === "name") setIsNameFocused(value !== "");
@@ -159,7 +157,7 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
                             className="hidden"
                             ref={coverPhotoRef}
                         />
-                        <img src={coverPhoto} className="w-full h-full object-cover object-center" alt="user's cover photo" />
+                        <img src={cover_image} className="w-full h-full object-cover object-center" alt="user's cover photo" />
                         <div className='overlay absolute top-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center'>
                             <div className='flex items-center gap-4'>
                                 <label htmlFor="coverphoto" className='rounded-full'>
@@ -181,7 +179,7 @@ const EditProfileForm: React.FunctionComponent<EditProfileProps> = ({ displaynam
                             className="hidden"
                             ref={profilePhotoRef}
                         />
-                        <img src={image} alt={`${displayname} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
+                        <img src={avatar} alt={`${user.username} profile picture`} className='border-4 border-black rounded-full w-full h-full' />
 
                         <div className='overlay absolute top-0 rounded-full w-full h-full bg-black bg-opacity-40 flex items-center justify-center'>
                             <label htmlFor='profilephoto' className='rounded-full'>

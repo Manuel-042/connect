@@ -1,15 +1,15 @@
 import Posts from "../../post/components/Posts";
-import { PostProps } from "../../../types";
+//import { Posts } from "../../../types";
 
 type BookmarkedPostsProps = {
-    posts: PostProps[] | null;
+    posts: any;
 };
 
 
 const BookmarkedPosts = ({ posts }: BookmarkedPostsProps) => {
     return (
         <section className="posts">
-            {posts?.map((post, index) => (
+            {posts?.map((post: any, index: number) => (
                 <Posts
                     key={index}
                     postId={post.postId}

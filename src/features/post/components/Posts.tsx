@@ -4,20 +4,19 @@ import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
 import ProfileDisplay from "../../profile/components/ProfileDisplay";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { PostProps } from "../../../types";
+import type { Posts, User } from "../../../types";
 import PostMetrics from "./PostMetrics";
 import formatDate from "../../../utils/formatDate";
 import users from "../../../data/users.json"
 import { useEffect, useState } from "react";
-import { UserProps } from "../../../types";
 
-const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: PostProps) => {
+const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Posts | any) => {
     const { comments, retweets, likes, views } = metrics;
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [user, setUser] = useState<UserProps | null>(null);
+    const [user, setUser] = useState<User | any>(null);
 
     useEffect(() => {
         const foundUser = users.find(user => user.id === Number(userId));
@@ -56,7 +55,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                                 </Link>
                                 <p className="dark:text-gray-500"><LuDot /></p>
                                 <p className="dark:text-gray-500">{formatDate(datePosted)}</p>
-                                <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
+                                {/* <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} /> */}
                             </div>
 
                             <div className="sm:hidden group relative flex items-start justify-start">
@@ -73,7 +72,7 @@ const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Pos
                                     </div>
                                 </Link>
                                 
-                                <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
+                                {/* <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} /> */}
                             </div>
 
                             <div>

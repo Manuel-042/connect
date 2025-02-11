@@ -8,7 +8,7 @@ import ProfileDisplay from "../../profile/components/ProfileDisplay";
 import MessageConversation from "./MessageConversation";
 import messages from "../../../data/messages.json"
 import MessageForm from "./MessageForm";
-import { UserProps } from "../../../types";
+import { User } from "../../../types";
 
 type MessageDetailProps = {
     user_id: string;
@@ -31,7 +31,7 @@ type MessageProps = {
 };
 
 const MessageDetail = ({ user_id, account_id }: MessageDetailProps) => {
-    const [user, setUser] = useState<UserProps | null>(null);
+    const [user, setUser] = useState<User | any>(null);
     const [message, setMessage] = useState<MessageProps>();
 
     useEffect(() => {
@@ -73,7 +73,7 @@ const MessageDetail = ({ user_id, account_id }: MessageDetailProps) => {
                             {user?.isVerified && <LuBadgeCheck className="text-primary" />}
                         </div>
                         <p className="dark:text-neutral-300 dark:text-opacity-40">@{user?.username}</p>
-                        <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
+                        <ProfileDisplay user={user} />
                     </Link>
                     <p className="mt-3 dark:text-neutral-300 text-center ">{user?.bio}</p>
                     <div className="flex items-center justify-center gap-2 mt-3 dark:text-neutral-300 dark:text-opacity-40">

@@ -1,8 +1,8 @@
 import Posts from "../../post/components/Posts";
-import { PostProps } from "../../../types";
+import type { Posts as PostsType } from "../../../types";
 
 type AccountPostsProps = {
-    posts: PostProps[] | null;
+    posts: PostsType[] | null;
 };
 
 
@@ -13,7 +13,7 @@ const AccountPosts = ({ posts }: AccountPostsProps) => {
                 <Posts
                     key={index}
                     postId={post.postId}
-                    userId={post.userId}
+                    userId={post?.user.id}
                     postContent={post.postContent}
                     datePosted={post.datePosted}
                     images={post.images}

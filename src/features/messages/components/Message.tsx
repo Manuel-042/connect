@@ -43,17 +43,17 @@ function Message({ user_id, last_message, last_message_date, is_unread, onClick,
 
     const [appUser, setAppUser] = useState<UserProps | any >(null);
 
-    const { user } = useAuthContext();
+    const { profileData } = useAuthContext();
 
     useEffect(() => {
         const foundUser = users.find(user => user.id === Number(user_id));
         setAppUser(foundUser);
     }, [user_id, users]);
 
-    if (!user) return null;
+    if (!profileData) return null;
 
     return (
-        <div onClick={() => onClick(user_id, user?.id)}className={`px-3 py-3 hover:bg-gray-500 hover:bg-opacity-20 ${is_unread && 'bg-gray-500 bg-opacity-20'} ${active && 'bg-gray-500 bg-opacity-20 border-r-4 border-secondary'}`}>
+        <div onClick={() => onClick(user_id, profileData?.user.id)}className={`px-3 py-3 hover:bg-gray-500 hover:bg-opacity-20 ${is_unread && 'bg-gray-500 bg-opacity-20'} ${active && 'bg-gray-500 bg-opacity-20 border-r-4 border-secondary'}`}>
             <div className={`group flex items-start justify-start gap-3 cursor-pointer`}>
                 <Link to="/">
                     <div className="rounded-full w-10 h-10 cursor-pointer">

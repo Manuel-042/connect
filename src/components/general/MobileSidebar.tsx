@@ -13,14 +13,14 @@ type MobileSideBarProps = {
 }
 
 const MobileSidebar = ({ isOpen, onClose }: MobileSideBarProps) => {
-    const { userProfile } = useAuthContext();
+    const { profileData } = useAuthContext();
 
-    if (!userProfile) {
+    if (!profileData) {
         return null;
     }
 
     const sidebarItems = [
-        { Icon: LuUserRoundPlus, url: `/${userProfile.username}`, title: "Profile" },
+        { Icon: LuUserRoundPlus, url: `/${profileData?.username}`, title: "Profile" },
         { Icon: LuBookmark, url: "/i/bookmarks", title: "Bookmark" },
         { Icon: LuSettings, url: "/settings", title: "Settings and Privacy" },
         { Icon: LuLogOut, url: "/logout", title: "Logout" }
@@ -32,15 +32,15 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSideBarProps) => {
             <div className={`w-[85%] bg-black h-full shadow-md shadow-white`}>
                 <div className="p-4 text-white">
                     <div className='flex items-start justify-between'>
-                        <img src={userProfile?.image} alt={`${userProfile?.name} profile`} className="rounded-full w-10 h-10 mb-1" />
+                        <img src={profileData?.avatar} alt={`${profileData?.username} profile`} className="rounded-full w-10 h-10 mb-1" />
                         <Button  className={twMerge(buttonStyles({ variant: "ghost" }), "bg-transparent dark:focus:bg-transparent p-0")}><LuCircleFadingPlus className="text-2xl"/></Button>
                     </div>
-                    <h2 className='font-extrabold'>{userProfile?.name}</h2>
-                    <p className='text-sm text-dark-text mb-2'>@{userProfile?.username}</p>
+                    <h2 className='font-extrabold'>{profileData?.user.username}</h2>
+                    <p className='text-sm text-dark-text mb-2'>@{profileData?.username}</p>
 
                     <div className='flex items-center gap-4 text-sm'>
-                        <p className='text-dark-text'><span className='text-white'>{formatCount(userProfile?.followingCount || 0)}</span> Following</p>
-                        <p className='text-dark-text'><span className='text-white'>{formatCount(userProfile?.followerCount || 0)}</span> Followers</p>
+                        <p className='text-dark-text'><span className='text-white'>{formatCount(profileData?.following_count || 0)}</span> Following</p>
+                        <p className='text-dark-text'><span className='text-white'>{formatCount(profileData?.follower_count || 0)}</span> Followers</p>
                     </div>
 
                     <nav className="flex flex-col gap-3 w-full mt-7">

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import invertedIndexData from "../../data/invertedIndex.json"
 import posts from "../../data/posts.json"
 import users from "../../data/users.json"
-import { PostProps, UserProps } from '../../types';
+import { Posts, ProfileData } from '../../types';
 import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
@@ -14,9 +14,9 @@ type Props = {
 
 const Search = ({ updateIsFocused }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [searchResults, setSearchResults] = useState<PostProps[]>();
+    const [searchResults, setSearchResults] = useState<Posts[]>();
     const [searchQuery, setsearchQuery] = useState("");
-    const [userMatches, setUserMatches] = useState<UserProps[]>();
+    const [userMatches, setUserMatches] = useState<ProfileData[]>();
 
     interface InvertedIndex {
         posts: {
@@ -46,18 +46,18 @@ const Search = ({ updateIsFocused }: Props) => {
         setsearchQuery(val);
 
         const query = searchQuery.toLowerCase();
-        const userMatches: UserProps[] = [];
+        const userMatches: ProfileData[] = [];
 
-        Object.keys(invertedIndex.users).forEach(word => {
-            if (word.includes(query)) {
-                invertedIndex.users[word].forEach((userId: number) => {
-                    const user = users.find(usr => usr.id === userId);
-                    if (user && !userMatches.some(usr => usr.id === userId)) {
-                        userMatches.push(user);
-                    }
-                });
-            }
-        });
+        // Object.keys(invertedIndex.users).forEach(word => {
+        //     if (word.includes(query)) {
+        //         invertedIndex.users[word].forEach((userId: number) => {
+        //             const user = users.find(usr => usr.id === userId);
+        //             if (user && !userMatches.some(usr => Number(usr.id) === userId)) {
+        //                 userMatches.push(user);
+        //             }
+        //         });
+        //     }
+        // });
 
         // Log or handle user matches if needed (e.g., for showing user-related results)
         console.log("Matched Users", userMatches);
@@ -65,8 +65,8 @@ const Search = ({ updateIsFocused }: Props) => {
     };
 
     // Updated search function
-    const searchInInvertedIndex = (searchQuery: string, invertedIndex: InvertedIndex, posts: PostProps[]) => {
-        const results: PostProps[] = [];
+    const searchInInvertedIndex = (searchQuery: string, invertedIndex: InvertedIndex, posts: Posts[]) => {
+        const results: Posts[] = [];
         const query = searchQuery.toLowerCase();
         console.log({"Search Query": searchQuery, "Inverted Index": invertedIndex, "All Posts": posts})
 
@@ -101,7 +101,7 @@ const Search = ({ updateIsFocused }: Props) => {
             setSearchResults([]);
             return;
         }
-        searchInInvertedIndex(searchQuery, invertedIndex, posts.posts);
+        //searchInInvertedIndex(searchQuery, invertedIndex, posts);
     }
 
     useEffect(() => {
@@ -128,7 +128,7 @@ const Search = ({ updateIsFocused }: Props) => {
                 <div className="hidden md:flex w-full flex-col items-start justify-between gap-3 absolute top-10 px-4 py-3 z-50 rounded-lg shadow-lg mt-3 bg-black">
                     {
                         userMatches?.map((user) => {
-                            const { username, displayname, image, isVerified } = user;
+                            const { username, user: usr, avatar, is_verified } = user;
                             const isLarge = false;
 
                             return (
@@ -136,8 +136,8 @@ const Search = ({ updateIsFocused }: Props) => {
                                     <Link to={`/${username}`} className="min-w-[8%]">
                                         <div>
                                             <img
-                                                src={image}
-                                                alt={`${displayname}'s profile picture`}
+                                                src={avatar}
+                                                alt={`${usr}'s profile picture`}
                                                 className="w-10 h-10 rounded-full"
                                             />
                                         </div>
@@ -148,9 +148,9 @@ const Search = ({ updateIsFocused }: Props) => {
                                                 <p
                                                     className={`dark:text-white ${isLarge ? 'text-[0.9rem]' : 'text-[0.8rem]'} font-bold`}
                                                 >
-                                                    {displayname}
+                                                    {usr.username}
                                                 </p>
-                                                {isVerified && <LuBadgeCheck className="text-secondary" />}
+                                                {is_verified && <LuBadgeCheck className="text-secondary" />}
                                             </div>
                                             <p
                                                 className={`dark:text-white ${isLarge ? 'text-[0.9rem]' : 'text-[0.9rem]'}`}

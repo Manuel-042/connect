@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function MessagesList() {
     const data = messages.messages;
-    const { user } = useAuthContext();
+    const { profileData } = useAuthContext();
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function MessagesList() {
         setActiveIndex(index)
     };
 
-    if (!user) return null ;
+    if (!profileData) return null ;
 
     return (
         <div className="w-full mt-3 md:overflow-hidden dark:text-white">
@@ -28,7 +28,7 @@ function MessagesList() {
                     last_message_date={notification.last_message_date}
                     is_unread={notification.is_unread}
                     conversation={notification.conversation}
-                    onClick={() => handleNavigation(notification.user_id, user?.id, index)}
+                    onClick={() => handleNavigation(notification.user_id, profileData?.user.id, index)}
                     active={index === activeIndex}
                 />
             ))}

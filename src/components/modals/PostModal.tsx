@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import postData from "../../data/posts.json"
 import { useEffect, useState } from 'react';
-import { PostProps } from '../../types';
+import { Posts } from '../../types';
 import { PostMetrics } from '../../features/post/index';
 import { LuX, LuEllipsis, LuBadgeCheck, LuDot } from "react-icons/lu";
 import Button, { buttonStyles } from '../UI/Button';
@@ -19,7 +19,7 @@ const PostModal = () => {
     const location = useLocation();
     const from = location.state?.previousLocation;
     const user = location.state?.userData;
-    const [post, setPost] = useState<PostProps | null>(null)
+    const [post, setPost] = useState<Posts | any>(null)
 
     useEffect(() => {
         disableBodyScroll(document.body);
@@ -92,7 +92,7 @@ const PostModal = () => {
                                                 <p className="dark:text-gray-500 -mt-1">@{user?.username}</p>
                                             </div>
                                         </div>
-                                        <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} />
+                                        <ProfileDisplay user={user} />
                                     </div>
                                     <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer  dark:text-gray-500  dark:hover:text-primary")} /></div>
                                 </div>

@@ -1,28 +1,17 @@
 import { LuSearch, LuSettings, LuArrowLeft, LuCircleX, LuMailPlus } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import Button, { buttonStyles } from "../../components/UI/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MessagesList } from "../../features/messages/index";
 import { useAuthContext } from "../../context/auth-context";
-import { UserProps } from "../../types";
-import users from "../../data/users.json"
 import { Link } from "react-router-dom";
 
 const MessagePageContent = () => {
     const [isFocused, setIsFocused] = useState(false);
     const [searchContent, setSearchContent] = useState("");
-    const { user } = useAuthContext();
-    const [appUser, setAppUser] = useState<UserProps | null>(null);
+    const { profileData } = useAuthContext();
 
-    if (!user) return null;
-
-    useEffect(() => {
-        const foundUser = users.find(usr => usr.id === Number(user.id));
-        if (!foundUser) {
-            return
-        }
-        setAppUser(foundUser);
-    }, [user])
+    if (!profileData) return null;
 
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => setIsFocused(false);
@@ -45,8 +34,8 @@ const MessagePageContent = () => {
                 <div className="flex items-center gap-5">
                     <Button className={twMerge(buttonStyles({ variant: "ghost", size: "icon" }), "md:hidden p-0 bg-transparent hover:bg-transparent w-8 h-8")}>
                         <img
-                            src={appUser?.image}
-                            alt={`${appUser?.displayname} profile picture`}
+                            src={profileData?.avatar}
+                            alt={`${profileData?.user.username} profile picture`}
                             className="w-full h-full rounded-full object-cover"
                         />
                     </Button>
