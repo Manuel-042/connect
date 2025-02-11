@@ -4,13 +4,16 @@ import { twMerge } from "tailwind-merge";
 import PostMedia from "./PostMedia";
 // import ProfileDisplay from "../../profile/components/ProfileDisplay";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import type { Posts, User } from "../../../types";
+import type { User } from "../../../types";
 import PostMetrics from "./PostMetrics";
 import formatDate from "../../../utils/formatDate";
 import users from "../../../data/users.json"
 import { useEffect, useState } from "react";
 
-const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: Posts | any) => {
+import type { Posts as PostsType } from "../../../types";
+
+
+const Posts = ({ postId, userId, postContent, datePosted, images, metrics }: PostsType | any) => {
     const { comments, retweets, likes, views } = metrics;
 
     const navigate = useNavigate();

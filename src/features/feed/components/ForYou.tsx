@@ -1,11 +1,11 @@
-import { Post } from "../../post/index";
+import { Posts } from "../../post/index";
 import postsData from "../../../data/posts.json"
 
 const ForYou = () => {
   return (
     <section className="posts">
         {postsData.posts.map((post, index) => (
-        <Post
+        <Posts
             key={index} 
             postId={post.postId} 
             userId={post.userId}
