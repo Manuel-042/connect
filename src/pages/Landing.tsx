@@ -16,7 +16,7 @@ const Landing: React.FunctionComponent = () => {
                 <img src={twitterLogo} alt="twitter logo" className='w-[15%] h-[15%] md:w-[10%] md:h-[10%] lg:w-[60%] lg:h-[60%] object-cover'/>
             </div>
 
-            <div className="lg:w-1/2 flex flex-col">           
+            <div className="lg:w-1/2 flex flex-col mb-20">           
                 <h1 className="mt-12 lg:mt-24 font-extrabold text-4xl md:text-6xl lxl:text-7xl md:mb-5 dark:text-white">Happening now</h1>
 
                 <h3 className='dark:text-white text-2xl md:text-3xl xl:text-4xl font-extrabold my-8'>Join today.</h3>

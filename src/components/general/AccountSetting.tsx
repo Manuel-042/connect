@@ -22,7 +22,7 @@ const AccountSetting = ({ isOpen, toggleAccountSettingOpen }: AccountSettingProp
 
 
     return (
-        <div className={`${isOpen ? 'block' : 'hidden'} fixed bottom-[5rem] rounded-2xl bg-black text-white shadow-sm shadow-white px-3 py-3 z-50`}>
+        <div className={`${isOpen ? 'block' : 'hidden'} fixed bottom-[5rem] rounded-2xl bg-black text-white shadow-sm shadow-white px-3 py-3 z-50 lg:right-5`}>
             <div className="flex flex-col gap-4 w-full">
                 {sidebarItems.map((item, index) => (
                     <SmallSidebarItem
