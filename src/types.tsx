@@ -77,6 +77,7 @@ type MentionListProps = {
 
 type MediaItem = {
   url: string;
+  file?: File;
   width: number;
   height: number;
   type: "image" | "gif" | "video";
@@ -111,6 +112,25 @@ type ProfileData = {
   created_at: string;
 };
 
+type CreatePostData = {
+  content: any;
+  html: string | undefined;
+  media?: {
+    url: string;
+    type: string;
+    file: File | string;
+    position: number;
+  }[];
+  poll?: {
+    choices: { text: string; id: string }[];
+    length: {
+      days: number;
+      hours: number;
+      minutes: number;
+    };
+  };
+};
+
 
 
 export type {
@@ -129,4 +149,5 @@ export type {
   PollData,
   PollLength,
   ProfileData,
+  CreatePostData,
 };

@@ -2,6 +2,9 @@ import { Posts } from "../../post/index";
 import postsData from "../../../data/posts.json"
 
 const ForYou = () => {
+  //const { data: postData, isLoading, isError } = useFetchPosts()
+  console.log("data gotthen bfrom DB")
+
   return (
     <section className="posts">
         {postsData.posts.map((post, index) => (

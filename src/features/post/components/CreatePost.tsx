@@ -15,12 +15,13 @@ import useApiPrivate from '../../../hooks/useApiPrivate';
 import { ReactRenderer } from '@tiptap/react'
 import tippy from 'tippy.js'
 import MentionList from '../../../components/general/MentionList';
-import { MentionUser, MediaItem, PollChoice, PollLength } from '../../../types';
+import { MentionUser, MediaItem, PollChoice, PollLength, CreatePostData } from '../../../types';
 import debounce from "lodash/debounce"
 import { useEditor } from '@tiptap/react';
 import MediaCarousel from './MediaCarousel'
 import PollCreator from './PollCreator'
 import { v4 as uuidv4 } from 'uuid';
+import { useCreatePost } from '../../../hooks/useCreatePost'
 
 interface SuggestionKeydownProps {
     event: KeyboardEvent;
@@ -38,6 +39,7 @@ const CreatePost = () => {
     const { theme } = useThemeContext();
     const apiPrivate = useApiPrivate();
     const pickerRef = useRef<HTMLDivElement>(null);
+    const createPostMutation = useCreatePost();
 
     const [choices, setChoices] = useState<PollChoice[]>([
         { text: '', id: uuidv4() },
@@ -160,6 +162,7 @@ const CreatePost = () => {
             
                 return {
                     url: URL.createObjectURL(file),
+                    file: file,
                     width: 0,  
                     height: 0,
                     type: fileType as "image" | "video" 
@@ -174,11 +177,11 @@ const CreatePost = () => {
         }
     }
 
-    useEffect(() => {
-        return () => {
-            mediaItems.forEach(item => URL.revokeObjectURL(item.url));
-        };
-    }, [mediaItems]);
+    // useEffect(() => {
+    //     return () => {
+    //         mediaItems.forEach(item => URL.revokeObjectURL(item.url));
+    //     };
+    // }, [mediaItems]);
 
     const handleShowGIFs = () => {
         navigate('/i/foundMedia/search', {
@@ -224,7 +227,7 @@ const CreatePost = () => {
         const contentJSON = editor?.getJSON();
         const contentHTML = editor?.getHTML();
     
-        const postData: Record<string, any> = {
+        const postData: CreatePostData = {
             content: contentJSON,
             html: contentHTML,
         };
@@ -232,9 +235,11 @@ const CreatePost = () => {
         console.log(postType);
     
         if (postType === "media") {
-            const mediaData = mediaItems.map((media) => ({
+            const mediaData = mediaItems.map((media, index) => ({
                 url: media.url,
                 type: media.type,
+                file: media?.file || "",
+                position: index + 1
             }));
             postData["media"] = mediaData;
         } else if (postType === "poll") {
@@ -245,6 +250,7 @@ const CreatePost = () => {
         }
     
         console.log({ postData });
+        createPostMutation.mutate(postData);
 
         // Clear content
         editor?.commands.clearContent(); 
@@ -258,8 +264,11 @@ const CreatePost = () => {
             minutes: 0
         });
         setShowPoll(false)
-        setMediaItems([]); 
+        setMediaItems([]);
+        setGifPreview(null) 
     };
+
+
     
 
 
