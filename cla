@@ -1,0 +1,331 @@
+[33mcommit cddfea80d2be591b1c004f0a74ed0459721ca914[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Wed Mar 12 05:44:21 2025 +0100
+
+    fetching posts from backend
+
+[33mcommit d937ba4250fbf594fa3ede8b949f891ccf294f0d[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Mon Mar 10 13:59:26 2025 +0100
+
+    added loader on page load
+
+[33mcommit b1a76518e19ec42c41e006b32bcd2f5236337f9a[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 23:57:31 2025 +0100
+
+    updated profileData
+
+[33mcommit a9843cbf04d8773071e7e6792fdd4f0a346f2bf7[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 20:57:51 2025 +0100
+
+    updated base url again
+
+[33mcommit 4a995998f50b0394f5ecb4bd7ccd8a865a78977d[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 20:55:16 2025 +0100
+
+    updated base url
+
+[33mcommit ffc7432fcde147df90195c566fb6abab970b96fd[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 07:12:34 2025 +0100
+
+    reslved build errors
+
+[33mcommit 3bdc3917dde2a2470d8b8f5222a5ea8f3f301e5d[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 07:06:28 2025 +0100
+
+    resolved build errors
+
+[33mcommit f1585c9295450fbb0d84ff12efef707d6db3372b[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 06:58:24 2025 +0100
+
+    resolved more build errors
+
+[33mcommit 60a06053c8f8b61840af54c5b967e6676515eacc[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Feb 11 06:41:14 2025 +0100
+
+    resolved build errors
+
+[33mcommit 03c779f524397547966049c2928206a384dea43b[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Mon Feb 10 20:54:04 2025 +0100
+
+    update profile page
+
+[33mcommit 167e7daeec58c951468029cef4f855aea310d345[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Mon Feb 10 16:35:53 2025 +0100
+
+    persit state token
+
+[33mcommit a50f35511b9ee05aa3e639f0c47395d4423fc9f6[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Mon Feb 10 12:33:22 2025 +0100
+
+    added toast and updated login logic
+
+[33mcommit b2039b5220f1a7d90dd587053b034a34f6d47432[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Fri Feb 7 22:54:47 2025 +0100
+
+    added sonner toast and updated password validation
+
+[33mcommit fc33a2e7fba90e956a6e7b592ffb009234e63e16[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Thu Feb 6 20:32:40 2025 +0100
+
+    updated node and fixed issues
+
+[33mcommit b88023da4be51b55d5303d4c4f4155e269c2c746[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Jan 22 08:52:12 2025 +0100
+
+    updated post form
+
+[33mcommit 53af9077dd7eb80c14b1a88fa080461a1b2b0e38[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Fri Jan 10 07:43:40 2025 +0100
+
+    create post feature 60%
+
+[33mcommit ea507b11656c1100fed3b4a670bfca73e18d5a6a[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 24 18:33:01 2024 +0100
+
+    signup process complete
+
+[33mcommit aaadaa0391b076fa951b7a384c67b646afe7e820[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Fri Dec 20 13:59:18 2024 +0100
+
+    api integration for step one and two completed
+
+[33mcommit 3d199fd167075f8c7529e60d4c7f6bb4d763a932[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 20:01:56 2024 +0100
+
+    removed loading state in email validation
+
+[33mcommit c6d3d7d5639731e3ca4f90834f077cb253cbe3cb[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 19:52:01 2024 +0100
+
+    fixed bugs from deployment logs
+
+[33mcommit 414214ae1e4992345f851b4d212135168bf05e18[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 14:34:55 2024 +0100
+
+    integrated api to signup process
+
+[33mcommit f1c313aa4d6de7a3a366bd7bc76919f2ec1e5152[m
+Merge: 3ebe100 8a5c0af
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 12:44:36 2024 +0100
+
+    Merge branch 'master' of https://github.com/Manuel-042/connect
+
+[33mcommit 3ebe1005ebe21004d382a5c5be2959665ef4fe16[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 12:41:35 2024 +0100
+
+    linking signup process to backend
+
+[33mcommit 8a5c0af39ad604b2cb9411d5583204fd17e77388[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Thu Dec 19 06:34:28 2024 +0100
+
+    updated profile picture form
+
+[33mcommit 557ec30cae4bcaaddc5e78472ea356dc00b417a1[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 18 20:00:53 2024 +0100
+
+    signup process 20%
+
+[33mcommit 7b8edfc8cef755d646813f457a83ee5ba2bf4165[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 17 11:11:22 2024 +0100
+
+    signup form frontend
+
+[33mcommit 790257c8648e1c13e5dd16299f845e18828c8e91[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 17 01:08:10 2024 +0100
+
+    completed frontend for signup process
+
+[33mcommit 326f2236dc79b771b655d8f1b1fded128a7946b3[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 11 08:59:25 2024 +0100
+
+    updated back navigation
+
+[33mcommit 6ec8d04b0c4620cc4b8f94146eb10e9ce4a84d2d[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 11 08:47:20 2024 +0100
+
+    responsive changes2
+
+[33mcommit fd7848fd845e73df14ef23ba5e3b680e8e781c4b[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 11 08:40:55 2024 +0100
+
+    responsive changes
+
+[33mcommit 133328ee17a4fea41848ccdd151f2263a5ee69eb[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 11 08:23:59 2024 +0100
+
+    responsive changes
+
+[33mcommit cceb62bcd28e7ceb7e0a7663637e8b6279ed91b6[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Dec 11 00:04:05 2024 +0100
+
+    updated bugs fix
+
+[33mcommit e948089cf60c9a4839843107b9e2fd61988191c1[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 10 23:59:18 2024 +0100
+
+    modifying responsiveness
+
+[33mcommit 3ab10321533147ce9d3d548299f86c14e7b23744[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 10 19:39:53 2024 +0100
+
+    fixed bugs
+
+[33mcommit af4109e032858366cf145e9d87d64ebe02908a7e[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 10 19:27:40 2024 +0100
+
+    updated backendurl
+
+[33mcommit 2ee448f9ab4eb04eb4e8172af3bca4374f7aa7d2[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 10 17:23:05 2024 +0100
+
+    fixed bugs
+
+[33mcommit 4b3c206a28c8923a6c0c504962231a665e363e20[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Dec 10 17:11:11 2024 +0100
+
+    modified landing page
+
+[33mcommit de9475a48bfb5a8352d94d9655b083be006b2d07[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Mon Dec 9 15:20:45 2024 +0100
+
+    updated fromtend
+
+[33mcommit 83cff1d906df20a518792378f524e069e913067f[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Nov 13 11:09:26 2024 +0100
+
+    adding settings page
+
+[33mcommit 688f4f08719a8b90a2436557d0bce29c59c5e37e[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Sat Nov 9 15:57:25 2024 +0100
+
+    responsiveness
+
+[33mcommit b945a29e2669c3aeae209dbbe66195f0ca4bf261[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Sat Nov 9 07:24:29 2024 +0100
+
+    home screen done
+
+[33mcommit 0023449bc36d90ca4ffd999689b8bd1916ab78cd[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Sat Nov 9 06:38:40 2024 +0100
+
+    new feature to sidebar
+
+[33mcommit cda9da4138911a7c9a34b683f6879e8c83fecf59[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Fri Nov 8 21:34:02 2024 +0100
+
+    started responsive design
+
+[33mcommit a610e51a60f1141a67766bcff0c50759d6284208[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Nov 5 02:12:52 2024 +0100
+
+    updated UI
+
+[33mcommit a46a8a83ebd512d92504ba6b80cbf9c8b1c72501[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Mon Nov 4 20:19:45 2024 +0100
+
+    updated UI
+
+[33mcommit 1d71037a0166fe9ef5e579c6b212500f00a2bd94[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Sun Nov 3 00:53:47 2024 +0100
+
+    updated pages
+
+[33mcommit c435dd3d383dcd06392bcf067cfcb7b509f542d5[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Sun Nov 3 00:52:55 2024 +0100
+
+    updated pages
+
+[33mcommit fa22b8d6198f345abe2ee81db54cba3f9b7ec453[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Tue Oct 29 13:46:56 2024 +0100
+
+    finished home page
+
+[33mcommit 6414b874c8ad51d085395a080f533f2e2468ac0b[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Thu Oct 17 08:51:40 2024 +0100
+
+    integrated APIs to auth forms
+
+[33mcommit 8ec7665e446fabe2bcc072aa39b336429886cd28[m
+Merge: 56ae2d2 07b79e4
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Oct 2 10:18:05 2024 +0100
+
+    Merge branch 'master' of https://github.com/Manuel-042/connect
+
+[33mcommit 56ae2d2e11f99b744ee4015b5213e01d528be44e[m
+Author: Manuel-042 <ebukaezeanya14@gmail.com>
+Date:   Wed Oct 2 10:10:45 2024 +0100
+
+    Old changes
+
+[33mcommit 07b79e43f5b58d5500e767450a20a5d3e628166f[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Tue Oct 1 19:10:03 2024 +0100
+
+    Completed Auth Pages
+
+[33mcommit a2b12d8e32019fd2ba5362eadcbc14b0a9dcd55c[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Fri Aug 16 06:40:10 2024 +0100
+
+    created signup page
+
+[33mcommit c8e0b8d5fb63d39ad5bbe28ac67a6af6645bd664[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Thu Aug 15 16:19:20 2024 +0100
+
+    Added 404 and home page
+
+[33mcommit ecd6c09d33611ffe5a843d2122a8a436e58cd298[m
+Author: Ebuka Ezeanya <ebukaezeanya14@gmail.com>
+Date:   Thu Aug 15 14:38:00 2024 +0100
+
+    setting folder structure

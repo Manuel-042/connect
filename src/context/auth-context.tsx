@@ -73,7 +73,7 @@ export default function AuthProvider({ children }: Props) {
     data: profileData,
     refetch: refreshUserProfile,
     error: profileError,
-  } = useUserProfile(userId || "", token || "");
+  } = useUserProfile(userId || "");
 
   console.log({ "profile data in auth context": profileData})
 

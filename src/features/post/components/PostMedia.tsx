@@ -1,8 +1,7 @@
-
-
+import { MediaItem } from "../../../types";
 
 type Props = {
-    images: string[];
+    media: MediaItem[];
     handleOpenModal: (num: number) => void;
 }
 
@@ -22,13 +21,13 @@ const getGridStyles = (imageCount: number) => {
     }
 }
 
-const PostMedia = ({ images, handleOpenModal }: Props) => {
-    const count = images.length;
+const PostMedia = ({ media, handleOpenModal }: Props) => {
+    const count = media?.length;
     const gridClasses = getGridStyles(count);
 
     return (
         <div className={`relative ${gridClasses}`}>
-            {images.slice(0, 4).map((image, index) => (
+            {media?.slice(0, 4).map((row, index) => (
                 <div
                     key={index}
                     className={`relative ${count === 3 && index === 0
@@ -39,7 +38,7 @@ const PostMedia = ({ images, handleOpenModal }: Props) => {
                         }`}
                 >
                     <img
-                        src={image}
+                        src={row.url}
                         alt={`image-${index}`}
                         className={`object-cover object-center w-full h-full cursor-pointer ${count === 1
                                 ? 'rounded-2xl'

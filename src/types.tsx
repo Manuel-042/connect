@@ -1,10 +1,11 @@
 type Posts = {
-  postId: number;
+  id: number;
   user: User;
-  postContent: string;
-  datePosted: string;
-  images: string[];
-  metrics: {
+  content: string;
+  created_at: string;
+  has_media: boolean;
+  media: string[];
+  metrics?: {
     comments: number;
     retweets: number;
     likes: number;
@@ -81,6 +82,7 @@ type MediaItem = {
   width: number;
   height: number;
   type: "image" | "gif" | "video";
+  position?: number;
 };
 
 type PollChoice = {
@@ -113,7 +115,7 @@ type ProfileData = {
 };
 
 type CreatePostData = {
-  content: any;
+  content?: any;
   html: string | undefined;
   media?: {
     url: string;

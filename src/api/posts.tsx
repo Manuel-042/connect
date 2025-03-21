@@ -1,9 +1,9 @@
 import { apiPrivate } from "./api";
 
 //Fetch all posts
-export const fetchPosts = async (params: any) => {
+export const fetchPosts = async () => {
   console.log("Called fetched posts...");
-  const { data } = await apiPrivate?.get(`api/posts`, { params });
+  const { data } = await apiPrivate?.get(`api/posts`);
   return data;
 };
 
@@ -15,7 +15,7 @@ export const fetchPostById = async (postId: any) => {
 
 //Create a new post
 export const createPost = async (postData: any) => {
-  const { data } = await apiPrivate?.post(`api/posts`, postData);
+  const { data } = await apiPrivate?.post(`api/post`, postData);
   return data;
 };
 

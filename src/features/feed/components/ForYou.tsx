@@ -1,25 +1,50 @@
 import { Posts } from "../../post/index";
-import postsData from "../../../data/posts.json"
+import { usePosts } from "../../../hooks/useFetchPosts";
+import { useToast } from "../../../hooks/useToast";
+import { Oval } from "react-loader-spinner";
+import type { Posts as PostType } from "../../../types";
 
 const ForYou = () => {
-  //const { data: postData, isLoading, isError } = useFetchPosts()
-  console.log("data gotthen bfrom DB")
+  const { data: postData, error, isLoading, isError } = usePosts();
+  const { toast } = useToast();
+
+  console.log(postData);
+
+  if (isError) {
+    toast.error(error.message);
+  }
 
   return (
     <section className="posts">
-        {postsData.posts.map((post, index) => (
-        <Posts
-            key={index} 
-            postId={post.postId} 
-            userId={post.userId}
-            postContent={post.postContent}
-            datePosted={post.datePosted}
-            images={post.images} 
-            metrics={post.metrics} 
-        />
-        ))}
-  </section>
-  )
-}
+      {isLoading ? (
+        <div className="flex justify-center items-center min-h-screen">
+          <Oval
+            visible={true}
+            height={60}
+            width={60}
+            color="#ffffff"
+            ariaLabel="oval-loading"
+          />
+        </div>
+      ) : postData?.length > 0 ? (
+        postData.map((post: PostType, index: number) => (
+          <Posts
+            key={index}
+            id={post.id}
+            user={post.user}
+            content={post.content}
+            created_at={post.created_at}
+            media={post.media}
+            metrics={post.metrics}
+          />
+        ))
+      ) : (
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-dark-text text-lg">No posts available. Check back later!</p>
+        </div>
+      )}
+    </section>
+  );
+};
 
-export default ForYou
+export default ForYou;

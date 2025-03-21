@@ -2,6 +2,8 @@ export default function formatDate(dateString: string) {
     const date = new Date(dateString);
     const now = new Date();
 
+    console.log({dateString, date})
+
     const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
 
     const isSameDay = date.toDateString() === now.toDateString();

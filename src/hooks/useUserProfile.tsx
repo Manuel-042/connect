@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useApiPrivate from "./useApiPrivate";
 import { ProfileData } from "../types";
 
-export const useUserProfile = (userId: string, token: string) => {
+export const useUserProfile = (userId: string) => {
   const apiPrivate = useApiPrivate();
 
   if (!apiPrivate) {
@@ -15,7 +15,7 @@ export const useUserProfile = (userId: string, token: string) => {
       const response = await apiPrivate.get(`/api/profile/${userId}`);
       return response.data;
     },
-    enabled: Boolean(userId) && Boolean(token),
+    enabled: Boolean(userId),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
