@@ -31,7 +31,7 @@ const Posts = ({ id: ID, user, content, created_at, has_media, media, metrics }:
                 <div className="max-w-[15%]">
                     <Link to={`/${user?.username}`}>
                         <div className="rounded-full w-10 h-10 bg-neutral-300 flex items-center justify-center cursor-pointer">
-                            <img src={userData?.avatar} className="rounded-full w-full h-full object-contain object-center" alt="user image" />
+                            <img src={userData?.avatar} className="rounded-full w-full h-full object-cover object-center" alt="user image" />
                         </div>
                     </Link>
                 </div>
