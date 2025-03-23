@@ -8,19 +8,20 @@ type AccountPostsProps = {
 
 const AccountPosts = ({ posts }: AccountPostsProps) => {
     return (
-        <section className="posts">
+        <>
             {posts?.map((post, index) => (
                 <Posts
                     key={index}
-                    postId={post.postId}
-                    userId={post?.user.id}
-                    postContent={post.postContent}
-                    datePosted={post.datePosted}
-                    images={post.images}
+                    id={post.id}
+                    user={post?.user}
+                    content={post.content}
+                    created_at={post.created_at}
+                    media={post.media}
+                    has_media={post.has_media}
                     metrics={post.metrics}
                 />
             ))}
-        </section>
+        </>
     )
 }
 

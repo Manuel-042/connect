@@ -8,6 +8,7 @@ import PostMetrics from "./PostMetrics";
 import formatDate from "../../../utils/formatDate";
 import type { Posts as PostsType } from "../../../types";
 import { useUserProfile } from "../../../hooks/useUserProfile";
+import DOMPurify from 'dompurify'
 
 
 const Posts = ({ id: ID, user, content, created_at, has_media, media, metrics }: PostsType | any) => {
@@ -16,7 +17,7 @@ const Posts = ({ id: ID, user, content, created_at, has_media, media, metrics }:
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { data: userData, error, isLoading, isError } = useUserProfile(user.id.toString());
+    const { data: userData, error, isLoading, isError } = useUserProfile(user?.id.toString());
 
     console.log({ "User Profile Data": userData })
 
@@ -67,15 +68,13 @@ const Posts = ({ id: ID, user, content, created_at, has_media, media, metrics }:
                                 {/* <ProfileDisplay image={user?.image} displayname={user?.displayname} username={user?.username} bio={user?.bio} followerCount={user?.followerCount} followingCount={user?.followingCount} isVerified={user?.isVerified} /> */}
                             </div>
 
-                            <div className="mt-1">
-                                <p className="dark:text-neutral-300">{content}</p>
-                            </div>
+                            <div className="mt-1 dark:text-neutral-300" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}></div>
                         </div>
                         <div className="justify-self-end ms-auto"><LuEllipsis className={twMerge(buttonStyles({ variant: "blueghost", size: "icon" }), "cursor-pointer p-1 w-7 h-7 dark:text-gray-500  dark:hover:text-primary")} /></div>
                     </div>
 
                     <div className="mb-4">
-                        <PostMedia media={media} handleOpenModal={handleOpenModal} />
+                        {has_media && <PostMedia media={media} handleOpenModal={handleOpenModal} />}
                     </div>
 
                     <PostMetrics comments={comments} retweets={retweets} likes={likes} views={views} />

@@ -8,7 +8,7 @@ const ForYou = () => {
   const { data: postData, error, isLoading, isError } = usePosts();
   const { toast } = useToast();
 
-  console.log(postData);
+  console.log({"POSTDATA": postData});
 
   if (isError) {
     toast.error(error.message);
@@ -34,6 +34,7 @@ const ForYou = () => {
             user={post.user}
             content={post.content}
             created_at={post.created_at}
+            has_media={post.has_media}
             media={post.media}
             metrics={post.metrics}
           />

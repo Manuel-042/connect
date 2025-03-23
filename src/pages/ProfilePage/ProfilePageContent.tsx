@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   LuArrowLeft,
@@ -26,8 +26,9 @@ const ProfilePageContent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { profileData: loggedInProfile } = useAuthContext();
-  const [profile, setProfile] = useState<ProfileData | null>();
+  const [profile, setProfile] = useState<ProfileData | null>(null);
   const { toast } = useToast();
+  const [totalLikes, setTotalLikes] = useState(0);
 
   if (!username) return null;
 
@@ -35,8 +36,7 @@ const ProfilePageContent = () => {
     setActiveIndex(0);
   }, [username]);
 
-  const isLoggedInUser =
-    username.toLowerCase() === loggedInProfile?.username.toLowerCase();
+  const isLoggedInUser = username.toLowerCase() === loggedInProfile?.username.toLowerCase();
 
   const {
     data: fetchedProfile,
@@ -44,37 +44,37 @@ const ProfilePageContent = () => {
     error: userError,
   } = useUserByUsername(username, isLoggedInUser);
 
-  const {
-    data: posts,
-    isLoading: isPostLoading,
-    error: postError,
-  } = useUserPosts(loggedInProfile?.username);
-
   useEffect(() => {
-    if (!username) return;
-
     if (isLoggedInUser) {
       setProfile(loggedInProfile as unknown as ProfileData);
     } else {
       setProfile(fetchedProfile || null);
     }
-  }, [username, isLoggedInUser, loggedInProfile, fetchedProfile]);
+  }, [isLoggedInUser, loggedInProfile, fetchedProfile]);
+
+  const userId = useMemo(() => profile?.user?.id ?? null, [profile]);
+
+  const {
+    data: posts,
+    isLoading: isPostLoading,
+    error: postError,
+  } = useUserPosts(Number(userId));
+
+  useEffect(() => {
+    if (!Array.isArray(posts) || !posts) return;
+    const likesSum = posts.reduce((acc: number, post: Posts) => acc + (post.metrics?.likes || 0), 0);
+    setTotalLikes(likesSum);
+  }, [posts]);
 
   if (isUserLoading)
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <Oval
-          visible={true}
-          height="80"
-          width="80"
-          color="#ffffff"
-          ariaLabel="oval-loading"
-        />
+        <Oval visible={true} height="80" width="80" color="#ffffff" ariaLabel="oval-loading" />
       </div>
     );
 
-  userError && toast.error(userError.message);
-  postError && toast.error(postError.message);
+  if (userError) toast.error(userError.message);
+  if (postError) toast.error(postError.message);
 
   const labels = isLoggedInUser
     ? ["Posts", "Replies", "Highlights", "Articles", "Media", "Likes"]
@@ -85,8 +85,9 @@ const ProfilePageContent = () => {
     navigate(from, { replace: true });
   };
 
-  console.log({ PROFLE: profile });
+  console.log({ PROFILE: profile });
   console.log({ POSTS: posts });
+  
 
   return (
     <>
@@ -112,7 +113,7 @@ const ProfilePageContent = () => {
             {profile?.is_verified && <LuBadgeCheck className="text-primary" />}
           </div>
           <p className="dark:text-dark-text text-sm sm:text-base">
-            1,500 likes
+            {totalLikes} likes
           </p>
         </div>
       </div>
@@ -203,7 +204,7 @@ const ProfilePageContent = () => {
       <div className="mt-2 smd:mt-4 mlg:mt-8 px-4">
         <div className="flex items-center gap-2">
           <p className="dark:text-white font-bold text-lg">
-            {profile?.username}
+            {profile?.user.username}
           </p>
           {profile?.is_verified ? (
             <LuBadgeCheck className="text-primary" />
@@ -215,7 +216,7 @@ const ProfilePageContent = () => {
           )}
         </div>
         <p className="dark:text-dark-text text-sm md:text-base -mt-1">
-          @{profile?.user.username}
+          @{profile?.username}
         </p>
         <div className="text-sm md:text-base dark:text-white mt-4">
           {profile?.bio}
@@ -280,21 +281,22 @@ const ProfilePageContent = () => {
             <p className="mt-2 dark:text-dark-text">Loading posts...</p>
           </div>
         ) : posts && posts.length > 0 ? (
-          <div>
+          <div className="w-full">
             {activeIndex === 0 && <AccountPosts posts={posts} />}
+
             {((isLoggedInUser && activeIndex === 4) ||
               (!isLoggedInUser && activeIndex === 2)) && (
               <div className="flex flex-wrap">
                 {posts.map((post: Posts, postIndex: number) => {
                   console.log("got here");
-                  const imageIndex = post.images.indexOf(post.images[0]);
+                  const imageIndex = post.media.indexOf(post.media[0]);
                   return (
                     <div className="w-max" key={postIndex}>
                       <Link
-                        to={`/post/${post.postId}/photo/${imageIndex}`}
+                        to={`/post/${post.id}/photo/${imageIndex}`}
                         state={{ previousLocation: location.pathname }}
                       >
-                        <AccountMedia images={post.images} />
+                        <AccountMedia media={post.media} />
                       </Link>
                     </div>
                   );

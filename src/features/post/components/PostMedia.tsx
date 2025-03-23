@@ -1,10 +1,9 @@
 import { MediaItem } from "../../../types";
 
 type Props = {
-    media: MediaItem[];
+    media: Partial<MediaItem>[];
     handleOpenModal: (num: number) => void;
 }
-
 
 const getGridStyles = (imageCount: number) => {
     switch (imageCount) {
@@ -37,10 +36,10 @@ const PostMedia = ({ media, handleOpenModal }: Props) => {
                                 : 'h-full'
                         }`}
                 >
-                    <img
-                        src={row.url}
-                        alt={`image-${index}`}
-                        className={`object-cover object-center w-full h-full cursor-pointer ${count === 1
+                    {row.type === 'video' ? (
+                        <video
+                            src={row.url}
+                            className={`object-cover object-center w-full h-full cursor-pointer ${count === 1
                                 ? 'rounded-2xl'
                                 : count === 2 && index === 0
                                     ? 'rounded-l-2xl'
@@ -62,15 +61,50 @@ const PostMedia = ({ media, handleOpenModal }: Props) => {
                                                                     ? 'rounded-br-2xl'
                                                                     : ''
                             }`}
-                        style={{
-                            aspectRatio: count > 2 ? '2 / 1' : 'auto',
-                            height: '100%', // ensures image fills its grid cell
-                            gridRow: count === 3 && index === 0 ? 'span 2' : 'auto',
-                        }}
-                        onClick={() => handleOpenModal(index)}
-                    />
+                            style={{
+                                aspectRatio: count > 2 ? '2 / 1' : 'auto',
+                                height: '100%',
+                                gridRow: count === 3 && index === 0 ? 'span 2' : 'auto',
+                            }}
+                            controls
+                            muted
+                            onClick={() => handleOpenModal(index)}
+                        />
+                    ) : (
+                        <img
+                            src={row.url}
+                            alt={`media-${index}`}
+                            className={`object-cover object-center w-full h-full cursor-pointer ${count === 1
+                                ? 'rounded-2xl'
+                                : count === 2 && index === 0
+                                    ? 'rounded-l-2xl'
+                                    : count === 2 && index === 1
+                                        ? 'rounded-r-2xl'
+                                        : count === 3 && index === 0
+                                            ? 'rounded-l-2xl'
+                                            : count === 3 && index === 1
+                                                ? 'rounded-tr-2xl'
+                                                : count === 3 && index === 2
+                                                    ? 'rounded-br-2xl'
+                                                    : (count === 4 || count > 4) && index === 0
+                                                        ? 'rounded-tl-2xl'
+                                                        : (count === 4 || count > 4) && index === 1
+                                                            ? 'rounded-tr-2xl'
+                                                            : (count === 4 || count > 4) && index === 2
+                                                                ? 'rounded-bl-2xl'
+                                                                : (count === 4 || count > 4) && index === 3
+                                                                    ? 'rounded-br-2xl'
+                                                                    : ''
+                            }`}
+                            style={{
+                                aspectRatio: count > 2 ? '2 / 1' : 'auto',
+                                height: '100%',
+                                gridRow: count === 3 && index === 0 ? 'span 2' : 'auto',
+                            }}
+                            onClick={() => handleOpenModal(index)}
+                        />
+                    )}
 
-                    {/* Overlay for more images */}
                     {count > 4 && index === 3 && (
                         <div className="absolute cursor-pointer inset-0 bg-black dark:text-white bg-opacity-50 flex items-center justify-center text-xl rounded-xl">
                             +{count - 4}
@@ -82,4 +116,4 @@ const PostMedia = ({ media, handleOpenModal }: Props) => {
     )
 }
 
-export default PostMedia
+export default PostMedia;

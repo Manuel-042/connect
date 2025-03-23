@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "../api/posts";
+import { fetchPostsByUserId } from "../api/posts";
 
-export const useUserPosts = (username?: string) => {
+export const useUserPosts = (userId: number) => {
   return useQuery({
-    queryKey: ["posts", username],
-    queryFn: () => fetchPosts({ username }),
-    enabled: !!username,
+    queryKey: ["posts", userId],
+    queryFn: () => fetchPostsByUserId(userId),
+    enabled: !!userId,
   });
 };

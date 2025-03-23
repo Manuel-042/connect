@@ -4,7 +4,7 @@ type Posts = {
   content: string;
   created_at: string;
   has_media: boolean;
-  media: string[];
+  media: MediaItem[];
   metrics?: {
     comments: number;
     retweets: number;
@@ -115,12 +115,11 @@ type ProfileData = {
 };
 
 type CreatePostData = {
-  content?: any;
-  html: string | undefined;
+  content: string | undefined;
   media?: {
     url: string;
-    type: string;
-    file: File | string;
+    type: "gif" | "video" | "image";
+    file: File | null;
     position: number;
   }[];
   poll?: {

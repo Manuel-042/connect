@@ -6,7 +6,7 @@ export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  return useMutation({
+  const mutation =  useMutation({
     mutationKey: ["createPost"],
     mutationFn: async (postData: FormData) => {
       const data = await createPost(postData);
@@ -20,4 +20,6 @@ export const useCreatePost = () => {
       console.error("Error creating post:", error);
     },
   });
+
+  return mutation; 
 };
